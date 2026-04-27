@@ -55,13 +55,13 @@ V1 ships tailored interviews and arc templates for five document types:
 
 ### Design system fidelity (DESIGN)
 
-- [ ] **DESIGN-01**: Generated HTML uses only colors from the Caseproof Documentation System palette — no hex literals appear outside the `:root` CSS variable block
-- [ ] **DESIGN-02**: Generated HTML uses only typography rules from the Caseproof Documentation System (Inter via Google Fonts, with `-apple-system, sans-serif` fallback)
-- [ ] **DESIGN-03**: Generated HTML uses only components from a closed component library — no freelance markup
+- [x] **DESIGN-01** (plan 01-02): Generated HTML uses only colors from the Caseproof Documentation System palette — no hex literals appear outside the `:root` CSS variable block
+- [x] **DESIGN-02** (plan 01-02): Generated HTML uses only typography rules from the Caseproof Documentation System (Inter via Google Fonts, with `-apple-system, sans-serif` fallback)
+- [x] **DESIGN-03** (plan 01-02): Generated HTML uses only components from a closed component library — no freelance markup
 - [ ] **DESIGN-04**: Skill auto-selects format: Handbook (960px sidebar) for 4+ sections, Overview (1440px linear) for 1-3, Presentation for slide decks
-- [ ] **DESIGN-05**: Design tokens (palette, typography, components, format skeletons) ship as verbatim CSS / HTML files in `skill/design/` that Claude pastes — never paraphrases — into output
+- [x] **DESIGN-05** (plan 01-02): Design tokens (palette, typography, components, format skeletons) ship as verbatim CSS / HTML files in `skill/design/` that Claude pastes — never paraphrases — into output
 - [ ] **DESIGN-06**: A post-generation audit pass rejects output containing hex literals outside the variable block, unknown CSS class names, or markup not in the component library
-- [ ] **DESIGN-07**: Generated HTML declares `color-scheme: light` and includes the meta tag that prevents browser forced-dark-mode from inverting the palette
+- [x] **DESIGN-07** (plan 01-02): Generated HTML declares `color-scheme: light` and includes the meta tag that prevents browser forced-dark-mode from inverting the palette
 
 ### Output behavior (OUTPUT)
 
@@ -138,13 +138,13 @@ V1 ships tailored interviews and arc templates for five document types:
 | DOC-05 | Phase 3 | Pending |
 | DOC-06 | Phase 3 | Pending |
 | DOC-07 | Phase 2 | Pending |
-| DESIGN-01 | Phase 1 | Pending |
-| DESIGN-02 | Phase 1 | Pending |
-| DESIGN-03 | Phase 1 | Pending |
+| DESIGN-01 | Phase 1 | Complete (01-02) |
+| DESIGN-02 | Phase 1 | Complete (01-02) |
+| DESIGN-03 | Phase 1 | Complete (01-02) |
 | DESIGN-04 | Phase 3 | Pending |
-| DESIGN-05 | Phase 1 | Pending |
+| DESIGN-05 | Phase 1 | Complete (01-02) |
 | DESIGN-06 | Phase 2 | Pending |
-| DESIGN-07 | Phase 1 | Pending |
+| DESIGN-07 | Phase 1 | Complete (01-02) |
 | OUTPUT-01 | Phase 2 | Pending |
 | OUTPUT-02 | Phase 2 | Pending |
 | OUTPUT-03 | Phase 2 | Pending |

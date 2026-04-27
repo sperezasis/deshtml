@@ -6,7 +6,7 @@ deshtml ships in four phases that follow the strict dependency graph from resear
 
 ## Phases
 
-- [ ] **Phase 1: Foundation — Installer + Design Assets** - Atomic curl-pipe-bash installer and verbatim Caseproof design fragments ready for Claude to paste
+- [x] **Phase 1: Foundation — Installer + Design Assets** - Atomic curl-pipe-bash installer and verbatim Caseproof design fragments ready for Claude to paste
 - [ ] **Phase 2: Story-Arc Gate + Handbook End-to-End** - Mandatory arc-approval gate proven on a single handbook flow that matches the Caseproof reference
 - [ ] **Phase 3: Remaining Four Doc Types** - Pitch, technical brief, presentation, and meeting prep tailored to the same arc gate and design system
 - [ ] **Phase 4: Source-Mode, README, and Launch Hardening** - Source-material shortcut, quality passes, public README, and verified `v0.1.0` release
@@ -70,7 +70,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Foundation — Installer + Design Assets | 0/TBD | Not started | - |
+| 1. Foundation — Installer + Design Assets | 2/2 | Complete | 2026-04-27 |
 | 2. Story-Arc Gate + Handbook End-to-End | 0/TBD | Not started | - |
 | 3. Remaining Four Doc Types | 0/TBD | Not started | - |
 | 4. Source-Mode, README, and Launch Hardening | 0/TBD | Not started | - |
