@@ -1,6 +1,15 @@
 /* Caseproof Documentation System — Color Palette
  * Verbatim extraction from ~/work/caseproof/DOCUMENTATION-SYSTEM.md §"CSS Variables".
  * Do not edit values here. Update the source first, then re-extract.
+ *
+ * Phase 2 Plan 02-01 extension (2026-04-27): the sidebar sub-palette and
+ * darker accent variants were added as tokens so components.css can reference
+ * them via var(--token) instead of inline hex literals. Both groups are
+ * documented in DOCUMENTATION-SYSTEM.md (§"Sidebar uses its own dark
+ * sub-palette" and §"Tags use darker versions of the accent for text"); they
+ * were simply not split out as :root variables in Phase 1's extraction. The
+ * audit (D2-19) requires zero hex literals outside :root in any inlined
+ * <style> block, so the tokens live here.
  */
 
 :root {
@@ -26,6 +35,20 @@
   --purple-l: #F5F3FF;    /* Purple highlight background */
   --teal: #5BB5A2;        /* Alternate accent when needed */
   --teal-l: #EFFAF7;      /* Teal highlight background */
+
+  /* Darker accent text — readable on var(--*-l) tinted backgrounds (tags) */
+  --blue-d: #3B7AE0;      /* Tag text on --blue-l */
+  --green-d: #4A9B6E;     /* Tag text on --green-l */
+  --red-d: #C46B5A;       /* Tag text on --red-l */
+  --orange-d: #C49340;    /* Tag text on --orange-l, dstep.wild dnum */
+  --purple-d: #7C5FCC;    /* Tag text on --purple-l */
+  --teal-d: #3D8A79;      /* Tag text on --teal-l */
+
+  /* Sidebar sub-palette — the dark column has its own internal grays */
+  --sb-hover: #3a3a3c;    /* Sidebar hover background, sb-div divider */
+  --sb-group: #636366;    /* Sidebar group label, nav-num, sb-foot */
+  --sb-nav: #8e8e93;      /* Sidebar nav-a default text */
+  --sb-nav-hover: #c7c7cc;/* Sidebar nav-a:hover text */
 
   /* Color scheme — light only (D-16). Combined with the meta tag in skeletons,
      this prevents iOS Safari and Chrome forced-dark-mode from inverting. */

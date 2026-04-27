@@ -10,6 +10,7 @@ All values, classes, and markup in `skill/design/` are verbatim extractions from
 |------|----------|-------------------------|
 | `palette.css` | All Caseproof colors as `:root` CSS variables, plus `color-scheme: light`. | At HTML-assembly time, after the arc is approved. Inlined into the output's `<style>` block. |
 | `typography.css` | Inter `@import`, system-font fallback chain, type scale rules for `body`, `h1`, `h2`, `h3`, `.s-lead`, `.eye`, `.cl`, `.fl`, `.ct`, `.cd`, `.ic`, `.fn`. | Same as palette.css — inlined alongside it. |
+| `components.css` | All component, sidebar, hero, sticky-bar, layout, and section CSS rules from `pm-system.reference.html`. Every selector resolves colors via `var(--token-name)` from `palette.css`. | At HTML-assembly time, after the arc is approved. Inlined into the output's `<style>` block alongside `palette.css` and `typography.css`. |
 
 ## Components
 
@@ -42,4 +43,4 @@ Both skeletons contain ZERO `<script>` tags and ZERO inline JS. Self-contained c
 3. Both format skeletons keep their meta tags + `color-scheme: light` (DESIGN-07).
 4. No `<script>` tags in generated output (D-17).
 5. Verbatim discipline (D-14): copy from this directory, do not paraphrase.
-6. **Inline palette + typography at paste time.** The format skeletons (`formats/handbook.html`, `formats/overview.html`) currently load CSS via `<link rel="stylesheet" href="../palette.css">` and `<link rel="stylesheet" href="../typography.css">`. The end-product must be a single self-contained HTML file (PROJECT.md "Constraints" — no asset folders). Phase 2 MUST replace those two `<link>` tags with `<style>...</style>` blocks containing the verbatim contents of `palette.css` and `typography.css`. Phase 2's audit pass MUST grep the generated output for zero `<link rel="stylesheet"` occurrences (acceptance check).
+6. **Inline palette + typography + components at paste time.** The format skeletons (`formats/handbook.html`, `formats/overview.html`) currently load CSS via `<link rel="stylesheet" href="../palette.css">` and `<link rel="stylesheet" href="../typography.css">`. The end-product must be a single self-contained HTML file (PROJECT.md "Constraints" — no asset folders). Phase 2 MUST replace those two `<link>` tags with a single `<style>...</style>` block containing the verbatim contents of `palette.css`, then `typography.css`, then `components.css` — in that order. Phase 2's audit pass MUST grep the generated output for zero `<link rel="stylesheet"` occurrences (acceptance check) AND verify the three-file CSS payload is present (palette `:root` block, typography `@import url('https://fonts.googleapis.com/css2?family=Inter`, and at least one component selector like `.sidebar` or `.tag`).

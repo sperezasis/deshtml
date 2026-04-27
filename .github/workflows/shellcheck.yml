@@ -19,3 +19,10 @@ jobs:
         with:
           scandir: ./bin
           severity: warning
+      - name: Run shellcheck on skill/audit/
+        uses: ludeeus/action-shellcheck@2.0.0
+        env:
+          SHELLCHECK_OPTS: -e SC1091
+        with:
+          scandir: ./skill/audit
+          severity: warning
