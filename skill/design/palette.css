@@ -1,0 +1,33 @@
+/* Caseproof Documentation System — Color Palette
+ * Verbatim extraction from ~/work/caseproof/DOCUMENTATION-SYSTEM.md §"CSS Variables".
+ * Do not edit values here. Update the source first, then re-extract.
+ */
+
+:root {
+  /* Grays — the backbone */
+  --black: #2C2C2E;      /* Primary text */
+  --g9: #525256;          /* Body text */
+  --g6: #98989D;          /* Secondary text, subtitles, labels */
+  --g4: #C7C7CC;          /* Tertiary text, borders, arrows */
+  --g2: #E5E5EA;          /* Dividers, table borders */
+  --g1: #F7F7F8;          /* Card backgrounds, section fills */
+  --white: #FFFFFF;       /* Page background */
+
+  /* Accents — one per semantic meaning */
+  --blue: #6BA4F8;        /* Primary accent, links, active states */
+  --blue-l: #F0F5FE;      /* Blue highlight background */
+  --green: #7EC8A0;       /* Positive, success, team repos */
+  --green-l: #F2FAF5;     /* Green highlight background */
+  --red: #E8907E;         /* Warning, attention, blockers */
+  --red-l: #FDF5F3;       /* Red highlight background */
+  --orange: #F0C078;      /* Caution, orchestrator, special */
+  --orange-l: #FDF8F0;    /* Orange highlight background */
+  --purple: #A78BFA;      /* Structural, milestones, guardians */
+  --purple-l: #F5F3FF;    /* Purple highlight background */
+  --teal: #5BB5A2;        /* Alternate accent when needed */
+  --teal-l: #EFFAF7;      /* Teal highlight background */
+
+  /* Color scheme — light only (D-16). Combined with the meta tag in skeletons,
+     this prevents iOS Safari and Chrome forced-dark-mode from inverting. */
+  color-scheme: light;
+}

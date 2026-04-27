@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>deshtml — Component Library</title>
+  <link rel="stylesheet" href="../palette.css">
+  <link rel="stylesheet" href="../typography.css">
+  <style>
+    /* Component library is the closed allowlist. CSS for each class lives in
+       the reference implementations (pm-system.html, bnp-overview.html); Phase 2
+       inlines those styles into generated output. This file enumerates the
+       markup contracts only.
+
+       NOTE (REVIEW IN-02, accepted): the rules below are dev-only viewer chrome
+       for opening this file directly in a browser. They are scoped to body/section
+       in this file, are NOT part of the component allowlist, and are NEVER copied
+       into generated output — Phase 2 reads MARKUP from components.html, not
+       styling. Do not flag as a "non-token style" in future audits. */
+    body { padding: 40px; max-width: 960px; margin: 0 auto; }
+    section { margin-bottom: 48px; padding-bottom: 24px; border-bottom: 1px solid var(--g2); }
+  </style>
+</head>
+<body>
+<h1>Component library</h1>
+<p class="s-lead">Closed allowlist. Phase 2's audit pass rejects any class name not present in this file.</p>
+
+<section id="tag">
+  <h2>1. Tags <code class="ic">.tag</code></h2>
+  <span class="tag t-bl">Builder</span>
+  <span class="tag t-gl">Driver</span>
+  <span class="tag t-pl">Guardian</span>
+  <span class="tag t-ol">Orchestrator</span>
+  <span class="tag t-gr">Default</span>
+  <!-- variants: t-bl, t-gl, t-rl, t-ol, t-pl, t-gr, t-tl -->
+</section>
+
+<section id="ic">
+  <h2>2. Inline Code <code class="ic">.ic</code></h2>
+  <span class="ic">membercore-dev</span>
+</section>
+
+<section id="tip">
+  <h2>3. Tooltips <code class="ic">.tip</code></h2>
+  <span class="tip">board<span class="tt">A GitHub Project</span></span>
+</section>
+
+<section id="hl">
+  <h2>4. Highlight Boxes <code class="ic">.hl</code></h2>
+  <div class="hl hl-b"><p><strong>Rule:</strong> content here.</p></div>
+  <!-- variants: hl-b, hl-g, hl-o, hl-r -->
+</section>
+
+<section id="tb">
+  <h2>5. Tables <code class="ic">.tb</code></h2>
+  <table class="tb">
+    <thead><tr><th>Column</th><th>Column</th></tr></thead>
+    <tbody><tr><td>Cell</td><td>Cell</td></tr></tbody>
+  </table>
+</section>
+
+<section id="cg">
+  <h2>6. Card Grids <code class="ic">.cg</code></h2>
+  <div class="cg c3">
+    <div class="card card-bl">
+      <div class="cl">Label</div>
+      <div class="ct">Title</div>
+      <div class="cd">Description text.</div>
+    </div>
+  </div>
+  <!-- grid variants: c2, c3, c4 — card variants: card-bl, card-gl, card-rl, card-ol, card-pl, card-tl -->
+</section>
+
+<section id="stats">
+  <h2>7. Stats Row <code class="ic">.stats</code></h2>
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-n" style="color: var(--blue);">5</div>
+      <div class="stat-l">Types</div>
+    </div>
+  </div>
+</section>
+
+<section id="cmp">
+  <h2>8. Compare Boxes <code class="ic">.cmp</code></h2>
+  <div class="cmp">
+    <div class="cmp-box" style="background: var(--green-l);">
+      <div class="cmp-l" style="color: var(--green);">Option A</div>
+      <div class="cmp-t">Title</div>
+      <ul><li>Point one</li></ul>
+    </div>
+    <div class="cmp-box" style="background: var(--g1);">
+      <div class="cmp-l" style="color: var(--g6);">Option B</div>
+      <div class="cmp-t">Title</div>
+      <ul><li>Point one</li></ul>
+    </div>
+  </div>
+</section>
+
+<section id="collapse">
+  <h2>9. Collapsible Details <code class="ic">.collapse</code></h2>
+  <details class="collapse">
+    <summary>Expand for details</summary>
+    <div class="collapse-body">
+      <!-- Any content -->
+    </div>
+  </details>
+</section>
+
+<section id="dtree">
+  <h2>10. Decision Tree <code class="ic">.dtree</code></h2>
+  <div class="dtree">
+    <div class="dstep">
+      <div class="dnum">1</div>
+      <div class="dq">Is it a company-level yearly priority?</div>
+      <div class="da" style="color: var(--red);">→ ORG ROCK</div>
+    </div>
+    <div class="dstep wild">
+      <div class="dnum">★</div>
+      <div class="dq">None of the above?</div>
+      <div class="da">→ TASK</div>
+    </div>
+  </div>
+</section>
+
+<section id="flow">
+  <h2>11. Flow Diagrams <code class="ic">.flow</code></h2>
+  <div class="flow">
+    <div class="flab">Label above the flow</div>
+    <div class="flow-row" style="gap: 14px;">
+      <div class="flow-box" style="border-top: 3px solid var(--blue);">
+        <div class="fl">Label</div>
+        <div class="fv">Value</div>
+        <div class="fd">Description</div>
+      </div>
+      <span class="farr">→</span>
+      <div class="flow-box"><div class="fl">Next</div><div class="fv">Value</div></div>
+    </div>
+    <div class="farr-d">↓</div>
+  </div>
+</section>
+
+<section id="issue-flow">
+  <h2>12. Issue Flow <code class="ic">.issue-flow</code></h2>
+  <div class="issue-flow">
+    <div class="if-row">
+      <div class="if-box">
+        <div class="if-label">Step</div>
+        <div class="if-val">Value</div>
+        <div class="if-sub">Subtitle</div>
+      </div>
+      <div class="if-arrow">→</div>
+      <div class="if-box"><div class="if-label">Next</div><div class="if-val">Value</div></div>
+    </div>
+    <div class="if-arrow-down">↓</div>
+  </div>
+</section>
+
+<section id="donut">
+  <h2>13. Donut Chart <code class="ic">.donut-wrap</code></h2>
+  <div class="donut-wrap">
+    <div class="donut" style="background: conic-gradient(var(--red) 0deg 72deg, var(--blue) 72deg 216deg, var(--purple) 216deg 288deg, var(--green) 288deg 360deg);">
+      <div class="donut-center">
+        <div class="dc-n">5</div>
+        <div class="dc-l">types</div>
+      </div>
+    </div>
+    <div class="donut-legend">
+      <div class="donut-legend-item">
+        <div class="dl-dot" style="background: var(--red);"></div>
+        Priority (2)
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="role-grid">
+  <h2>14. Role Grid <code class="ic">.role-grid</code></h2>
+  <div class="role-grid">
+    <div class="role-card" style="border-top-color: var(--blue);">
+      <div class="rc-label" style="color: var(--blue);">Category</div>
+      <div class="rc-desc">Description of this category.</div>
+      <div class="rc-teams">
+        <div class="rc-team">Team A</div>
+        <div class="rc-team">Team B</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="persona-grid">
+  <h2>15. Persona Cards <code class="ic">.persona-grid</code></h2>
+  <div class="persona-grid">
+    <div class="persona">
+      <div class="p-role" style="color: var(--blue);">Role</div>
+      <div class="p-title">What they do</div>
+      <ul class="p-list">
+        <li>Action one</li>
+        <li>Action two</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="lane">
+  <h2>16. Lanes <code class="ic">.lane</code></h2>
+  <!-- Lane structure (markup contract — full example in pm-system.reference.html) -->
+  <div class="lane">
+    <div class="lane-label">Lane label</div>
+    <div class="lane-items">
+      <div class="lane-item">Item A</div>
+      <div class="lane-item">Item B</div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>

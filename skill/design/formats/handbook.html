@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="supported-color-schemes" content="light">
+  <title><!-- DOC TITLE --></title>
+  <link rel="stylesheet" href="../palette.css">
+  <link rel="stylesheet" href="../typography.css">
+  <style>
+    /* Handbook layout — sidebar 220px / main margin-left 220px / content max-width 960px.
+       Verbatim from DOCUMENTATION-SYSTEM.md §"Handbook Format". */
+    html { scroll-padding-top: 80px; }
+    body { background: var(--white); margin: 0; }
+    .sidebar {
+      position: fixed; top: 0; left: 0;
+      width: 220px; height: 100vh;
+      background: var(--black);
+      color: var(--g4);
+    }
+    .main {
+      margin-left: 220px;
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .main > * { width: 100%; max-width: 960px; }
+    section { padding: 70px 80px 30px; scroll-margin-top: 80px; }
+    .section-divider { height: 1px; background: var(--g2); margin: 10px 80px; }
+  </style>
+</head>
+<body>
+
+<!-- SIDEBAR (handbook only): logo, nav items, current-section indicator. See pm-system.reference.html for canonical markup. -->
+<aside class="sidebar">
+  <!-- LOGO SLOT -->
+  <!-- NAV ITEMS SLOT -->
+</aside>
+
+<main class="main">
+
+  <!-- STICKY BAR (handbook only): system-bar at top of main column. See pm-system.reference.html. -->
+  <!-- STICKY BAR SLOT -->
+
+  <!-- HERO: h1 with optional <em> accent + .s-lead subtitle + optional .stats row -->
+  <section class="hero">
+    <!-- HERO H1 SLOT -->
+    <!-- HERO SUBTITLE SLOT (.s-lead) -->
+    <!-- HERO STATS SLOT (optional, .stats) -->
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- SECTION 1..N: each section has h2, optional eyebrow, body content built from components.html allowlist -->
+  <section>
+    <!-- SECTION 1 EYEBROW SLOT (.eye) -->
+    <!-- SECTION 1 H2 SLOT -->
+    <!-- SECTION 1 BODY SLOT -->
+  </section>
+
+  <!-- FLOATING NAV PILL (handbook only): fixed bottom-right with section anchors. See pm-system.reference.html. -->
+  <!-- FLOATING PILL SLOT -->
+
+</main>
+
+</body>
+</html>
