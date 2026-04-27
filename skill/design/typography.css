@@ -1,0 +1,51 @@
+/* Caseproof Documentation System — Typography
+ * Verbatim extraction from ~/work/caseproof/DOCUMENTATION-SYSTEM.md §"Typography".
+ * Class names match the reference implementations (pm-system.html, bnp-overview.html).
+ * Do not edit values here. Update the source first, then re-extract.
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--g9);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Hero h1 — 56px / 800 / -2.5px / 1.08 */
+h1 { font-size: 56px; font-weight: 800; color: var(--black); letter-spacing: -2.5px; line-height: 1.08; }
+h1 em { font-size: 40px; font-weight: 400; color: var(--g6); letter-spacing: -1.5px; font-style: normal; }
+
+/* Section h2 — 36px / 800 / -1.5px / 1.15 */
+h2 { font-size: 36px; font-weight: 800; color: var(--black); letter-spacing: -1.5px; line-height: 1.15; }
+h2 em { font-weight: 400; color: var(--g6); font-style: normal; }
+
+/* Topic-break h3 — 22px / 800 / -0.5px */
+h3 { font-size: 22px; font-weight: 800; color: var(--black); letter-spacing: -0.5px; }
+
+/* Hero subtitle / lead text — 17px / 400 / 1.65 / g6 */
+.s-lead { font-size: 14px; font-weight: 400; color: var(--g6); line-height: 1.7; }
+
+/* Eyebrow — 11px / 700 / 1.8px / blue / uppercase */
+.eye { font-size: 11px; font-weight: 700; color: var(--blue); letter-spacing: 1.8px; text-transform: uppercase; }
+
+/* Card label — 10px / 700 / 1-1.2px / g6 / uppercase */
+.cl { font-size: 10px; font-weight: 700; color: var(--g6); letter-spacing: 1px; text-transform: uppercase; }
+
+/* Flow label — same scale as .cl */
+.fl { font-size: 10px; font-weight: 700; color: var(--g6); letter-spacing: 1.2px; text-transform: uppercase; }
+
+/* Card title — 15px / 700 / black */
+.ct { font-size: 15px; font-weight: 700; color: var(--black); }
+
+/* Card description — 13px / 400 / g6 / 1.6 */
+.cd { font-size: 13px; font-weight: 400; color: var(--g6); line-height: 1.6; }
+
+/* Inline code — 12px / 400 / g9 */
+.ic { font-size: 12px; font-weight: 400; color: var(--g9); font-family: 'SF Mono', Menlo, Consolas, monospace; }
+
+/* Footnote — 12px / 400 / g6 */
+.fn { font-size: 12px; font-weight: 400; color: var(--g6); }
