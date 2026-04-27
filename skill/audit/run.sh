@@ -115,7 +115,7 @@ if command grep -nEi '<(script|iframe|object|embed)\b' "$output_file" >&2; then
   explain "Output must contain zero scripts, iframes, objects, or embeds (D-17, PROJECT.md self-contained-file constraint)."
   violations=$((violations + 1))
 fi
-if command grep -nEi ' on[a-z]+[[:space:]]*=' "$output_file" >&2; then
+if command grep -nEi '[[:space:]]on[a-z]+[[:space:]]*=' "$output_file" >&2; then
   printf 'VIOLATION: inline event handler\n' >&2
   explain "Inline event handlers (onclick, onload, etc.) execute JS. Output must be pure HTML+CSS."
   violations=$((violations + 1))
