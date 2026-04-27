@@ -25,16 +25,16 @@ fi
 
 SKILL_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 components_html="${SKILL_DIR}/design/components.html"
+components_css="${SKILL_DIR}/design/components.css"
 typography_css="${SKILL_DIR}/design/typography.css"
+handbook_skel="${SKILL_DIR}/design/formats/handbook.html"
 
-if [ ! -f "$components_html" ]; then
-  echo "audit: missing $components_html" >&2
-  exit 2
-fi
-if [ ! -f "$typography_css" ]; then
-  echo "audit: missing $typography_css" >&2
-  exit 2
-fi
+for f in "$components_html" "$components_css" "$typography_css" "$handbook_skel"; do
+  if [ ! -f "$f" ]; then
+    echo "audit: missing $f" >&2
+    exit 2
+  fi
+done
 
 violations=0
 allowed_file="$(mktemp -t deshtml-audit 2>/dev/null || mktemp -t deshtml-audit.XXXXXX)"
@@ -66,12 +66,18 @@ if [ -n "$hex_lines" ]; then
 fi
 
 # ───────────────────────────────────────────────────────────────────
-# Rule 2 — class allowlist (harvested live from components.html + typography.css)
+# Rule 2 — class allowlist (harvested live from the design system files)
+# Sources: components.html (markup contracts), typography.css (text scale labels),
+#          components.css (component CSS — sidebar, hero, all 16 component families),
+#          formats/handbook.html (skeleton layout classes).
 # ───────────────────────────────────────────────────────────────────
 {
   command grep -oE 'class="[^"]+"' "$components_html"
-  command grep -oE '^\.[a-zA-Z_][a-zA-Z0-9_-]*[[:space:]]*\{' "$typography_css" \
-    | command sed -E 's/^\.([^[:space:]{]+).*/class="\1"/'
+  command grep -oE 'class="[^"]+"' "$handbook_skel"
+  for css in "$typography_css" "$components_css"; do
+    command grep -oE '^[[:space:]]*\.[a-zA-Z_][a-zA-Z0-9_-]*[[:space:]]*\{' "$css" \
+      | command sed -E 's/^[[:space:]]*\.([^[:space:]{]+).*/class="\1"/'
+  done
 } \
   | command sed -E 's/class="//; s/"$//' \
   | tr ' ' '\n' \
@@ -114,9 +120,9 @@ if command grep -nEi ' on[a-z]+[[:space:]]*=' "$output_file" >&2; then
   explain "Inline event handlers (onclick, onload, etc.) execute JS. Output must be pure HTML+CSS."
   violations=$((violations + 1))
 fi
-if command grep -nEi 'javascript:' "$output_file" >&2; then
+if command grep -nEi '(href|src|action|formaction|xlink:href)[[:space:]]*=[[:space:]]*"[[:space:]]*javascript:' "$output_file" >&2; then
   printf 'VIOLATION: javascript: URL\n' >&2
-  explain "javascript: URLs execute JS. Output must be pure HTML+CSS."
+  explain "javascript: URLs in href/src/action attributes execute JS. Output must be pure HTML+CSS. (Note: the literal text 'javascript:' inside element content is allowed — only attribute values are checked.)"
   violations=$((violations + 1))
 fi
 
