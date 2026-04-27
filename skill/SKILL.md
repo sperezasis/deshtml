@@ -2,7 +2,7 @@
 name: deshtml
 description: Generate a story-first HTML document following the Caseproof Documentation System. Use when the user wants a designed, single-file HTML doc — pitch, handbook, technical brief, presentation, or meeting prep. The skill runs an interview, gates on a story arc, and writes a self-contained HTML to the current directory.
 disable-model-invocation: true
-allowed-tools: Read Write Bash(ls *) Bash(test *) Bash(open *) Bash(bash *) Bash(date *) Bash(pwd *) Bash(mkdir *) Bash(grep *) Bash(command *)
+allowed-tools: Read Write Bash(ls *) Bash(test *) Bash(open *) Bash(bash *) Bash(date *) Bash(pwd) Bash(mkdir *) Bash(grep *) Bash(command *)
 ---
 
 # deshtml — flow control
