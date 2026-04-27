@@ -27,31 +27,31 @@
 
 ### Skill invocation (SKILL)
 
-- [ ] **SKILL-01**: User can invoke `/deshtml` with no arguments to start a from-scratch interview
+- [x] **SKILL-01** (plan 02-02): User can invoke `/deshtml` with no arguments to start a from-scratch interview
 - [ ] **SKILL-02**: User can invoke `/deshtml @path/to/draft.md` (or paste raw text in the prompt) and the skill uses the source as the document's raw material instead of interviewing
-- [ ] **SKILL-03**: Skill detects mode (interview vs source) at turn 1 — never silently falls back from one mode to the other
-- [ ] **SKILL-04**: Skill's first interactive question is the document type (5 options) and the answer branches the rest of the run
-- [ ] **SKILL-05**: SKILL.md stays under 200 lines (flow-control only); per-type prompts and design assets load on demand via Claude reading their files
+- [x] **SKILL-03** (plan 02-02): Skill detects mode (interview vs source) at turn 1 — never silently falls back from one mode to the other
+- [x] **SKILL-04** (plan 02-02): Skill's first interactive question is the document type (5 options) and the answer branches the rest of the run
+- [x] **SKILL-05** (plan 02-02): SKILL.md stays under 200 lines (flow-control only); per-type prompts and design assets load on demand via Claude reading their files
 
 ### Story arc gate (ARC)
 
-- [ ] **ARC-01**: Skill produces a story arc as a table with columns: `#`, `Beat`, `Section`, `One sentence`, `Reader feels`
-- [ ] **ARC-02**: Skill renders the "One sentence" column read top-to-bottom as a flowing paragraph immediately under the table so narrative gaps are visible at a glance
-- [ ] **ARC-03**: Skill performs an automated self-review pass on the arc before showing it to the user (handbook-tone check, causality-chain check, "name the thing" title check)
-- [ ] **ARC-04**: Skill blocks HTML generation until the user types `approve` (or equivalent explicit confirmation) — no implicit approval, no silent passthrough
-- [ ] **ARC-05**: User can request changes to the arc; skill regenerates the table + paragraph and re-asks for approval; loops until approved
+- [x] **ARC-01** (plan 02-02): Skill produces a story arc as a table with columns: `#`, `Beat`, `Section`, `One sentence`, `Reader feels`
+- [x] **ARC-02** (plan 02-02): Skill renders the "One sentence" column read top-to-bottom as a flowing paragraph immediately under the table so narrative gaps are visible at a glance
+- [x] **ARC-03** (plan 02-02): Skill performs an automated self-review pass on the arc before showing it to the user (handbook-tone check, causality-chain check, "name the thing" title check)
+- [x] **ARC-04** (plan 02-02): Skill blocks HTML generation until the user types `approve` (or equivalent explicit confirmation) — no implicit approval, no silent passthrough
+- [x] **ARC-05** (plan 02-02): User can request changes to the arc; skill regenerates the table + paragraph and re-asks for approval; loops until approved
 
 ### Document types (DOC)
 
 V1 ships tailored interviews and arc templates for five document types:
 
 - [ ] **DOC-01**: Pitch — problem → solution → ask narrative, Overview format (1440px linear)
-- [ ] **DOC-02**: Handbook / system overview — multi-section reference doc, Handbook format (960px sidebar)
+- [x] **DOC-02** (plan 02-02): Handbook / system overview — multi-section reference doc, Handbook format (960px sidebar)
 - [ ] **DOC-03**: Technical brief — architecture / decision write-up for engineers, Handbook format
 - [ ] **DOC-04**: Presentation / slide deck — single-page anchor-navigated slides, custom Presentation format (CSS scroll-snap, no JS)
 - [ ] **DOC-05**: Meeting prep — briefing doc with context, goals, talking points, Overview format
 - [ ] **DOC-06**: Each doc type has its own interview file (`skill/interview/<type>.md`) following an identical schema (audience → material → section conventions → tone notes → handoff to story-arc)
-- [ ] **DOC-07**: Each doc type's interview asks no more than 5 questions before producing the arc
+- [x] **DOC-07** (plan 02-02): Each doc type's interview asks no more than 5 questions before producing the arc
 
 ### Design system fidelity (DESIGN)
 
@@ -66,11 +66,11 @@ V1 ships tailored interviews and arc templates for five document types:
 
 ### Output behavior (OUTPUT)
 
-- [ ] **OUTPUT-01**: Skill writes a single self-contained `.html` file to the user's current working directory
-- [ ] **OUTPUT-02**: Output filename follows `YYYY-MM-DD-<slug>-<type>.html`; on collision a numeric suffix is appended (`-2`, `-3`)
-- [ ] **OUTPUT-03**: After writing, skill runs `open <file>` so the document opens in the user's default browser without further action
-- [ ] **OUTPUT-04**: Skill prints the absolute path of the written file at the end of the run
-- [ ] **OUTPUT-05**: Generated HTML opens correctly when double-clicked (file://) — no JS errors, no broken layout, no missing stylesheets
+- [x] **OUTPUT-01** (plan 02-02): Skill writes a single self-contained `.html` file to the user's current working directory
+- [x] **OUTPUT-02** (plan 02-02): Output filename follows `YYYY-MM-DD-<slug>-<type>.html`; on collision a numeric suffix is appended (`-2`, `-3`)
+- [x] **OUTPUT-03** (plan 02-02): After writing, skill runs `open <file>` so the document opens in the user's default browser without further action
+- [x] **OUTPUT-04** (plan 02-02): Skill prints the absolute path of the written file at the end of the run
+- [x] **OUTPUT-05** (plan 02-02): Generated HTML opens correctly when double-clicked (file://) — no JS errors, no broken layout, no missing stylesheets (wired via three-CSS-file inlining; empirically verified by plan 02-04 fixture run)
 
 ### Documentation (DOCS)
 
@@ -122,23 +122,23 @@ V1 ships tailored interviews and arc templates for five document types:
 | INSTALL-05 | Phase 1 | Pending |
 | INSTALL-06 | Phase 1 | Pending |
 | INSTALL-07 | Phase 1 | Pending |
-| SKILL-01 | Phase 2 | Pending |
+| SKILL-01 | Phase 2 | Complete (02-02) |
 | SKILL-02 | Phase 4 | Pending |
-| SKILL-03 | Phase 2 | Pending |
-| SKILL-04 | Phase 2 | Pending |
-| SKILL-05 | Phase 2 | Pending |
-| ARC-01 | Phase 2 | Pending |
-| ARC-02 | Phase 2 | Pending |
-| ARC-03 | Phase 2 | Pending |
-| ARC-04 | Phase 2 | Pending |
-| ARC-05 | Phase 2 | Pending |
+| SKILL-03 | Phase 2 | Complete (02-02) |
+| SKILL-04 | Phase 2 | Complete (02-02) |
+| SKILL-05 | Phase 2 | Complete (02-02) |
+| ARC-01 | Phase 2 | Complete (02-02) |
+| ARC-02 | Phase 2 | Complete (02-02) |
+| ARC-03 | Phase 2 | Complete (02-02) |
+| ARC-04 | Phase 2 | Complete (02-02) |
+| ARC-05 | Phase 2 | Complete (02-02) |
 | DOC-01 | Phase 3 | Pending |
-| DOC-02 | Phase 2 | Pending |
+| DOC-02 | Phase 2 | Complete (02-02) |
 | DOC-03 | Phase 3 | Pending |
 | DOC-04 | Phase 3 | Pending |
 | DOC-05 | Phase 3 | Pending |
 | DOC-06 | Phase 3 | Pending |
-| DOC-07 | Phase 2 | Pending |
+| DOC-07 | Phase 2 | Complete (02-02) |
 | DESIGN-01 | Phase 1 | Complete (01-02) |
 | DESIGN-02 | Phase 1 | Complete (01-02) |
 | DESIGN-03 | Phase 1 | Complete (01-02) |
@@ -146,11 +146,11 @@ V1 ships tailored interviews and arc templates for five document types:
 | DESIGN-05 | Phase 1 | Complete (01-02) |
 | DESIGN-06 | Phase 2 | Pending |
 | DESIGN-07 | Phase 1 | Complete (01-02) |
-| OUTPUT-01 | Phase 2 | Pending |
-| OUTPUT-02 | Phase 2 | Pending |
-| OUTPUT-03 | Phase 2 | Pending |
-| OUTPUT-04 | Phase 2 | Pending |
-| OUTPUT-05 | Phase 2 | Pending |
+| OUTPUT-01 | Phase 2 | Complete (02-02) |
+| OUTPUT-02 | Phase 2 | Complete (02-02) |
+| OUTPUT-03 | Phase 2 | Complete (02-02) |
+| OUTPUT-04 | Phase 2 | Complete (02-02) |
+| OUTPUT-05 | Phase 2 | Complete (02-02) |
 | DOCS-01 | Phase 4 | Pending |
 | DOCS-02 | Phase 4 | Pending |
 | DOCS-03 | Phase 4 | Pending |
