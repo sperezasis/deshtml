@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="supported-color-schemes" content="light">
+  <title><!-- DOC TITLE --></title>
+  <link rel="stylesheet" href="../palette.css">
+  <link rel="stylesheet" href="../typography.css">
+  <style>
+    /* Overview layout — no sidebar, max-width 1440px, padding 80-120px.
+       Verbatim from DOCUMENTATION-SYSTEM.md §"Overview Format". */
+    html { scroll-padding-top: 0; }
+    body { background: var(--white); margin: 0; }
+    .container { max-width: 1440px; margin: 0 auto; padding: 80px 120px; }
+    section { margin-bottom: 80px; scroll-margin-top: 0; }
+    .section-divider { height: 1px; background: var(--g2); margin: 40px 0; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HERO: h1 with optional <em> accent + .s-lead subtitle. No sidebar, no sticky bar. -->
+  <section class="hero">
+    <!-- HERO H1 SLOT -->
+    <!-- HERO SUBTITLE SLOT (.s-lead) -->
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- SECTION 1..N (1-3 total for Overview format) -->
+  <section>
+    <!-- SECTION 1 EYEBROW SLOT (.eye) -->
+    <!-- SECTION 1 H2 SLOT -->
+    <!-- SECTION 1 BODY SLOT (components from components.html allowlist) -->
+  </section>
+
+</div>
+
+</body>
+</html>
