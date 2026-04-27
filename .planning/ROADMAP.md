@@ -71,7 +71,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation — Installer + Design Assets | 2/2 | Complete | 2026-04-27 |
-| 2. Story-Arc Gate + Handbook End-to-End | 0/TBD | Not started | - |
+| 2. Story-Arc Gate + Handbook End-to-End | 1/4 | In progress | - |
 | 3. Remaining Four Doc Types | 0/TBD | Not started | - |
 | 4. Source-Mode, README, and Launch Hardening | 0/TBD | Not started | - |
 
