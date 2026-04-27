@@ -28,7 +28,7 @@ If the visual design and narrative arc are wrong, nothing else matters. Speed, o
 - [ ] V1 supports five document types with tailored prompts: pitch, handbook / system overview, technical brief, presentation / slide deck, meeting prep
 - [ ] Skill enforces the Story-First methodology: produces a story arc table (`#, Beat, Section, One sentence, Reader feels`) and gates on user approval before writing HTML
 - [ ] Generated HTML strictly follows the Caseproof Documentation System (palette, typography, components, Handbook-960px or Overview-1440px format selected by content size)
-- [ ] Output is a single self-contained HTML file written to the current working directory
+- [ ] Output is a single self-contained HTML file written to the current working directory, then auto-opened in the default browser via `open <file>`
 - [ ] Iteration after generation happens via normal Claude conversation (no in-skill revision loop)
 - [ ] README explains: what it is, install command, usage, supported document types, link to Caseproof Documentation System
 - [ ] Uninstall command documented
@@ -57,7 +57,7 @@ If the visual design and narrative arc are wrong, nothing else matters. Speed, o
 - **Distribution:** Claude Code skill format only — must live under `~/.claude/skills/deshtml/` after install, callable as `/deshtml`.
 - **Install UX:** must match GSD's bar — single shell command pasted into a terminal, no follow-up steps required.
 - **Design fidelity:** output HTML must visually match the Caseproof reference implementations. No alternate styling, no "lite" mode.
-- **Self-contained output:** the generated `.html` opens correctly when emailed, dropped on a desktop, or shared as a single file. Inline CSS; web fonts via Google Fonts CDN are acceptable; no external JS dependencies, no asset folders.
+- **Self-contained output:** the generated `.html` opens correctly when double-clicked or shared as a file. Inline CSS; web fonts via Google Fonts CDN are acceptable (degrades to system fonts offline — documented as a known limitation, not blocked); no external JS dependencies, no asset folders.
 - **No backend / no infra:** the skill is pure prompt + templates. No API keys, no servers, nothing for users to configure beyond the install.
 - **Input language:** Spanish or English; the skill replies in English (per Santiago's standing rule). Output document language follows the source material.
 
@@ -66,7 +66,8 @@ If the visual design and narrative arc are wrong, nothing else matters. Speed, o
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
 | Opinionated V1, configurable V2 | Lock the design system so output is consistent across users; configurability is a feature for later, not a V1 risk | — Pending |
-| Single self-contained HTML file | Maximum portability (email, desktop, share) — matches how Santiago actually distributes docs today | — Pending |
+| Single self-contained HTML file | Maximum portability (double-click, share, drop in any folder) — matches how Santiago distributes docs today | — Pending |
+| Auto-open with `open <file>` after generation | Zero-friction preview, no local server needed; mac-first UX for V1 | — Pending |
 | Branch prompt by document type upfront | Pitch, handbook, brief, deck, and meeting prep have genuinely different story arcs and section conventions; one generic prompt would dilute all of them | — Pending |
 | One-shot generation, edit via chat | Avoids building a revision UI inside the skill; Claude Code already handles iterative editing well | — Pending |
 | GSD-style install (one-liner, public repo) | Proven UX, zero auth friction, mirrors a model Santiago and his audience already understand | — Pending |
