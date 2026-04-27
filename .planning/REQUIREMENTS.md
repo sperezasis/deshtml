@@ -107,6 +107,50 @@ V1 ships tailored interviews and arc templates for five document types:
 
 | REQ-ID | Phase | Status |
 |--------|-------|--------|
-| (filled by roadmapper) | | |
+| INSTALL-01 | Phase 1 | Pending |
+| INSTALL-02 | Phase 1 | Pending |
+| INSTALL-03 | Phase 1 | Pending |
+| INSTALL-04 | Phase 1 | Pending |
+| INSTALL-05 | Phase 1 | Pending |
+| INSTALL-06 | Phase 1 | Pending |
+| INSTALL-07 | Phase 1 | Pending |
+| SKILL-01 | Phase 2 | Pending |
+| SKILL-02 | Phase 4 | Pending |
+| SKILL-03 | Phase 2 | Pending |
+| SKILL-04 | Phase 2 | Pending |
+| SKILL-05 | Phase 2 | Pending |
+| ARC-01 | Phase 2 | Pending |
+| ARC-02 | Phase 2 | Pending |
+| ARC-03 | Phase 2 | Pending |
+| ARC-04 | Phase 2 | Pending |
+| ARC-05 | Phase 2 | Pending |
+| DOC-01 | Phase 3 | Pending |
+| DOC-02 | Phase 2 | Pending |
+| DOC-03 | Phase 3 | Pending |
+| DOC-04 | Phase 3 | Pending |
+| DOC-05 | Phase 3 | Pending |
+| DOC-06 | Phase 3 | Pending |
+| DOC-07 | Phase 2 | Pending |
+| DESIGN-01 | Phase 1 | Pending |
+| DESIGN-02 | Phase 1 | Pending |
+| DESIGN-03 | Phase 1 | Pending |
+| DESIGN-04 | Phase 3 | Pending |
+| DESIGN-05 | Phase 1 | Pending |
+| DESIGN-06 | Phase 2 | Pending |
+| DESIGN-07 | Phase 1 | Pending |
+| OUTPUT-01 | Phase 2 | Pending |
+| OUTPUT-02 | Phase 2 | Pending |
+| OUTPUT-03 | Phase 2 | Pending |
+| OUTPUT-04 | Phase 2 | Pending |
+| OUTPUT-05 | Phase 2 | Pending |
+| DOCS-01 | Phase 4 | Pending |
+| DOCS-02 | Phase 4 | Pending |
+| DOCS-03 | Phase 4 | Pending |
+| LAUNCH-01 | Phase 4 | Pending |
+| LAUNCH-02 | Phase 4 | Pending |
+| LAUNCH-03 | Phase 4 | Pending |
+| LAUNCH-04 | Phase 4 | Pending |
+
+**Coverage:** 43/43 v1 requirements mapped (100%)
 
 ---
