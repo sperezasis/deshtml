@@ -120,7 +120,7 @@ if command grep -nEi '[[:space:]]on[a-z]+[[:space:]]*=' "$output_file" >&2; then
   explain "Inline event handlers (onclick, onload, etc.) execute JS. Output must be pure HTML+CSS."
   violations=$((violations + 1))
 fi
-if command grep -nEi '(href|src|action|formaction|xlink:href)[[:space:]]*=[[:space:]]*"[[:space:]]*javascript:' "$output_file" >&2; then
+if command grep -nEi "(href|src|action|formaction|xlink:href)[[:space:]]*=[[:space:]]*[\"']?[[:space:]]*javascript:" "$output_file" >&2; then
   printf 'VIOLATION: javascript: URL\n' >&2
   explain "javascript: URLs in href/src/action attributes execute JS. Output must be pure HTML+CSS. (Note: the literal text 'javascript:' inside element content is allowed — only attribute values are checked.)"
   violations=$((violations + 1))
