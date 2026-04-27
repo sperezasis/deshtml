@@ -46,14 +46,32 @@ main() {
     exit 1
   fi
 
-  # 5. Atomic replace: stage payload next to DEST, swap, then delete old (D-03, D-04, D-06)
+  # 5. Atomic replace: stage payload next to DEST, swap, then delete old (D-03, D-04, D-06).
+  #    Uses mktemp -d for the stage path (no PID-collision surface) and a backup
+  #    path next to DEST. A signal-safe trap tracks all three paths and restores
+  #    from backup if the destination is missing — covers SIGINT/SIGTERM/SIGKILL
+  #    arriving inside the swap window (T-01-02 hardening).
   mkdir -p "$(dirname "$DEST")"
-  local stage="${DEST}.installing.$$"
-  rm -rf "$stage"
+  local stage backup
+  stage="$(mktemp -d "${DEST}.installing.XXXXXX")"
+  backup="${DEST}.old.$$"
+
+  # Replace the tmp-only trap with one that knows about stage + backup.
+  # If the script is killed mid-swap (DEST gone, backup present), this restores
+  # the original install before exit.
+  trap '
+    rm -rf "$tmp" "$stage" 2>/dev/null
+    if [ -d "$backup" ] && [ ! -d "$DEST" ]; then
+      mv "$backup" "$DEST" 2>/dev/null || true
+    fi
+    rm -rf "$backup" 2>/dev/null
+  ' EXIT
+
+  # mktemp -d created an empty directory; remove it so cp -R writes to that exact path.
+  rmdir "$stage"
   cp -R "$tmp/deshtml/skill" "$stage"
 
   if [ -d "$DEST" ]; then
-    local backup="${DEST}.old.$$"
     mv "$DEST" "$backup"
     if mv "$stage" "$DEST"; then
       rm -rf "$backup"
