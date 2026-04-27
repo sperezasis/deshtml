@@ -27,12 +27,14 @@ main() {
   tmp="$(mktemp -d 2>/dev/null || mktemp -d -t deshtml)"
   trap 'rm -rf "$tmp"' EXIT
 
-  # 4. Shallow clone the pinned tag (D-02)
+  # 4. Shallow clone the pinned tag (D-02). Stderr is intentionally NOT silenced
+  #    so users can diagnose network / missing-tag / DNS failures themselves.
   echo "Installing deshtml v${version}..."
-  git clone --depth 1 --branch "v${version}" "$REPO_URL" "$tmp/deshtml" >/dev/null 2>&1 || {
+  if ! git clone --depth 1 --branch "v${version}" "$REPO_URL" "$tmp/deshtml" >/dev/null; then
     echo "Failed to clone deshtml v${version} from $REPO_URL" >&2
+    echo "See git output above for the cause." >&2
     exit 1
-  }
+  fi
 
   if [ ! -d "$tmp/deshtml/skill" ]; then
     echo "Cloned repo is missing skill/ payload — refusing to install." >&2
