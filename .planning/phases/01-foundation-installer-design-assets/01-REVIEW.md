@@ -163,6 +163,8 @@ No fix required in Phase 1. Flagging as a hand-off contract that Phase 2's plann
 **File:** `skill/design/components.html:10-17`
 **Issue:** Lines 15–16 declare `body { padding: 40px; max-width: 960px; margin: 0 auto; }` and a `section` border. These rules are scoped to `components.html` only (the viewer page) and are never copied into generated output — Phase 2 reads markup from this file, not styling. No action needed; calling it out so a future reviewer does not flag it as a "non-token style".
 
+**Decision (2026-04-27):** ACCEPTED AS-IS. The dev-only viewer chrome stays. Phase 2 reads markup from this file, never styling — the `body` and `section` rules cannot leak into generated output. A clarifying comment was added to the `<style>` block in `components.html` itself documenting this contract for future reviewers.
+
 ---
 
 ## Notes (out of review scope per phase guidance)

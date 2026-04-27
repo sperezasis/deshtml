@@ -11,7 +11,13 @@
     /* Component library is the closed allowlist. CSS for each class lives in
        the reference implementations (pm-system.html, bnp-overview.html); Phase 2
        inlines those styles into generated output. This file enumerates the
-       markup contracts only. */
+       markup contracts only.
+
+       NOTE (REVIEW IN-02, accepted): the rules below are dev-only viewer chrome
+       for opening this file directly in a browser. They are scoped to body/section
+       in this file, are NOT part of the component allowlist, and are NEVER copied
+       into generated output — Phase 2 reads MARKUP from components.html, not
+       styling. Do not flag as a "non-token style" in future audits. */
     body { padding: 40px; max-width: 960px; margin: 0 auto; }
     section { margin-bottom: 48px; padding-bottom: 24px; border-bottom: 1px solid var(--g2); }
   </style>
