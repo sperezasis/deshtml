@@ -47,8 +47,10 @@ Wait for the user's answer. Normalize: trim whitespace, lowercase.
   Substitute the user's choice in `<type>`. Stop. Do not silently fall back.
 
 - Anything else → ask once more, listing the same five options. If the second
-  reply is still not in the list, reply with the Phase-3-stub language using
-  `that` in place of `<type>` and stop.
+  reply is still not in the list, reply with EXACTLY:
+  > That is not one of the five document types. Run `/deshtml` and pick `handbook` to continue.
+
+  Then stop.
 
 ## Step 3 — Run the interview
 
