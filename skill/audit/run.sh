@@ -75,8 +75,18 @@ fi
   command grep -oE 'class="[^"]+"' "$components_html"
   command grep -oE 'class="[^"]+"' "$handbook_skel"
   for css in "$typography_css" "$components_css"; do
+    # Standalone class selectors at start of line (existing strict harvest).
     command grep -oE '^[[:space:]]*\.[a-zA-Z_][a-zA-Z0-9_-]*[[:space:]]*\{' "$css" \
       | command sed -E 's/^[[:space:]]*\.([^[:space:]{]+).*/class="\1"/'
+    # Compound + descendant selectors. Take the selector list before `{`,
+    # split on `,` `>` `+` `~` and whitespace, then emit every `.name` token.
+    # Catches `.nav-a.active`, `.hero-stat .hs-n`, `.sb-brand .name`, etc.
+    # that the strict regex above misses (HI-03).
+    command sed -nE 's/^([^{}]+)\{.*$/\1/p' "$css" \
+      | tr ',>+~' '\n' \
+      | tr -s '[:space:]' '\n' \
+      | command grep -oE '\.[a-zA-Z_][a-zA-Z0-9_-]*' \
+      | command sed -E 's/^\./class="/; s/$/"/'
   done
 } \
   | command sed -E 's/class="//; s/"$//' \
