@@ -42,3 +42,4 @@ Both skeletons contain ZERO `<script>` tags and ZERO inline JS. Self-contained c
 3. Both format skeletons keep their meta tags + `color-scheme: light` (DESIGN-07).
 4. No `<script>` tags in generated output (D-17).
 5. Verbatim discipline (D-14): copy from this directory, do not paraphrase.
+6. **Inline palette + typography at paste time.** The format skeletons (`formats/handbook.html`, `formats/overview.html`) currently load CSS via `<link rel="stylesheet" href="../palette.css">` and `<link rel="stylesheet" href="../typography.css">`. The end-product must be a single self-contained HTML file (PROJECT.md "Constraints" — no asset folders). Phase 2 MUST replace those two `<link>` tags with `<style>...</style>` blocks containing the verbatim contents of `palette.css` and `typography.css`. Phase 2's audit pass MUST grep the generated output for zero `<link rel="stylesheet"` occurrences (acceptance check).
