@@ -119,9 +119,10 @@ Then assemble the output:
    - `<!-- SECTION 1 EYEBROW/H2/BODY -->` (one per arc row) — eyebrow, h2, body built ONLY from classes in `components.html`.
    - `<!-- FLOATING PILL SLOT -->` — optional bottom-right nav pill.
 
-3. Use ONLY classes that appear in `components.html` (markup allowlist) or in
-   `typography.css` (`.s-lead`, `.eye`, `.cl`, `.fl`, `.ct`, `.cd`, `.ic`, `.fn`).
-   The audit in Step 7 enforces this; failing here means a guaranteed retry.
+3. Use only classes from the design system (`design/components.html`,
+   `design/components.css`, `design/typography.css`,
+   `design/formats/handbook.html`). The audit in Step 7 harvests its
+   allowlist from those four files; failing here means a guaranteed retry.
 
 4. Verify before writing: zero `<script>` tags, zero `<link rel="stylesheet"`
    attributes, zero `on*=` event handlers, zero `javascript:` URLs.
