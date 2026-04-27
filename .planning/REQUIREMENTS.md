@@ -10,13 +10,20 @@
 
 ### Install (INSTALL)
 
-- [ ] **INSTALL-01**: User can install deshtml by pasting a single shell command (curl-pipe-bash) into a terminal — no follow-up steps, no prompts, no sudo
-- [ ] **INSTALL-02**: Installer drops the skill payload into `~/.claude/skills/deshtml/` and only that directory (user scope, not project scope)
-- [ ] **INSTALL-03**: Installer is atomic — a dropped network connection mid-install never leaves a half-installed skill (stage to temp dir, move on success)
-- [ ] **INSTALL-04**: Installer is idempotent — running the install command on an already-installed skill updates it in place without breaking anything
-- [ ] **INSTALL-05**: Installer refuses to run as root and prints a friendly explanation
-- [ ] **INSTALL-06**: User can uninstall deshtml by running a documented one-liner that removes `~/.claude/skills/deshtml/` and prints a confirmation
-- [ ] **INSTALL-07**: After install, `/deshtml` is available in any Claude Code session for that user without restart or reconfiguration
+- [x] **INSTALL-01
+**: User can install deshtml by pasting a single shell command (curl-pipe-bash) into a terminal — no follow-up steps, no prompts, no sudo
+- [x] **INSTALL-02
+**: Installer drops the skill payload into `~/.claude/skills/deshtml/` and only that directory (user scope, not project scope)
+- [x] **INSTALL-03
+**: Installer is atomic — a dropped network connection mid-install never leaves a half-installed skill (stage to temp dir, move on success)
+- [x] **INSTALL-04
+**: Installer is idempotent — running the install command on an already-installed skill updates it in place without breaking anything
+- [x] **INSTALL-05
+**: Installer refuses to run as root and prints a friendly explanation
+- [x] **INSTALL-06
+**: User can uninstall deshtml by running a documented one-liner that removes `~/.claude/skills/deshtml/` and prints a confirmation
+- [x] **INSTALL-07
+**: After install, `/deshtml` is available in any Claude Code session for that user without restart or reconfiguration
 
 ### Skill invocation (SKILL)
 
