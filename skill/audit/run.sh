@@ -49,13 +49,39 @@ explain() {
 # ───────────────────────────────────────────────────────────────────
 # Rule 1 — hex literals outside :root
 # ───────────────────────────────────────────────────────────────────
-# Strip the :root block in two passes so both inline (`:root{...}` on
-# one line, common after CSS inlining) and multi-line (`:root {\n ... \n}`
-# from palette.css) shapes are handled. Then grep the remainder for any
-# `#XXXXXX` literal — those are the violations.
+# Strip the :root block, then grep the remainder for any `#XXXXXX`
+# literal. The strip handles three shapes:
+#   a) inline single-line: `:root { --a:#fff; }` on one line.
+#   b) multi-line: `:root {\n ... \n}` (from palette.css).
+#   c) trailing content on the closing-brace line: `} .x { color:#BAD; }`
+#      — pre-fix this was eaten with the closing brace and bypassed Rule 1
+#      (ME-03). Awk now strips only up to and including the matching `}`
+#      and preserves whatever follows on the same line.
 hex_lines="$(
-  command sed -E 's/:root[[:space:]]*\{[^}]*\}//g' "$output_file" \
-    | command sed -E '/:root[[:space:]]*\{/,/^[[:space:]]*\}/d' \
+  awk '
+    BEGIN { in_root = 0 }
+    !in_root && /:root[[:space:]]*\{/ {
+      # Same-line open + close: strip everything from `:root` to the
+      # first `}` on this line; preserve any trailing content.
+      if (match($0, /:root[[:space:]]*\{[^}]*\}/)) {
+        $0 = substr($0, 1, RSTART - 1) substr($0, RSTART + RLENGTH)
+        print; next
+      }
+      # Multi-line :root opens; skip until closing `}`.
+      in_root = 1
+      sub(/:root[[:space:]]*\{.*$/, "", $0)
+      print; next
+    }
+    in_root && /\}/ {
+      # Closing brace of :root: drop everything up to and including it,
+      # print whatever trails (catches injected `} .x{color:#BAD;}`).
+      sub(/^[^}]*\}/, "", $0)
+      in_root = 0
+      print; next
+    }
+    in_root { next }
+    { print }
+  ' "$output_file" \
     | command grep -nE '#[0-9a-fA-F]{3,8}\b' || true
 )"
 if [ -n "$hex_lines" ]; then
