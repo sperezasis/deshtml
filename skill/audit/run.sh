@@ -139,7 +139,7 @@ fi
 # ───────────────────────────────────────────────────────────────────
 # Rule 4 — no leftover <link rel="stylesheet">
 # ───────────────────────────────────────────────────────────────────
-if command grep -nE '<link[[:space:]]+rel="stylesheet"' "$output_file" >&2; then
+if command grep -nEi '<link[[:space:]][^>]*rel=[^>]*stylesheet' "$output_file" >&2; then
   printf 'VIOLATION: <link rel="stylesheet"> in output (CSS must be inlined; SKILL.md Step 6)\n' >&2
   explain "The format skeleton uses <link> for dev-time. SKILL.md must inline palette.css + typography.css + components.css into a single <style> block and remove the <link> tags before writing."
   violations=$((violations + 1))
