@@ -99,7 +99,7 @@ used_classes="$(
     | command sed -E 's/class="//; s/"$//' \
     | tr ' ' '\n' \
     | command grep -v '^$' \
-    | command sort -u
+    | command sort -u || true
 )"
 
 unknown_count=0
