@@ -21,6 +21,11 @@ main() {
     echo "Could not fetch VERSION from $RAW_VERSION_URL" >&2
     exit 1
   fi
+  if ! echo "$version" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+$'; then
+    echo "VERSION file content is not a valid semver: '$version'" >&2
+    echo "Expected format MAJOR.MINOR.PATCH (e.g., 0.0.1)." >&2
+    exit 1
+  fi
 
   # 3. Stage to a temp dir; trap guarantees cleanup if anything fails (D-04)
   local tmp
