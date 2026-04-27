@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v0.1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 02-01-PLAN.md (components.css extraction + palette extension)
-last_updated: "2026-04-27T22:20:00.235Z"
+stopped_at: Completed 02-03-PLAN.md (post-generation audit + rules + CI)
+last_updated: "2026-04-27T22:30:07.257Z"
 last_activity: 2026-04-27
 progress:
   total_phases: 4
   completed_phases: 1
   total_plans: 6
-  completed_plans: 3
-  percent: 50
+  completed_plans: 4
+  percent: 67
 ---
 
 # Project State
@@ -26,11 +26,11 @@ See: .planning/PROJECT.md (updated 2026-04-27)
 ## Current Position
 
 Phase: 2 (Story-Arc Gate + Handbook End-to-End) — IN PROGRESS
-Plan: 1 of 4 complete (02-01: components.css extraction)
-Status: Phase 2 plan 02-01 complete; Wave 1 plans 02-02 and 02-03 ready to execute
+Plan: 2 of 4 complete (02-01: components.css; 02-03: post-generation audit). 02-02 (SKILL.md flow) and 02-04 (visual gate fixture) remain.
+Status: Ready to execute 02-02
 Last activity: 2026-04-27
 
-Progress: [█████░░░░░] 50% (Phase 1 complete; Phase 2 — 1 of 4 plans)
+Progress: [███████░░░] 67%
 
 ## Performance Metrics
 
@@ -55,6 +55,7 @@ Progress: [█████░░░░░] 50% (Phase 1 complete; Phase 2 — 1 
 | Phase 01-foundation-installer-design-assets P01 | 2min | 2 tasks | 6 files |
 | Phase 01-foundation-installer-design-assets P02 | ~30min | 4 tasks | 8 files |
 | Phase 02-story-arc-gate-handbook-end-to-end P01 | ~1h | 2 tasks | 3 files |
+| Phase 02-story-arc-gate-handbook-end-to-end P03 | ~30min | 3 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -69,6 +70,7 @@ Recent decisions affecting current work:
 - Plan 01-01: D-01..D-10 installer decisions implemented verbatim; main() wrapper + atomic-staging contract is the deshtml installer shape.
 - Plan 01-02: D-11..D-19 design-asset decisions implemented verbatim; verbatim discipline (D-14) + closed component allowlist (D-15) + dual dark-mode hardening (D-16) are the moat. Phase 2 SKILL.md pastes from skill/design/, never paraphrases.
 - Plan 02-01: components.css extracted verbatim from pm-system.reference.html (lines 7-697 minus three de-duplication deletions). palette.css extended with documented sidebar sub-palette (--sb-hover, --sb-group, --sb-nav, --sb-nav-hover) and darker accent variants (--blue-d, --green-d, --red-d, --orange-d, --purple-d, --teal-d) — both groups documented in upstream DOCUMENTATION-SYSTEM.md but not yet split as :root vars in Phase 1. Three-file inlining order locked in SYSTEM.md Rule 6: palette → typography → components (load-bearing).
+- Plan 02-03: post-generation audit shipped. Two-pass :root strip handles inline + multi-line shapes; class allowlist harvested live from components.html + typography.css; --explain is verbosity-only; CI extended to ./skill/audit.
 
 ### Pending Todos
 
@@ -88,10 +90,10 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-27T22:18:20Z
-Stopped at: Completed 02-01-PLAN.md (components.css extraction + palette extension)
+Last session: 2026-04-27T22:30:07.245Z
+Stopped at: Completed 02-03-PLAN.md (post-generation audit + rules + CI)
 Resume file: None
 
 **Planned Phase:** 01 (Foundation — Installer + Design Assets) — 2 plans — 2026-04-27T14:23:01.094Z
 **Completed Phase:** 01 (Foundation — Installer + Design Assets) — 2 of 2 plans — 2026-04-27
-**Active Phase:** 02 (Story-Arc Gate + Handbook End-to-End) — 4 plans — 1 of 4 complete (02-01) — 2026-04-27
+**Active Phase:** 02 (Story-Arc Gate + Handbook End-to-End) — 4 plans — 2 of 4 complete (02-01, 02-03) — 2026-04-27
