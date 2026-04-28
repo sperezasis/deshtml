@@ -8,6 +8,12 @@ follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 Nothing yet.
 
+## [0.1.1] — 2026-04-28
+
+### Fixed
+
+- **Installer prints `tmp: unbound variable` after success.** The `EXIT` trap referenced a `local` variable from `main()`; under `set -u` the trap fired after `main` returned and `$tmp` was out of scope, producing a cosmetic warning. The install itself succeeded, but the noise was alarming. The trap now captures the temp-dir path at set-time (double-quoted) so it survives `main` returning. Discovered during the LAUNCH-01 live-URL verification of v0.1.0.
+
 ## [0.1.0] — 2026-04-28
 
 First public release.

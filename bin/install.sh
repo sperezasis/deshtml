@@ -27,10 +27,12 @@ main() {
     exit 1
   fi
 
-  # 3. Stage to a temp dir; trap guarantees cleanup if anything fails (D-04)
+  # 3. Stage to a temp dir; trap guarantees cleanup if anything fails (D-04).
+  #    Trap value is captured at set-time (double-quoted) so it survives
+  #    main() returning and the local 'tmp' going out of scope under set -u.
   local tmp
   tmp="$(mktemp -d 2>/dev/null || mktemp -d -t deshtml)"
-  trap 'rm -rf "$tmp"' EXIT
+  trap "rm -rf '${tmp}'" EXIT
 
   # 4. Shallow clone the pinned tag (D-02). Stderr is intentionally NOT silenced
   #    so users can diagnose network / missing-tag / DNS failures themselves.
