@@ -1,3 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="supported-color-schemes" content="light">
+  <title>Onboarding new engineers</title>
+  <style>
+/* Caseproof Documentation System — Color Palette
+ * Verbatim extraction from ~/work/caseproof/DOCUMENTATION-SYSTEM.md §"CSS Variables".
+ * Do not edit values here. Update the source first, then re-extract.
+ *
+ * Phase 2 Plan 02-01 extension (2026-04-27): the sidebar sub-palette and
+ * darker accent variants were added as tokens so components.css can reference
+ * them via var(--token) instead of inline hex literals. Both groups are
+ * documented in DOCUMENTATION-SYSTEM.md (§"Sidebar uses its own dark
+ * sub-palette" and §"Tags use darker versions of the accent for text"); they
+ * were simply not split out as :root variables in Phase 1's extraction. The
+ * audit (D2-19) requires zero hex literals outside :root in any inlined
+ * <style> block, so the tokens live here.
+ */
+
+:root {
+  /* Grays — the backbone */
+  --black: #2C2C2E;      /* Primary text */
+  --g9: #525256;          /* Body text */
+  --g6: #98989D;          /* Secondary text, subtitles, labels */
+  --g4: #C7C7CC;          /* Tertiary text, borders, arrows */
+  --g2: #E5E5EA;          /* Dividers, table borders */
+  --g1: #F7F7F8;          /* Card backgrounds, section fills */
+  --white: #FFFFFF;       /* Page background */
+
+  /* Accents — one per semantic meaning */
+  --blue: #6BA4F8;        /* Primary accent, links, active states */
+  --blue-l: #F0F5FE;      /* Blue highlight background */
+  --green: #7EC8A0;       /* Positive, success, team repos */
+  --green-l: #F2FAF5;     /* Green highlight background */
+  --red: #E8907E;         /* Warning, attention, blockers */
+  --red-l: #FDF5F3;       /* Red highlight background */
+  --orange: #F0C078;      /* Caution, orchestrator, special */
+  --orange-l: #FDF8F0;    /* Orange highlight background */
+  --purple: #A78BFA;      /* Structural, milestones, guardians */
+  --purple-l: #F5F3FF;    /* Purple highlight background */
+  --teal: #5BB5A2;        /* Alternate accent when needed */
+  --teal-l: #EFFAF7;      /* Teal highlight background */
+
+  /* Darker accent text — readable on var(--*-l) tinted backgrounds (tags) */
+  --blue-d: #3B7AE0;      /* Tag text on --blue-l */
+  --green-d: #4A9B6E;     /* Tag text on --green-l */
+  --red-d: #C46B5A;       /* Tag text on --red-l */
+  --orange-d: #C49340;    /* Tag text on --orange-l, dstep.wild dnum */
+  --purple-d: #7C5FCC;    /* Tag text on --purple-l */
+  --teal-d: #3D8A79;      /* Tag text on --teal-l */
+
+  /* Sidebar sub-palette — the dark column has its own internal grays */
+  --sb-hover: #3a3a3c;    /* Sidebar hover background, sb-div divider */
+  --sb-group: #636366;    /* Sidebar group label, nav-num, sb-foot */
+  --sb-nav: #8e8e93;      /* Sidebar nav-a default text */
+  --sb-nav-hover: #c7c7cc;/* Sidebar nav-a:hover text */
+
+  /* Color scheme — light only (D-16). Combined with the meta tag in skeletons,
+     this prevents iOS Safari and Chrome forced-dark-mode from inverting. */
+  color-scheme: light;
+}
+
+/* Caseproof Documentation System — Typography
+ * Verbatim extraction from ~/work/caseproof/DOCUMENTATION-SYSTEM.md §"Typography".
+ * Class names match the reference implementations (pm-system.html, bnp-overview.html).
+ * Do not edit values here. Update the source first, then re-extract.
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--g9);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Hero h1 — 56px / 800 / -2.5px / 1.08 */
+h1 { font-size: 56px; font-weight: 800; color: var(--black); letter-spacing: -2.5px; line-height: 1.08; }
+h1 em { font-size: 40px; font-weight: 400; color: var(--g6); letter-spacing: -1.5px; font-style: normal; }
+
+/* Section h2 — 36px / 800 / -1.5px / 1.15 */
+h2 { font-size: 36px; font-weight: 800; color: var(--black); letter-spacing: -1.5px; line-height: 1.15; }
+h2 em { font-weight: 400; color: var(--g6); font-style: normal; }
+
+/* Topic-break h3 — 22px / 800 / -0.5px */
+h3 { font-size: 22px; font-weight: 800; color: var(--black); letter-spacing: -0.5px; }
+
+/* Hero subtitle / lead text — 17px / 400 / 1.65 / g6 */
+.s-lead { font-size: 14px; font-weight: 400; color: var(--g6); line-height: 1.7; }
+
+/* Eyebrow — 11px / 700 / 1.8px / blue / uppercase */
+.eye { font-size: 11px; font-weight: 700; color: var(--blue); letter-spacing: 1.8px; text-transform: uppercase; }
+
+/* Card label — 10px / 700 / 1-1.2px / g6 / uppercase */
+.cl { font-size: 10px; font-weight: 700; color: var(--g6); letter-spacing: 1px; text-transform: uppercase; }
+
+/* Flow label — same scale as .cl */
+.fl { font-size: 10px; font-weight: 700; color: var(--g6); letter-spacing: 1.2px; text-transform: uppercase; }
+
+/* Card title — 15px / 700 / black */
+.ct { font-size: 15px; font-weight: 700; color: var(--black); }
+
+/* Card description — 13px / 400 / g6 / 1.6 */
+.cd { font-size: 13px; font-weight: 400; color: var(--g6); line-height: 1.6; }
+
+/* Inline code — 12px / 400 / g9 */
+.ic { font-size: 12px; font-weight: 400; color: var(--g9); font-family: 'SF Mono', Menlo, Consolas, monospace; }
+
+/* Footnote — 12px / 400 / g6 */
+.fn { font-size: 12px; font-weight: 400; color: var(--g6); }
+
 /* Caseproof Documentation System — Component CSS
  * Verbatim extraction from the Caseproof Documentation System (internal).
  * This file ships every visual rule that makes a handbook look Caseproof: sidebar,
@@ -692,3 +810,131 @@
   .sbar-label {
     border-right: 1px solid rgba(255,255,255,0.12);
   }
+  </style>
+  <style>
+    /* Handbook layout — sidebar 220px / main margin-left 220px / content max-width 960px.
+       Verbatim from DOCUMENTATION-SYSTEM.md §"Handbook Format". */
+    html { scroll-padding-top: 80px; }
+    body { background: var(--white); margin: 0; }
+    .sidebar {
+      position: fixed; top: 0; left: 0;
+      width: 220px; height: 100vh;
+      background: var(--black);
+      color: var(--g4);
+    }
+    .main {
+      margin-left: 220px;
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .main > * { width: 100%; max-width: 960px; }
+    section { padding: 70px 80px 30px; scroll-margin-top: 80px; }
+    .section-divider { height: 1px; background: var(--g2); margin: 10px 80px; }
+  </style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="sb-brand">Engineering · Onboarding</div>
+  <div class="sb-group">First 30 days</div>
+  <a class="nav-a" href="#week-1"><span class="nav-n">01</span><span class="nav-s">Week 1 — Setup</span></a>
+  <a class="nav-a" href="#week-2"><span class="nav-n">02</span><span class="nav-s">Week 2 — Codebase</span></a>
+  <a class="nav-a" href="#week-3"><span class="nav-n">03</span><span class="nav-s">Week 3 — First PR</span></a>
+  <a class="nav-a" href="#week-4"><span class="nav-n">04</span><span class="nav-s">Week 4 — Ownership</span></a>
+  <a class="nav-a" href="#after"><span class="nav-n">05</span><span class="nav-s">After 30 days</span></a>
+  <div class="sb-div"></div>
+  <div class="sb-foot">v1.0 · 2026</div>
+</aside>
+
+<main class="main">
+
+  <section class="hero">
+    <h1>Onboarding new engineers <em>— first 30 days</em></h1>
+    <p class="s-lead">A four-week walk-through for engineers joining the team. Read once on day one. Use it as a checklist.</p>
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-n" style="color: var(--blue);">4</div>
+        <div class="stat-l">Weeks</div>
+      </div>
+      <div class="stat">
+        <div class="stat-n" style="color: var(--green);">1</div>
+        <div class="stat-l">First PR</div>
+      </div>
+      <div class="stat">
+        <div class="stat-n" style="color: var(--purple);">30</div>
+        <div class="stat-l">Days to ownership</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section id="week-1">
+    <div class="eye">01 / Setup</div>
+    <h2>Week 1 — Setup</h2>
+    <p>Your first week is about removing friction. Your manager gives you a buddy, your laptop ships pre-configured, and the only thing you write is a one-page intro to the team channel.</p>
+    <div class="hl hl-b">
+      <p><strong>Goal:</strong> by Friday you can run the dev environment, push a branch, and open a draft PR.</p>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section id="week-2">
+    <div class="eye">02 / Codebase</div>
+    <h2>Week 2 — Codebase</h2>
+    <p>Your buddy walks you through the four services that matter for your role. The walk-through is a screen-share, not a doc — you ask questions in real time.</p>
+    <div class="cg c2">
+      <div class="card card-bl">
+        <div class="cl">Day 6-7</div>
+        <div class="ct">Map the read paths</div>
+        <div class="cd">Trace one request from API gateway to database. Draw it on paper. Show it back to your buddy.</div>
+      </div>
+      <div class="card card-gl">
+        <div class="cl">Day 8-10</div>
+        <div class="ct">Map the write paths</div>
+        <div class="cd">Pick one mutation. Trace it. Identify where it could fail. Document one risk you found.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section id="week-3">
+    <div class="eye">03 / Action</div>
+    <h2>Week 3 — First PR</h2>
+    <p>You pick a starter ticket from the onboarding lane. It's deliberately small — a copy fix, a config tweak, a test. The point is the workflow, not the change.</p>
+    <table class="tb">
+      <thead><tr><th>Step</th><th>What to do</th><th>Time budget</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Branch from main, write the change</td><td>1 hour</td></tr>
+        <tr><td>2</td><td>Open a draft PR, request review from your buddy</td><td>15 min</td></tr>
+        <tr><td>3</td><td>Address review comments</td><td>varies</td></tr>
+        <tr><td>4</td><td>Merge, watch the deploy, verify in staging</td><td>30 min</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section id="week-4">
+    <div class="eye">04 / Detail</div>
+    <h2>Week 4 — Ownership</h2>
+    <p>By week 4 you pick up your first non-onboarding ticket. You attend planning, take notes, ask questions. You are not expected to lead — you are expected to follow well.</p>
+    <div class="hl hl-g">
+      <p><strong>Signal you are ready:</strong> you can describe the team's current sprint goal in one sentence without checking the planning doc.</p>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section id="after">
+    <div class="eye">05 / Hand-off</div>
+    <h2>After 30 days</h2>
+    <p>The buddy relationship continues, but the structure goes away. From day 31, you are a regular team member. The next milestones are your first solo design doc (60 days) and your first feature ship (90 days).</p>
+    <p>If you reach day 30 and any of the above is missing — environment not set up, no PR shipped, sprint goal unclear — flag it to your manager. The system is designed to surface gaps early.</p>
+  </section>
+
+</main>
+
+</body>
+</html>
