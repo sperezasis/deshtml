@@ -1,6 +1,6 @@
 # deshtml
 
-deshtml is a Claude Code skill — an add-on that gives Claude a specific job to do. You run `/deshtml`, answer five short questions about your topic, approve the proposed story arc, and Claude writes a single self-contained HTML file to the current directory. The HTML follows the Caseproof Documentation System: a fixed palette, fixed typography, a closed component library. You did not need to know the design system; the skill knows it.
+deshtml is a Claude Code skill — an add-on that gives Claude a specific job to do. You run `/deshtml`, answer six short questions about your topic, approve the proposed story arc, and Claude writes a single self-contained HTML file to the current directory. The HTML follows the Caseproof Documentation System: a fixed palette, fixed typography, a closed component library. You did not need to know the design system; the skill knows it.
 
 ## Install
 
@@ -14,10 +14,10 @@ The skill installs to `~/.claude/skills/deshtml/`. Re-running the same command u
 
 ## First run
 
-Open Claude Code in any directory and type `/deshtml`. The skill walks you through five short questions, then proposes a story arc as a table. Approve the arc with `approve`, and Claude writes the HTML file and opens it in your browser.
+Open Claude Code in any directory and type `/deshtml`. The skill walks you through six short questions, then proposes a story arc as a table. Approve the arc with `approve`, and Claude writes the HTML file and opens it in your browser.
 
 1. Claude asks the document type — pick `handbook`, `pitch`, `technical brief`, `presentation`, or `meeting prep`.
-2. Claude asks four more questions about your audience, your material, your sections, and your tone.
+2. Claude asks five more questions about your audience, your material, your sections, your tone, and any inclusions or exclusions.
 3. Claude shows a story-arc table with five columns and a flowing paragraph reading the arc as a single read.
 4. Reply `approve` (or describe changes — Claude regenerates the arc until you approve).
 5. Claude writes a `YYYY-MM-DD-<slug>-<type>.html` file to your current directory and opens it in your default browser. The absolute path is the last line of output.
