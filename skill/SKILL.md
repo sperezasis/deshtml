@@ -76,15 +76,16 @@ Do NOT read `design/*` files yet.
 2. Slug = first 4-5 words of the H1 from the approved arc, kebab-cased,
    ASCII only. Lowercase, replace spaces with `-`, strip non-`[a-z0-9-]`,
    no trailing `-`, truncate at the 4th-5th word.
-3. Tentative filename: `<date>-<slug>-handbook.html` in the current working
-   directory (run `pwd` to get the absolute path).
-4. Collision check via `test -f`. If exists, append `-2`, `-3`, … until free:
+3. Tentative filename: `<date>-<slug>-<type>.html` in the current working
+   directory (`<type>` is the kebab-case doc type from Step 2 — `handbook`,
+   `pitch`, `technical-brief`, `presentation`, `meeting-prep`). Run `pwd`.
+4. Collision check via `test -f`. Append `-2`, `-3`, … keeping `-<type>`:
 
    ```bash
-   target="<date>-<slug>-handbook.html"
+   target="<date>-<slug>-<type>.html"
    suffix=2
    while test -f "$target"; do
-     target="<date>-<slug>-handbook-${suffix}.html"
+     target="<date>-<slug>-<type>-${suffix}.html"
      suffix=$((suffix + 1))
    done
    ```
