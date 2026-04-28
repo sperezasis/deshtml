@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v0.1.0
 milestone_name: milestone
 status: executing
-stopped_at: Phase 3 closed — all 4 plans complete (per-type fixtures + visual gate APPROVED)
-last_updated: "2026-04-28T14:10:00.000Z"
+stopped_at: Phase 4 pre-merge close-out — 04-03 Task 1 dry-run APPROVED; post-merge launch tasks (VERSION bump → tag → release → live LAUNCH-01) pending PR #4 merge
+last_updated: "2026-04-28T19:30:00.000Z"
 last_activity: 2026-04-28
 progress:
   total_phases: 4
   completed_phases: 3
-  total_plans: 10
-  completed_plans: 10
-  percent: 75
+  total_plans: 13
+  completed_plans: 13
+  percent: 95
 ---
 
 # Project State
@@ -21,16 +21,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-27)
 
 **Core value:** A non-author runs one command and gets a beautifully designed, story-first HTML document that looks like Santiago made it.
-**Current focus:** Ready for Phase 4 — Source Mode + Launch Hardening
+**Current focus:** PR #4 merge pending; post-merge: bump VERSION → tag v0.1.0 → cut GitHub release → LAUNCH-01 live verify
 
 ## Current Position
 
-Phase: 3 (Remaining Four Doc Types) — COMPLETE 2026-04-28
-Plan: 4 of 4 complete (03-04: per-type fixtures + visual gate APPROVED)
-Status: Phase 3 closed. Ready to start Phase 4 (Source Mode + Launch Hardening).
+Phase: 4 (Source-Mode + Launch Hardening) — PRE-MERGE COMPLETE; POST-MERGE LAUNCH PENDING
+Plan: 3 of 3 plans pre-merge complete (04-01 source-mode, 04-02 README+CHANGELOG, 04-03 pre-merge dry-run APPROVED)
+Status: Pre-merge state locked. Tasks 2-5 of Plan 04-03 (VERSION bump → v0.1.0 tag → GitHub release → live LAUNCH-01 verify) are deferred to the orchestrator on `main` after PR #4 merges. SKILL-02 + DOCS-01..03 closed; LAUNCH-01..04 pending post-merge.
 Last activity: 2026-04-28
 
-Progress: [███████░░░] 75% (3/4 phases, 10/10 plans through Phase 3)
+Progress: [█████████▌] 95% (3.5/4 phases — pre-merge work for phase 4 complete; post-merge launch tasks pending)
 
 ## Performance Metrics
 
@@ -62,6 +62,9 @@ Progress: [███████░░░] 75% (3/4 phases, 10/10 plans through 
 | Phase 03-remaining-four-doc-types P02 | ~10min | 4 tasks | 4 files |
 | Phase 03-remaining-four-doc-types P03 | ~25min | 2 tasks | 3 files |
 | Phase 03-remaining-four-doc-types P04 | ~30min | 3 tasks | 9 files (+1 carryover fix) |
+| Phase 04-source-mode-readme-launch-hardening P01 | ~25min | 2 tasks | 2 files |
+| Phase 04-source-mode-readme-launch-hardening P02 | ~12min | 2 tasks | 2 files |
+| Phase 04-source-mode-readme-launch-hardening P03 (pre-merge subset) | ~2min | 1/5 tasks (Tasks 2-5 deferred post-merge) | 3 files (notes + plan summary + phase summary) |
 
 ## Accumulated Context
 
@@ -85,6 +88,9 @@ Recent decisions affecting current work:
 - Plan 03-03: Audit wildcard harvester (D3-18) + Rule 5 schema-drift check (OQ-1 → ship-in-phase-3) shipped. handbook.md heading normalized 'five' → '5' to match Rule 5 regex contract; bash 3.2 first-element-existence guard replaces shopt nullglob; rules.md grew 181 → 246 lines (≤250 cap); 4 D3-prefixed smoke-test vectors added.
 - Plan 03-04: 4 canonical fixtures (pitch / technical-brief / presentation / meeting-prep) ran end-to-end. Format auto-selection 100% match rate per D3-01 (overview / handbook / presentation / overview). All 4 audits exit 0. D3-22 sequential-read PASSED — 4 distinct outputs, no type-labeled clones. D3-18 wildcard harvester confirmed empirically (slide / slide-counter / slide-nav resolved without script edit). Rule 5 silent across all 5 interview files. Adversarial smoke (injected #FF0000 line 784) → exit 1, line named. Carryover --g8 → --g9 fix folded in (commit 947cde4). Visual gate APPROVED via qlmanage thumbnails vs Caseproof references (bnp-overview for pitch + meeting-prep, pm-system for technical-brief, written rubric for presentation).
 - Phase 3 CLOSED 2026-04-28: 4/4 plans, 12 commits, 6 requirements complete (DOC-01, DOC-03, DOC-04, DOC-05, DOC-06, DESIGN-04). Phase 4 unblocked. Zero open carryover backlog.
+- Plan 04-01: source-mode.md NEW (162 lines) lazy-loaded sub-file with 5-step flow (ingest → infer type → extract arc → hand off to story-arc.md → return to SKILL.md Step 5). SKILL.md Step 1 flipped from Phase-2 stub to real source-mode.md load (combined-form trim landed 200→198 lines, ≤200 cap preserved). D4-04 type-detection priority order: handbook > presentation > pitch > meeting-prep > technical-brief (handbook also default-on-ambiguous). D4-05 extract-don't-invent: every One-sentence cell grounded in source; <3-beats triggers LOUD fallback to interview/handbook.md (only allowed source→interview transition; SKILL-03 contract preserved). V1 limitations documented: multi-`@` first-match wins (OQ-3); `@`+prose collision resolves to `@` form (OQ-4). Detection regex `(^|[[:space:]])@\S+` and SKILL-03 contract literal preserved byte-for-byte. Closes SKILL-02 (mechanical layer); end-to-end empirical verification owned by Plan 04-03.
+- Plan 04-02: README.md rewritten end-to-end (Phase-1 stub 34L → Delfi-targeted v0.1.0 public README 67L) with the D4-10 9-section structure: title+lead, Install, First run, The five doc types, Source mode, Uninstall, Known limitations, Design system, License. Verbatim install + uninstall one-liners (D-14 byte-for-byte). All three Known Limitations documented (offline-font fallback, macOS-first auto-open, one-file-per-run). OQ-2 disposition: Caseproof Documentation System credited as text reference (no public URL); V2 carryover recorded. Banned-pitch-vocabulary regex returns 0 hits — handbook-tone moat preserved. CHANGELOG.md NEW (65L) at repo root in Keep-a-Changelog 1.1.0 format with [Unreleased] + [0.1.0] — TBD sections enumerating Phases 1-4 ships; TBD date filled by Plan 04-03 Task 2 post-tag. Closes DOCS-01, DOCS-02, DOCS-03.
+- Plan 04-03 (PRE-MERGE SUBSET): Pre-merge dry-run APPROVED via orchestrator-as-user-proxy ("hacelo vos"). All 5 canonical fixtures + source-mode (NEW Phase 4 path) ran end-to-end against the local install (working tree staged via `cp -R skill/ ~/.claude/skills/deshtml/`). Audit exit 0 across all 6 fixtures; visual gate PASS across all 6 (qlmanage thumbnail comparison vs. relevant Caseproof references). SKILL-02 empirically verified end-to-end (the verification dependency 04-01-SUMMARY.md flagged for Plan 04-03 is now satisfied). Dev install restored from `.backup-20260428-191716` so Santiago's working environment is untouched. Tasks 2-5 (VERSION bump, v0.1.0 tag, GitHub release, live LAUNCH-01 verification) deferred to orchestrator on `main` after PR #4 merges. SKILL-02 + DOCS-01..03 closed (carry-over from 04-01 + 04-02); LAUNCH-01..04 remain Pending until post-merge verification lands.
 
 ### Pending Todos
 
@@ -104,12 +110,13 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-28T14:10:00.000Z
-Stopped at: Phase 3 closed — all 4 plans complete (per-type fixtures + visual gate APPROVED)
-Resume file: None
+Last session: 2026-04-28T19:30:00.000Z
+Stopped at: Phase 4 pre-merge close-out — 04-03 Task 1 dry-run APPROVED; post-merge launch tasks (Tasks 2-5: VERSION bump → v0.1.0 tag → GitHub release → live LAUNCH-01 verify) pending PR #4 merge
+Resume file: .planning/phases/04-source-mode-readme-launch-hardening/04-03-PRE-MERGE-NOTES.md
 
 **Planned Phase:** 01 (Foundation — Installer + Design Assets) — 2 plans — 2026-04-27T14:23:01.094Z
 **Completed Phase:** 01 (Foundation — Installer + Design Assets) — 2 of 2 plans — 2026-04-27
 **Completed Phase:** 02 (Story-Arc Gate + Handbook End-to-End) — 4 of 4 plans — 2026-04-28
 **Completed Phase:** 03 (Remaining Four Doc Types) — 4 of 4 plans — 2026-04-28
-**Next Phase:** 04 (Source Mode + Launch Hardening) — TBD plans — not started
+**Pre-merge-Complete Phase:** 04 (Source Mode + Launch Hardening) — 3 of 3 plans pre-merge complete — 2026-04-28 (post-merge launch tasks held — orchestrator-owned)
+**Next Action (orchestrator-owned, post-merge):** push branch → code review → PR #4 merge → Plan 04-03 Tasks 2-5 (VERSION bump → v0.1.0 tag → GitHub release → live LAUNCH-01 verify) → write 04-VERIFICATION.md → mark LAUNCH-01..04 Complete in REQUIREMENTS.md → close Phase 4
