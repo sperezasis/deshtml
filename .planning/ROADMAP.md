@@ -9,7 +9,7 @@ deshtml ships in four phases that follow the strict dependency graph from resear
 - [x] **Phase 1: Foundation — Installer + Design Assets** - Atomic curl-pipe-bash installer and verbatim Caseproof design fragments ready for Claude to paste
 - [x] **Phase 2: Story-Arc Gate + Handbook End-to-End** - Mandatory arc-approval gate proven on a single handbook flow that matches the Caseproof reference
 - [x] **Phase 3: Remaining Four Doc Types** - Pitch, technical brief, presentation, and meeting prep tailored to the same arc gate and design system
-- [ ] **Phase 4: Source-Mode, README, and Launch Hardening** - Source-material shortcut, quality passes, public README, and verified `v0.1.0` release
+- [x] **Phase 4: Source-Mode, README, and Launch Hardening** - Source-material shortcut, quality passes, public README, and verified `v0.1.0` release
 
 ## Phase Details
 
@@ -65,7 +65,7 @@ deshtml ships in four phases that follow the strict dependency graph from resear
 Plans:
 - [x] 04-01-PLAN.md — Source-mode wiring: skill/source-mode.md (NEW) + SKILL.md Step 1 flip (closes SKILL-02; ≤200 line cap preserved)
 - [x] 04-02-PLAN.md — Public README rewrite (Delfi-targeted, 9-section D4-10 structure) + CHANGELOG.md seed (closes DOCS-01..03)
-- [~] 04-03-PLAN.md — Launch hardening: pre-merge dry-run APPROVED (Task 1, all 5 doc types + source-mode pass on local install). Post-merge tasks (Tasks 2-5: VERSION bump → v0.1.0 tag → GitHub release → live LAUNCH-01 verification) deferred to orchestrator on `main` after PR #4 merges. Closes LAUNCH-01..04 post-merge.
+- [x] 04-03-PLAN.md — Launch hardening: VERSION bumped to 0.1.0, v0.1.0 tag pushed, GitHub release cut. LAUNCH-01 live verification surfaced a cosmetic `tmp: unbound variable` warning fixed in v0.1.1 + v0.1.2 patch tags. All 4 LAUNCH-* requirements verified end-to-end against live URL across 3 published versions. See 04-VERIFICATION.md.
 
 ## Progress
 
@@ -77,7 +77,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 | 1. Foundation — Installer + Design Assets | 2/2 | Complete | 2026-04-27 |
 | 2. Story-Arc Gate + Handbook End-to-End | 4/4 | Complete | 2026-04-28 |
 | 3. Remaining Four Doc Types | 4/4 | Complete | 2026-04-28 |
-| 4. Source-Mode, README, and Launch Hardening | 3/3 pre-merge | In progress (pre-merge complete, post-merge launch tasks pending) | - |
+| 4. Source-Mode, README, and Launch Hardening | 3/3 | Complete (v0.1.0/v0.1.1/v0.1.2 SHIPPED) | 2026-04-28 |
 
 ## Cross-Phase Dependencies
 

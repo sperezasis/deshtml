@@ -114,13 +114,13 @@ V1 ships tailored interviews and arc templates for five document types:
 
 | REQ-ID | Phase | Status |
 |--------|-------|--------|
-| INSTALL-01 | Phase 1 | Pending |
-| INSTALL-02 | Phase 1 | Pending |
-| INSTALL-03 | Phase 1 | Pending |
-| INSTALL-04 | Phase 1 | Pending |
-| INSTALL-05 | Phase 1 | Pending |
-| INSTALL-06 | Phase 1 | Pending |
-| INSTALL-07 | Phase 1 | Pending |
+| INSTALL-01 | Phase 1 | Complete (01-01) |
+| INSTALL-02 | Phase 1 | Complete (01-01) |
+| INSTALL-03 | Phase 1 | Complete (01-01) |
+| INSTALL-04 | Phase 1 | Complete (01-01) |
+| INSTALL-05 | Phase 1 | Complete (01-01) |
+| INSTALL-06 | Phase 1 | Complete (01-01) |
+| INSTALL-07 | Phase 1 | Complete (01-01) |
 | SKILL-01 | Phase 2 | Complete (02-02) |
 | SKILL-02 | Phase 4 | Complete (04-01) |
 | SKILL-03 | Phase 2 | Complete (02-02) |
@@ -153,10 +153,10 @@ V1 ships tailored interviews and arc templates for five document types:
 | DOCS-01 | Phase 4 | Complete (04-02) |
 | DOCS-02 | Phase 4 | Complete (04-02) |
 | DOCS-03 | Phase 4 | Complete (04-02) |
-| LAUNCH-01 | Phase 4 | Pending |
-| LAUNCH-02 | Phase 4 | Pending |
-| LAUNCH-03 | Phase 4 | Pending |
-| LAUNCH-04 | Phase 4 | Pending |
+| LAUNCH-01 | Phase 4 | Complete (04-03, v0.1.2) |
+| LAUNCH-02 | Phase 4 | Complete (04-03) |
+| LAUNCH-03 | Phase 4 | Complete (04-03, v0.1.0/v0.1.1/v0.1.2) |
+| LAUNCH-04 | Phase 4 | Complete (04-03, 3 GitHub releases) |
 
 **Coverage:** 43/43 v1 requirements mapped (100%)
 

@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v0.1.0
 milestone_name: milestone
-status: executing
-stopped_at: Phase 4 pre-merge close-out — 04-03 Task 1 dry-run APPROVED; post-merge launch tasks (VERSION bump → tag → release → live LAUNCH-01) pending PR #4 merge
-last_updated: "2026-04-28T19:30:00.000Z"
+status: complete
+stopped_at: v0.1.0 SHIPPED + v0.1.1/v0.1.2 installer hotfix patches. All 4 phases complete.
+last_updated: "2026-04-28T20:00:00.000Z"
 last_activity: 2026-04-28
 progress:
   total_phases: 4
-  completed_phases: 3
+  completed_phases: 4
   total_plans: 13
   completed_plans: 13
-  percent: 95
+  percent: 100
 ---
 
 # Project State
@@ -21,16 +21,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-27)
 
 **Core value:** A non-author runs one command and gets a beautifully designed, story-first HTML document that looks like Santiago made it.
-**Current focus:** PR #4 merge pending; post-merge: bump VERSION → tag v0.1.0 → cut GitHub release → LAUNCH-01 live verify
+**Current focus:** v0.1.0 SHIPPED. Project complete. Iteration via V2 backlog or new milestone.
 
 ## Current Position
 
-Phase: 4 (Source-Mode + Launch Hardening) — PRE-MERGE COMPLETE; POST-MERGE LAUNCH PENDING
-Plan: 3 of 3 plans pre-merge complete (04-01 source-mode, 04-02 README+CHANGELOG, 04-03 pre-merge dry-run APPROVED)
-Status: Pre-merge state locked. Tasks 2-5 of Plan 04-03 (VERSION bump → v0.1.0 tag → GitHub release → live LAUNCH-01 verify) are deferred to the orchestrator on `main` after PR #4 merges. SKILL-02 + DOCS-01..03 closed; LAUNCH-01..04 pending post-merge.
+Phase: 4 (Source-Mode + Launch Hardening) — COMPLETE
+Plan: 3 of 3 plans complete; LAUNCH-01..04 verified end-to-end against the live URL across 3 published versions (v0.1.0, v0.1.1, v0.1.2)
+Status: SHIPPED. v0.1.0 first public release (4 phases, 5 doc types, story-arc gate, audit moat). v0.1.1 + v0.1.2 are installer-trap hotfixes (cosmetic warning fixed; install behavior unchanged across all three).
 Last activity: 2026-04-28
 
-Progress: [█████████▌] 95% (3.5/4 phases — pre-merge work for phase 4 complete; post-merge launch tasks pending)
+Progress: [██████████] 100% (4/4 phases — milestone v0.1.0 complete)
 
 ## Performance Metrics
 
@@ -110,13 +110,13 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-28T19:30:00.000Z
-Stopped at: Phase 4 pre-merge close-out — 04-03 Task 1 dry-run APPROVED; post-merge launch tasks (Tasks 2-5: VERSION bump → v0.1.0 tag → GitHub release → live LAUNCH-01 verify) pending PR #4 merge
-Resume file: .planning/phases/04-source-mode-readme-launch-hardening/04-03-PRE-MERGE-NOTES.md
+Last session: 2026-04-28T20:00:00.000Z
+Stopped at: v0.1.0 SHIPPED + v0.1.1/v0.1.2 installer hotfix patches. Milestone complete.
+Resume file: .planning/phases/04-source-mode-readme-launch-hardening/04-VERIFICATION.md
 
-**Planned Phase:** 01 (Foundation — Installer + Design Assets) — 2 plans — 2026-04-27T14:23:01.094Z
 **Completed Phase:** 01 (Foundation — Installer + Design Assets) — 2 of 2 plans — 2026-04-27
 **Completed Phase:** 02 (Story-Arc Gate + Handbook End-to-End) — 4 of 4 plans — 2026-04-28
 **Completed Phase:** 03 (Remaining Four Doc Types) — 4 of 4 plans — 2026-04-28
-**Pre-merge-Complete Phase:** 04 (Source Mode + Launch Hardening) — 3 of 3 plans pre-merge complete — 2026-04-28 (post-merge launch tasks held — orchestrator-owned)
-**Next Action (orchestrator-owned, post-merge):** push branch → code review → PR #4 merge → Plan 04-03 Tasks 2-5 (VERSION bump → v0.1.0 tag → GitHub release → live LAUNCH-01 verify) → write 04-VERIFICATION.md → mark LAUNCH-01..04 Complete in REQUIREMENTS.md → close Phase 4
+**Completed Phase:** 04 (Source Mode + Launch Hardening) — 3 of 3 plans + LAUNCH-01..04 verified — 2026-04-28
+**Released:** v0.1.0, v0.1.1, v0.1.2 (https://github.com/sperezasis/deshtml/releases)
+**Next:** Open a new milestone for V2 ideas (configurable design tokens, self-hosted fonts, Linux/Windows parity, etc.) when ready.
