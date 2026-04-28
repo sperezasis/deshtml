@@ -39,34 +39,47 @@ full HTML parse; not worth the complexity.
 **Example violation:** `<div style="color: #ff0000;">` → flagged.
 **Example clean:** `<div style="color: var(--red);">` → passes.
 
-## Rule 2 — Class allowlist (harvested live)
+## Rule 2 — Class allowlist (harvested live, wildcard over format skeletons)
 
 **What it catches:** Any class name in a `class="..."` attribute that does
 NOT appear in the union of:
 1. Classes enumerated in `skill/design/components.html` (markup allowlist).
-2. Type-scale class selectors defined in `skill/design/typography.css`
-   (`.s-lead`, `.eye`, `.cl`, `.fl`, `.ct`, `.cd`, `.ic`, `.fn`).
+2. Class selectors defined in `skill/design/typography.css` (`.s-lead`, `.eye`,
+   `.cl`, `.fl`, `.ct`, `.cd`, `.ic`, `.fn`) — strict + compound-selector parse.
+3. Class selectors defined in `skill/design/components.css` — strict + compound-selector parse.
+4. Classes enumerated in **every format skeleton** under `skill/design/formats/*.html`
+   — handbook.html, overview.html, presentation.html (Phase 3 D3-18), and any future
+   format skeleton dropped into the directory.
 
 **Why:** DESIGN-03 mandates the closed component library — no freelance
 markup. Adding `class="custom-banner"` because a generated section
 "needed it" is exactly the design-drift PITFALLS Pitfall 4 warns about.
 
-**Implementation:** harvest with `command grep -oE 'class="[^"]+"'` over
-the markup sources (`components.html`, `formats/handbook.html`), plus
-two passes over the CSS sources (`typography.css`, `components.css`):
-(a) the strict `^\s*\.foo\s*{` pattern for standalone class rules, and
-(b) a selector-list parse that splits each rule's selector on `,`, `>`,
-`+`, `~`, and whitespace, then extracts every `\.name` token — this
-catches compound (`.nav-a.active`) and descendant (`.role-card .name`)
-selectors that the strict regex misses. Sed off the `class="..."`
-quoting, split multi-class attributes on whitespace, sort -u into a
-temp allowlist file. Then `command grep -oE 'class="[^"]+"'` over the
-audit target, same split, and check each used class against the
-allowlist via `command grep -qxF`.
+**Implementation:** harvest with `command grep -oE 'class="[^"]+"'` over the
+markup sources (`components.html` + every file matched by the wildcard glob
+`${SKILL_DIR}/design/formats/*.html`), plus two passes over the CSS sources
+(`typography.css`, `components.css`): (a) the strict `^\s*\.foo\s*{` pattern
+for standalone class rules, and (b) a selector-list parse that splits each
+rule's selector on `,`, `>`, `+`, `~`, and whitespace, then extracts every
+`\.name` token — this catches compound (`.nav-a.active`) and descendant
+(`.role-card .name`) selectors that the strict regex misses. Sed off the
+`class="..."` quoting, split multi-class attributes on whitespace, sort -u
+into a temp allowlist file. Then `command grep -oE 'class="[^"]+"'` over the
+audit target, same split, and check each used class against the allowlist
+via `command grep -qxF`. The wildcard glob uses a bash-3.2-safe
+first-element-existence guard (`[ ! -e "${format_skels[0]}" ]`) instead of
+the bash-4-only nullglob option (unavailable on macOS default bash 3.2.57).
 
 **Why not maintain a JSON allowlist file:** Two sources of truth = drift.
 The harvest is fast (< 50ms on the current 75-class allowlist) and the
 only "maintenance" needed is adding new components to `components.html`.
+
+**D3-18 design point — wildcard, not whitelist.** The harvest reads every
+`.html` under `formats/`. New format skeletons (Phase 3 added `presentation.html`;
+V2 may add others) auto-extend the allowlist with no script edit. Trade-off:
+a stray non-skeleton file dropped into `formats/` would inflate the allowlist.
+Mitigation: `formats/` is a tightly-scoped directory; a comment in `formats/`
+documents that **only format skeletons** belong there.
 
 **Example violation:** `<div class="custom-banner">` → flagged.
 **Example clean:** `<div class="hl hl-b">` → passes (both `.hl` and `.hl-b` are in `components.html`).
@@ -120,6 +133,55 @@ skill author's machine. Phase 1 review IN-01 caught this; D2-15 closes it.
 **Implementation:** `command grep -nEi '<link[[:space:]][^>]*rel=[^>]*stylesheet'` —
 matches single-quoted, double-quoted, and unquoted `rel` attribute values, and
 tolerates other attributes appearing before `rel=`.
+
+## Rule 5 — Interview schema check (D3-10 active enforcement)
+
+**What it catches:** Any file in `skill/interview/*.md` that violates the
+DOC-06 schema. The four checks per file:
+
+1. Missing `## The N questions` heading (where N is any digit string).
+2. Missing `## Hand-off` heading.
+3. Missing `story-arc.md` reference (the hand-off must point Claude at the arc gate).
+4. Question count outside `[3, 5]` — DOC-07 caps at 5; <3 questions can't capture audience+material+tone.
+
+**Why:** DOC-06 mandates a uniform schema across all five interview files
+(handbook + the four added in Phase 3 plan 03-02). Without a mechanical
+check, the constraint is passive — a future plan can add a 6th doc type
+or modify an existing file with a different schema, and nothing surfaces
+the drift until the user notices the UX inconsistency. Pitfall 20.
+
+The schema source of truth is `skill/interview/handbook.md`. Plan 03-02
+ships the four new interview files mirroring its structure; Rule 5 is what
+keeps them in sync over time.
+
+**Implementation:**
+- For each `${SKILL_DIR}/interview/*.md`:
+  - `command grep -qE '^## The [0-9]+ questions?'` (heading exists).
+  - `command grep -qE '^## Hand-off'` (heading exists).
+  - `command grep -q 'story-arc.md'` (literal reference).
+  - `command grep -cE '^[0-9]+\.[[:space:]]+\*\*'` (question count via the `1. **` line shape).
+- Each violation contributes one to the rule's local violation count; the
+  rule contributes ONE to the script's total `$violations` (so multiple
+  schema-drift issues across multiple files still produce a single
+  `AUDIT FAILED: 1 violation type(s)` line plus per-file detail on stderr).
+
+**Example violation:** A file `interview/example.md` missing the `## Hand-off`
+section → flagged as `VIOLATION: interview/example.md missing \`## Hand-off\`
+heading (DOC-06)`.
+
+**Example clean:** `interview/handbook.md` has all four anchors → passes silently.
+
+**Known limitation (V1):** Rule 5 checks STRUCTURE, not CONTENT. It can't
+catch "the questions are too similar to handbook.md's" (Pitfall 19 — that's
+plan 03-04's sequential-read fixture's job). Rule 5 catches "the schema
+is missing entirely" — silent drift, not subtle drift.
+
+**D3-10 / Pitfall 20 mitigation:** Rule 5 runs on every audit invocation,
+not just CI. Local development surfaces schema-drift before commit.
+
+**Recommendation source:** RESEARCH §"Pattern 9: Schema-drift heuristic
+(Pitfall 20 mitigation)" + Open Question OQ-1 (recommendation: ship in
+Phase 3, not V2). Plan 03-03 implements it.
 
 ## --explain flag
 
@@ -178,3 +240,7 @@ fix pass to lock the bypass vectors that surfaced during review.
 | ME-03 | hex on `:root` closing-brace line | `} .x { color:#BAD; }` | non-zero |
 | neg-1 | `data-on=` attribute | `<div data-on="x">` | 0 |
 | neg-2 | literal text "javascript:" in body | `<p>...javascript:...</p>` | 0 |
+| D3-01 | wildcard harvester (presentation class) | `<div class="slide-counter">` (clean — class is in formats/presentation.html) | 0 |
+| D3-02 | Rule 5 missing `## The N questions` | interview/test.md without the heading | non-zero |
+| D3-03 | Rule 5 question-count overflow | interview/test.md with 6 numbered `**` questions | non-zero |
+| D3-04 | Rule 5 question-count underflow | interview/test.md with 2 questions | non-zero |

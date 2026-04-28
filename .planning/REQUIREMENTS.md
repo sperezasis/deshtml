@@ -45,12 +45,12 @@
 
 V1 ships tailored interviews and arc templates for five document types:
 
-- [ ] **DOC-01**: Pitch — problem → solution → ask narrative, Overview format (1440px linear)
+- [x] **DOC-01** (plan 03-02): Pitch — problem → solution → ask narrative, Overview format (1440px linear)
 - [x] **DOC-02** (plan 02-02): Handbook / system overview — multi-section reference doc, Handbook format (960px sidebar)
-- [ ] **DOC-03**: Technical brief — architecture / decision write-up for engineers, Handbook format
-- [ ] **DOC-04**: Presentation / slide deck — single-page anchor-navigated slides, custom Presentation format (CSS scroll-snap, no JS)
-- [ ] **DOC-05**: Meeting prep — briefing doc with context, goals, talking points, Overview format
-- [ ] **DOC-06**: Each doc type has its own interview file (`skill/interview/<type>.md`) following an identical schema (audience → material → section conventions → tone notes → handoff to story-arc)
+- [x] **DOC-03** (plan 03-02): Technical brief — architecture / decision write-up for engineers, Handbook format
+- [x] **DOC-04** (plan 03-01, 03-02): Presentation / slide deck — single-page anchor-navigated slides, custom Presentation format (CSS scroll-snap, no JS)
+- [x] **DOC-05** (plan 03-02): Meeting prep — briefing doc with context, goals, talking points, Overview format
+- [x] **DOC-06** (plan 03-02): Each doc type has its own interview file (`skill/interview/<type>.md`) following an identical schema (audience → material → section conventions → tone notes → handoff to story-arc)
 - [x] **DOC-07** (plan 02-02): Each doc type's interview asks no more than 5 questions before producing the arc
 
 ### Design system fidelity (DESIGN)
@@ -58,7 +58,7 @@ V1 ships tailored interviews and arc templates for five document types:
 - [x] **DESIGN-01** (plan 01-02): Generated HTML uses only colors from the Caseproof Documentation System palette — no hex literals appear outside the `:root` CSS variable block
 - [x] **DESIGN-02** (plan 01-02): Generated HTML uses only typography rules from the Caseproof Documentation System (Inter via Google Fonts, with `-apple-system, sans-serif` fallback)
 - [x] **DESIGN-03** (plan 01-02): Generated HTML uses only components from a closed component library — no freelance markup
-- [ ] **DESIGN-04**: Skill auto-selects format: Handbook (960px sidebar) for 4+ sections, Overview (1440px linear) for 1-3, Presentation for slide decks
+- [x] **DESIGN-04** (plan 03-01, 03-04): Skill auto-selects format: Handbook (960px sidebar) for 4+ sections, Overview (1440px linear) for 1-3, Presentation for slide decks
 - [x] **DESIGN-05** (plan 01-02): Design tokens (palette, typography, components, format skeletons) ship as verbatim CSS / HTML files in `skill/design/` that Claude pastes — never paraphrases — into output
 - [x] **DESIGN-06** (plans 02-03, 02-04): A post-generation audit pass rejects output containing hex literals outside the variable block, unknown CSS class names, or markup not in the component library
 - [x] **DESIGN-07** (plan 01-02): Generated HTML declares `color-scheme: light` and includes the meta tag that prevents browser forced-dark-mode from inverting the palette
@@ -131,17 +131,17 @@ V1 ships tailored interviews and arc templates for five document types:
 | ARC-03 | Phase 2 | Complete (02-02) |
 | ARC-04 | Phase 2 | Complete (02-02) |
 | ARC-05 | Phase 2 | Complete (02-02) |
-| DOC-01 | Phase 3 | Pending |
+| DOC-01 | Phase 3 | Complete (03-02, 03-04) |
 | DOC-02 | Phase 2 | Complete (02-02) |
-| DOC-03 | Phase 3 | Pending |
-| DOC-04 | Phase 3 | Pending |
-| DOC-05 | Phase 3 | Pending |
-| DOC-06 | Phase 3 | Pending |
+| DOC-03 | Phase 3 | Complete (03-02, 03-04) |
+| DOC-04 | Phase 3 | Complete (03-01, 03-02, 03-04) |
+| DOC-05 | Phase 3 | Complete (03-02, 03-04) |
+| DOC-06 | Phase 3 | Complete (03-02, 03-03, 03-04) |
 | DOC-07 | Phase 2 | Complete (02-02) |
 | DESIGN-01 | Phase 1 | Complete (01-02) |
 | DESIGN-02 | Phase 1 | Complete (01-02) |
 | DESIGN-03 | Phase 1 | Complete (01-02) |
-| DESIGN-04 | Phase 3 | Pending |
+| DESIGN-04 | Phase 3 | Complete (03-01, 03-04) |
 | DESIGN-05 | Phase 1 | Complete (01-02) |
 | DESIGN-06 | Phase 2 | Complete (02-03, 02-04) |
 | DESIGN-07 | Phase 1 | Complete (01-02) |

@@ -10,7 +10,7 @@ The schema follows DOC-06's mandate (audience → material → section conventio
 → tone notes → handoff to story-arc) so plan 03's other interviews can mirror
 this shape.
 
-## The five questions
+## The 5 questions
 
 1. **Audience.** Who is the reader? One line is plenty.
    (Default if blank: "Someone unfamiliar with the topic, reading the handbook to get oriented.")

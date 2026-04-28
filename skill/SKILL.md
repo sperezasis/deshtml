@@ -40,23 +40,25 @@ This is the first interactive question (SKILL-04). Ask exactly:
 
 Wait for the user's answer. Normalize: trim whitespace, lowercase.
 
-- `handbook` → continue to Step 3.
-- `pitch`, `technical brief`, `presentation`, `meeting prep` → reply with EXACTLY:
-  > `<type>` is coming in Phase 3. Try `handbook` for now.
-
-  Substitute the user's choice in `<type>`. Stop. Do not silently fall back.
+- `handbook` → continue to Step 3 (load `interview/handbook.md`).
+- `pitch` → continue to Step 3 (load `interview/pitch.md`).
+- `technical brief` → continue to Step 3 (load `interview/technical-brief.md`).
+- `presentation` → continue to Step 3 (load `interview/presentation.md`).
+- `meeting prep` → continue to Step 3 (load `interview/meeting-prep.md`).
 
 - Anything else → ask once more, listing the same five options. If the second
   reply is still not in the list, reply with EXACTLY:
-  > That is not one of the five document types. Run `/deshtml` and pick `handbook` to continue.
+  > That is not one of the five document types. Run `/deshtml` and pick one to continue.
 
   Then stop.
 
 ## Step 3 — Run the interview
 
-Read `${CLAUDE_SKILL_DIR}/interview/handbook.md` now. Follow it end-to-end.
-Return here only after the user has answered the five questions (or stopped
-early per that file's instructions).
+Read `${CLAUDE_SKILL_DIR}/interview/${type}.md` now (where `${type}` is the
+normalized doc type from Step 2 — `handbook`, `pitch`, `technical-brief`,
+`presentation`, or `meeting-prep`; note kebab-case for the two-word types).
+Follow it end-to-end. Return here only after the user has answered the
+questions (or stopped early per that file's instructions).
 
 Do NOT read `story-arc.md` yet (Pitfall 15).
 
@@ -74,26 +76,43 @@ Do NOT read `design/*` files yet.
 2. Slug = first 4-5 words of the H1 from the approved arc, kebab-cased,
    ASCII only. Lowercase, replace spaces with `-`, strip non-`[a-z0-9-]`,
    no trailing `-`, truncate at the 4th-5th word.
-3. Tentative filename: `<date>-<slug>-handbook.html` in the current working
-   directory (run `pwd` to get the absolute path).
-4. Collision check via `test -f`. If exists, append `-2`, `-3`, … until free:
+3. Tentative filename: `<date>-<slug>-<type>.html` in the current working
+   directory (`<type>` is the kebab-case doc type from Step 2 — `handbook`,
+   `pitch`, `technical-brief`, `presentation`, `meeting-prep`). Run `pwd`.
+4. Collision check via `test -f`. Append `-2`, `-3`, … keeping `-<type>`:
 
    ```bash
-   target="<date>-<slug>-handbook.html"
+   target="<date>-<slug>-<type>.html"
    suffix=2
    while test -f "$target"; do
-     target="<date>-<slug>-handbook-${suffix}.html"
+     target="<date>-<slug>-<type>-${suffix}.html"
      suffix=$((suffix + 1))
    done
    ```
 
    Use the final `$target` for Step 6. Compute its absolute path: `${PWD}/${target}`.
 
-## Step 6 — Render the handbook HTML
+## Step 5b — Select format
+
+Determine which format skeleton Step 6 will use. The decision is mechanical:
+
+1. If the document type from Step 2 == `presentation` → format = `presentation`.
+2. Else if the approved arc has 4 or more rows → format = `handbook`.
+3. Else → format = `overview`.
+
+Print exactly one line to the user (no other prose, no decoration):
+
+> Format: <format>
+
+Example output: `Format: handbook` or `Format: overview` or `Format: presentation`.
+
+Then continue to Step 6.
+
+## Step 6 — Render the HTML
 
 Read these five files in parallel:
 
-- `${CLAUDE_SKILL_DIR}/design/formats/handbook.html` (skeleton)
+- `${CLAUDE_SKILL_DIR}/design/formats/${format}.html` (skeleton — `${format}` was set in Step 5b: `handbook`, `overview`, or `presentation`)
 - `${CLAUDE_SKILL_DIR}/design/palette.css` (CSS variables, `:root`)
 - `${CLAUDE_SKILL_DIR}/design/typography.css` (Inter @import, scale)
 - `${CLAUDE_SKILL_DIR}/design/components.css` (component CSS — sidebar, hero, all 16 component families)
@@ -110,8 +129,8 @@ Then assemble the output:
    d) A blank line.
    e) The verbatim contents of `components.css`.
 
-   Keep the skeleton's existing inline `<style>` block (the layout rules)
-   as a SECOND `<style>` block right after — do not merge them.
+   Keep the skeleton's existing inline `<style>` block(s) (layout rules; for
+   presentation, also the slide-deck type scale) as additional `<style>` block(s) right after — do not merge them with the inlined CSS.
 
 2. Fill each slot comment in the body with content matching the approved arc:
    - `<!-- DOC TITLE -->` — the H1 text.
@@ -121,10 +140,17 @@ Then assemble the output:
    - `<!-- SECTION 1 EYEBROW/H2/BODY -->` (one per arc row) — eyebrow, h2, body built ONLY from classes in `components.html`.
    - `<!-- FLOATING PILL SLOT -->` — optional bottom-right nav pill.
 
+   When `${format}` is `presentation`, the skeleton has slide-specific slots instead of section slots:
+   - `<!-- SLIDE NAV ITEMS SLOT -->` — one `<a class="nav-a" href="#slide-N">N</a>` per slide.
+   - `<!-- SLIDE 1 H1 SLOT -->` (one per arc row) — the slide's H1.
+   - `<!-- SLIDE 1 BODY SLOT -->` (one per arc row) — body content from the components.html allowlist.
+   - The `TOTAL_SLIDES_LITERAL` literal (in the first inline `<style>` block, inside `.slide-counter::before`) must be replaced with the literal slide count from the approved arc (e.g., `5`). The `<div class="slide-counter">` inside each slide does NOT need to be filled — its content is generated by the CSS `::before` pseudo-element.
+
 3. Use only classes from the design system (`design/components.html`,
    `design/components.css`, `design/typography.css`,
-   `design/formats/handbook.html`). The audit in Step 7 harvests its
-   allowlist from those four files; failing here means a guaranteed retry.
+   `design/formats/*.html`). The audit in Step 7 harvests its allowlist
+   from those four sources via the wildcard glob (D3-18); failing here
+   means a guaranteed retry.
 
 4. Verify before writing: zero `<script>` tags, zero `<link rel="stylesheet"`
    attributes, zero `on*=` event handlers, zero `javascript:` URLs.
@@ -156,7 +182,7 @@ Capture exit code and stderr.
 2. Print the absolute path on its own line. No prefix, no emoji, no banner,
    no "✓ Generated", no next-steps suggestion. The path is the LAST output.
 
-Example final output:
+Example final output (the `-<type>` suffix varies per Step 5):
 
 ```
 /Users/santiago/Desktop/2026-04-27-deshtml-handbook.html

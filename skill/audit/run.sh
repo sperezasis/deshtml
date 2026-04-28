@@ -27,14 +27,29 @@ SKILL_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 components_html="${SKILL_DIR}/design/components.html"
 components_css="${SKILL_DIR}/design/components.css"
 typography_css="${SKILL_DIR}/design/typography.css"
-handbook_skel="${SKILL_DIR}/design/formats/handbook.html"
 
-for f in "$components_html" "$components_css" "$typography_css" "$handbook_skel"; do
+# Harvest classes from every format skeleton — handbook, overview, presentation,
+# and any future formats added under design/formats/ (D3-18). The wildcard
+# auto-extends the allowlist with no script edit.
+format_skels=( "${SKILL_DIR}"/design/formats/*.html )
+
+# Verify required design-system files exist; format skeletons are checked
+# via the empty-glob guard below.
+for f in "$components_html" "$components_css" "$typography_css"; do
   if [ ! -f "$f" ]; then
     echo "audit: missing $f" >&2
     exit 2
   fi
 done
+
+# Empty-glob guard. In bash 3.2 (macOS default), an unmatched glob expands to
+# the literal pattern, NOT an empty list. Without this guard, the harvester
+# would try to read a file named "*.html" and fail noisily. The bash-4-only
+# nullglob option (shopt) is unavailable on macOS — so we test the first entry.
+if [ ! -e "${format_skels[0]}" ]; then
+  echo "audit: no format skeletons found in ${SKILL_DIR}/design/formats/" >&2
+  exit 2
+fi
 
 violations=0
 allowed_file="$(mktemp -t deshtml-audit 2>/dev/null || mktemp -t deshtml-audit.XXXXXX)"
@@ -95,11 +110,14 @@ fi
 # Rule 2 — class allowlist (harvested live from the design system files)
 # Sources: components.html (markup contracts), typography.css (text scale labels),
 #          components.css (component CSS — sidebar, hero, all 16 component families),
-#          formats/handbook.html (skeleton layout classes).
+#          formats/*.html (every format skeleton: handbook + overview +
+#          presentation + any future format dropped into formats/, per D3-18).
 # ───────────────────────────────────────────────────────────────────
 {
   command grep -oE 'class="[^"]+"' "$components_html"
-  command grep -oE 'class="[^"]+"' "$handbook_skel"
+  for skel in "${format_skels[@]}"; do
+    command grep -oE 'class="[^"]+"' "$skel"
+  done
   for css in "$typography_css" "$components_css"; do
     # Standalone class selectors at start of line (existing strict harvest).
     command grep -oE '^[[:space:]]*\.[a-zA-Z_][a-zA-Z0-9_-]*[[:space:]]*\{' "$css" \
@@ -169,6 +187,61 @@ if command grep -nEi '<link[[:space:]][^>]*rel=[^>]*stylesheet' "$output_file" >
   printf 'VIOLATION: <link rel="stylesheet"> in output (CSS must be inlined; SKILL.md Step 6)\n' >&2
   explain "The format skeleton uses <link> for dev-time. SKILL.md must inline palette.css + typography.css + components.css into a single <style> block and remove the <link> tags before writing."
   violations=$((violations + 1))
+fi
+
+# ───────────────────────────────────────────────────────────────────
+# Rule 5 — interview schema check (D3-10 active enforcement; Pitfall 20)
+# ───────────────────────────────────────────────────────────────────
+# Iterate every interview file and verify the four DOC-06 structural anchors.
+# Failures count toward $violations exactly like the other rules.
+# Schema source of truth: skill/interview/handbook.md.
+interview_dir="${SKILL_DIR}/interview"
+
+if [ -d "$interview_dir" ]; then
+  schema_violations=0
+  for interview in "$interview_dir"/*.md; do
+    # Empty-glob guard (bash 3.2): if no .md files exist, skip silently.
+    [ ! -e "$interview" ] && break
+    interview_name="$(basename "$interview")"
+
+    # Check (a): Must have `## The N questions` heading.
+    if ! command grep -qE '^## The [0-9]+ questions?' "$interview"; then
+      printf 'VIOLATION: interview/%s missing `## The N questions` heading (DOC-06)\n' "$interview_name" >&2
+      explain "Every interview file must contain a \`## The N questions\` heading where N matches the actual question count. Schema source: skill/interview/handbook.md."
+      schema_violations=$((schema_violations + 1))
+    fi
+
+    # Check (b): Must have `## Hand-off` heading.
+    if ! command grep -qE '^## Hand-off' "$interview"; then
+      printf 'VIOLATION: interview/%s missing `## Hand-off` heading (DOC-06)\n' "$interview_name" >&2
+      explain "Every interview file must contain a \`## Hand-off\` section that points Claude at story-arc.md."
+      schema_violations=$((schema_violations + 1))
+    fi
+
+    # Check (c): Hand-off must reference story-arc.md.
+    if ! command grep -q 'story-arc.md' "$interview"; then
+      printf 'VIOLATION: interview/%s missing `story-arc.md` reference (DOC-06)\n' "$interview_name" >&2
+      explain "The interview file must hand off to story-arc.md after the questions. Otherwise the arc gate (ARC-04) is bypassable."
+      schema_violations=$((schema_violations + 1))
+    fi
+
+    # Check (d): Question count must be in [3, 5] (DOC-07 cap + sanity floor).
+    q_count="$(command grep -cE '^[0-9]+\.[[:space:]]+\*\*' "$interview")"
+    if [ "$q_count" -gt 5 ]; then
+      printf 'VIOLATION: interview/%s has %d questions (>5; DOC-07 cap)\n' "$interview_name" "$q_count" >&2
+      explain "DOC-07 caps interviews at <=5 questions. The schema-drift check sees ${q_count}."
+      schema_violations=$((schema_violations + 1))
+    fi
+    if [ "$q_count" -lt 3 ]; then
+      printf 'VIOLATION: interview/%s has %d questions (<3; below sanity floor)\n' "$interview_name" "$q_count" >&2
+      explain "Interviews with <3 questions can't capture audience+material+tone. Schema source: skill/interview/handbook.md (5 questions)."
+      schema_violations=$((schema_violations + 1))
+    fi
+  done
+
+  if [ "$schema_violations" -gt 0 ]; then
+    violations=$((violations + 1))
+  fi
 fi
 
 # ───────────────────────────────────────────────────────────────────
