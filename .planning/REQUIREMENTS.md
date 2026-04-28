@@ -73,9 +73,9 @@ V1 ships tailored interviews and arc templates for five document types:
 
 ### Documentation (DOCS)
 
-- [ ] **DOCS-01**: Repo README explains: what deshtml is, the install one-liner, basic usage (`/deshtml`, `/deshtml @file.md`), the 5 supported doc types, the uninstall command, and a link to the Caseproof Documentation System
-- [ ] **DOCS-02**: README has a "Known Limitations" section documenting offline behavior (system-font fallback) and the macOS-first auto-open behavior
-- [ ] **DOCS-03**: README is written for a first-time, non-technical user (target reader: Delfi)
+- [x] **DOCS-01** (plan 04-02): Repo README explains: what deshtml is, the install one-liner, basic usage (`/deshtml`, `/deshtml @file.md`), the 5 supported doc types, the uninstall command, and a link to the Caseproof Documentation System
+- [x] **DOCS-02** (plan 04-02): README has a "Known Limitations" section documenting offline behavior (system-font fallback) and the macOS-first auto-open behavior
+- [x] **DOCS-03** (plan 04-02): README is written for a first-time, non-technical user (target reader: Delfi)
 
 ### Launch verification (LAUNCH)
 
@@ -150,9 +150,9 @@ V1 ships tailored interviews and arc templates for five document types:
 | OUTPUT-03 | Phase 2 | Complete (02-02) |
 | OUTPUT-04 | Phase 2 | Complete (02-02) |
 | OUTPUT-05 | Phase 2 | Complete (02-02) |
-| DOCS-01 | Phase 4 | Pending |
-| DOCS-02 | Phase 4 | Pending |
-| DOCS-03 | Phase 4 | Pending |
+| DOCS-01 | Phase 4 | Complete (04-02) |
+| DOCS-02 | Phase 4 | Complete (04-02) |
+| DOCS-03 | Phase 4 | Complete (04-02) |
 | LAUNCH-01 | Phase 4 | Pending |
 | LAUNCH-02 | Phase 4 | Pending |
 | LAUNCH-03 | Phase 4 | Pending |

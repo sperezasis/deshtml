@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v0.1.0
 milestone_name: milestone
 status: executing
-stopped_at: Phase 4 Plan 01 complete — source-mode wired (SKILL-02 mechanical layer closed)
-last_updated: "2026-04-28T16:00:00.000Z"
+stopped_at: Phase 4 Plan 02 complete — README + CHANGELOG shipped (DOCS-01/02/03 closed)
+last_updated: "2026-04-28T17:12:57.000Z"
 last_activity: 2026-04-28
 progress:
   total_phases: 4
   completed_phases: 3
   total_plans: 13
-  completed_plans: 11
-  percent: 85
+  completed_plans: 12
+  percent: 92
 ---
 
 # Project State
@@ -26,11 +26,11 @@ See: .planning/PROJECT.md (updated 2026-04-27)
 ## Current Position
 
 Phase: 4 (Source-Mode + Launch Hardening) — IN PROGRESS
-Plan: 1 of 3 complete (04-01: source-mode.md NEW + SKILL.md Step 1 flip)
-Status: Phase 4 Plan 01 closed. Plan 04-02 (README + CHANGELOG) and 04-03 (launch hardening) remain.
+Plan: 2 of 3 complete (04-02: README rewrite + CHANGELOG seed; closes DOCS-01..03)
+Status: Phase 4 Plan 02 closed. Plan 04-03 (launch hardening) is the only remaining plan.
 Last activity: 2026-04-28
 
-Progress: [████████░░] 85% (3/4 phases, 11/13 plans complete)
+Progress: [█████████░] 92% (3/4 phases, 12/13 plans complete)
 
 ## Performance Metrics
 
@@ -63,6 +63,7 @@ Progress: [████████░░] 85% (3/4 phases, 11/13 plans complete
 | Phase 03-remaining-four-doc-types P03 | ~25min | 2 tasks | 3 files |
 | Phase 03-remaining-four-doc-types P04 | ~30min | 3 tasks | 9 files (+1 carryover fix) |
 | Phase 04-source-mode-readme-launch-hardening P01 | ~25min | 2 tasks | 2 files |
+| Phase 04-source-mode-readme-launch-hardening P02 | ~12min | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -87,6 +88,7 @@ Recent decisions affecting current work:
 - Plan 03-04: 4 canonical fixtures (pitch / technical-brief / presentation / meeting-prep) ran end-to-end. Format auto-selection 100% match rate per D3-01 (overview / handbook / presentation / overview). All 4 audits exit 0. D3-22 sequential-read PASSED — 4 distinct outputs, no type-labeled clones. D3-18 wildcard harvester confirmed empirically (slide / slide-counter / slide-nav resolved without script edit). Rule 5 silent across all 5 interview files. Adversarial smoke (injected #FF0000 line 784) → exit 1, line named. Carryover --g8 → --g9 fix folded in (commit 947cde4). Visual gate APPROVED via qlmanage thumbnails vs Caseproof references (bnp-overview for pitch + meeting-prep, pm-system for technical-brief, written rubric for presentation).
 - Phase 3 CLOSED 2026-04-28: 4/4 plans, 12 commits, 6 requirements complete (DOC-01, DOC-03, DOC-04, DOC-05, DOC-06, DESIGN-04). Phase 4 unblocked. Zero open carryover backlog.
 - Plan 04-01: source-mode.md NEW (162 lines) lazy-loaded sub-file with 5-step flow (ingest → infer type → extract arc → hand off to story-arc.md → return to SKILL.md Step 5). SKILL.md Step 1 flipped from Phase-2 stub to real source-mode.md load (combined-form trim landed 200→198 lines, ≤200 cap preserved). D4-04 type-detection priority order: handbook > presentation > pitch > meeting-prep > technical-brief (handbook also default-on-ambiguous). D4-05 extract-don't-invent: every One-sentence cell grounded in source; <3-beats triggers LOUD fallback to interview/handbook.md (only allowed source→interview transition; SKILL-03 contract preserved). V1 limitations documented: multi-`@` first-match wins (OQ-3); `@`+prose collision resolves to `@` form (OQ-4). Detection regex `(^|[[:space:]])@\S+` and SKILL-03 contract literal preserved byte-for-byte. Closes SKILL-02 (mechanical layer); end-to-end empirical verification owned by Plan 04-03.
+- Plan 04-02: README.md rewritten end-to-end (Phase-1 stub 34L → Delfi-targeted v0.1.0 public README 67L) with the D4-10 9-section structure: title+lead, Install, First run, The five doc types, Source mode, Uninstall, Known limitations, Design system, License. Verbatim install + uninstall one-liners (D-14 byte-for-byte). All three Known Limitations documented (offline-font fallback, macOS-first auto-open, one-file-per-run). OQ-2 disposition: Caseproof Documentation System credited as text reference (no public URL); V2 carryover recorded. Banned-pitch-vocabulary regex returns 0 hits — handbook-tone moat preserved. CHANGELOG.md NEW (65L) at repo root in Keep-a-Changelog 1.1.0 format with [Unreleased] + [0.1.0] — TBD sections enumerating Phases 1-4 ships; TBD date filled by Plan 04-03 Task 2 post-tag. Closes DOCS-01, DOCS-02, DOCS-03.
 
 ### Pending Todos
 
@@ -106,13 +108,13 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-28T16:00:00.000Z
-Stopped at: Phase 4 Plan 01 complete — source-mode wired (SKILL-02 mechanical layer closed)
+Last session: 2026-04-28T17:12:57.000Z
+Stopped at: Phase 4 Plan 02 complete — README + CHANGELOG shipped (DOCS-01/02/03 closed)
 Resume file: None
 
 **Planned Phase:** 01 (Foundation — Installer + Design Assets) — 2 plans — 2026-04-27T14:23:01.094Z
 **Completed Phase:** 01 (Foundation — Installer + Design Assets) — 2 of 2 plans — 2026-04-27
 **Completed Phase:** 02 (Story-Arc Gate + Handbook End-to-End) — 4 of 4 plans — 2026-04-28
 **Completed Phase:** 03 (Remaining Four Doc Types) — 4 of 4 plans — 2026-04-28
-**In-Progress Phase:** 04 (Source Mode + Launch Hardening) — 1 of 3 plans — started 2026-04-28
-**Next Plan:** 04-02 (README + CHANGELOG, parallel with 04-01) and 04-03 (launch hardening, depends on 04-01 + 04-02)
+**In-Progress Phase:** 04 (Source Mode + Launch Hardening) — 2 of 3 plans — started 2026-04-28
+**Next Plan:** 04-03 (launch hardening: pre-merge dry-run + VERSION bump + v0.1.0 tag + GitHub release + live LAUNCH-01 verification — closes LAUNCH-01..04)
