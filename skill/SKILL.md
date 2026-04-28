@@ -18,17 +18,15 @@ own their content; this file owns flow.
 Inspect the literal `$ARGUMENTS` string (it may be empty, may contain `<no arguments>`,
 or may contain the user's text — handle all three).
 
-1. If `$ARGUMENTS` matches the regex `(^|[[:space:]])@\S+` → **source mode**.
-   Reply with EXACTLY this message and stop:
-
-   > Source mode is coming in Phase 4. For now, run `/deshtml` with no arguments to use the interview.
-
+1. If `$ARGUMENTS` matches the regex `(^|[[:space:]])@\S+` → **source mode** (`@<path>` form).
 2. Else if `$ARGUMENTS` (with `@\S+` tokens stripped, with the literal text
    `<no arguments>` stripped, and with surrounding whitespace trimmed) is
-   longer than 200 characters → **source mode** (pasted prose). Reply with
-   the same source-mode stub above and stop.
-
+   longer than 200 characters → **source mode** (pasted prose).
 3. Else → **interview mode**. Continue to Step 2.
+
+In source mode (cases 1 and 2), read `${CLAUDE_SKILL_DIR}/source-mode.md` now and
+follow it end-to-end. Return here only after source-mode.md hands back via
+story-arc.md approval; proceed to Step 5 (skip Step 2, Step 3, Step 4).
 
 Never silently fall back from source mode to interview mode (SKILL-03).
 
