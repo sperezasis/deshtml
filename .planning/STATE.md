@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v0.1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed Phase 3 plan 3 (audit wildcard harvester + Rule 5 schema-drift)
-last_updated: "2026-04-28T12:00:33.609Z"
+stopped_at: Phase 3 closed — all 4 plans complete (per-type fixtures + visual gate APPROVED)
+last_updated: "2026-04-28T14:10:00.000Z"
 last_activity: 2026-04-28
 progress:
   total_phases: 4
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 10
-  completed_plans: 9
-  percent: 90
+  completed_plans: 10
+  percent: 75
 ---
 
 # Project State
@@ -21,16 +21,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-27)
 
 **Core value:** A non-author runs one command and gets a beautifully designed, story-first HTML document that looks like Santiago made it.
-**Current focus:** Phase 3 — Remaining Four Doc Types
+**Current focus:** Ready for Phase 4 — Source Mode + Launch Hardening
 
 ## Current Position
 
-Phase: 3 (Remaining Four Doc Types) — IN PROGRESS
-Plan: 3 of 4 complete (03-03: audit wildcard harvester + Rule 5 schema-drift check)
-Status: Wave 2 (plan 03-04, per-type fixtures) unblocked — runs all 4 fixtures with the now-extended audit (wildcard harvest + Rule 5)
+Phase: 3 (Remaining Four Doc Types) — COMPLETE 2026-04-28
+Plan: 4 of 4 complete (03-04: per-type fixtures + visual gate APPROVED)
+Status: Phase 3 closed. Ready to start Phase 4 (Source Mode + Launch Hardening).
 Last activity: 2026-04-28
 
-Progress: [█████████░] 90%
+Progress: [███████░░░] 75% (3/4 phases, 10/10 plans through Phase 3)
 
 ## Performance Metrics
 
@@ -61,6 +61,7 @@ Progress: [█████████░] 90%
 | Phase 03-remaining-four-doc-types P01 | 25min | 3 tasks | 2 files |
 | Phase 03-remaining-four-doc-types P02 | ~10min | 4 tasks | 4 files |
 | Phase 03-remaining-four-doc-types P03 | ~25min | 2 tasks | 3 files |
+| Phase 03-remaining-four-doc-types P04 | ~30min | 3 tasks | 9 files (+1 carryover fix) |
 
 ## Accumulated Context
 
@@ -82,6 +83,8 @@ Recent decisions affecting current work:
 - Plan 03-01: presentation.html shipped with full scroll-snap (PASS path) — snap container scoped to <main class="deck">, NOT <html>, per Safari fragility mitigation (RESEARCH §Pattern 3). CSS-only slide counter via counter-reset on container + ::before with TOTAL_SLIDES_LITERAL substitution. SKILL.md grew 171→198 lines (≤200 D3-17 cap) with Step 5b mechanical format selection (presentation→presentation; arc rows ≥4 → handbook; else overview). Spike outcome verified via hybrid path (qlmanage thumbnail + canonical pattern check) per orchestrator user-proxy decision; full empirical Chrome+Safari scroll deferred to plan 03-04 fixture.
 - Plan 03-02: Four type-tailored interview files shipped (pitch.md 47L, technical-brief.md 45L, presentation.md 50L, meeting-prep.md 47L) — all ≤80L per DOC-07 lean-shape mandate. DOC-06 schema preserved across all 5 interview files (handbook + 4 new). Pitfall 19 mitigated empirically: 12 of 20 question labels are unique per file (only Audience and Inclusions/exclusions are shared schema fields). Tone calibration per RESEARCH §Pattern 8: 3 files (handbook + tech-brief + meeting-prep) use verbatim CLAUDE.md phrase; 2 files (pitch + presentation) document title-handbook / body-energetic divergence. `[derived]` annotation pattern introduced (tech-brief: alternatives + trade-offs; meeting-prep: meeting purpose + talking points). Two type-specific extra prohibitions: presentation max-7-slides on empty-default; meeting-prep do-not-fabricate-risks. Closes DOC-01, DOC-03, DOC-04, DOC-05, DOC-06.
 - Plan 03-03: Audit wildcard harvester (D3-18) + Rule 5 schema-drift check (OQ-1 → ship-in-phase-3) shipped. handbook.md heading normalized 'five' → '5' to match Rule 5 regex contract; bash 3.2 first-element-existence guard replaces shopt nullglob; rules.md grew 181 → 246 lines (≤250 cap); 4 D3-prefixed smoke-test vectors added.
+- Plan 03-04: 4 canonical fixtures (pitch / technical-brief / presentation / meeting-prep) ran end-to-end. Format auto-selection 100% match rate per D3-01 (overview / handbook / presentation / overview). All 4 audits exit 0. D3-22 sequential-read PASSED — 4 distinct outputs, no type-labeled clones. D3-18 wildcard harvester confirmed empirically (slide / slide-counter / slide-nav resolved without script edit). Rule 5 silent across all 5 interview files. Adversarial smoke (injected #FF0000 line 784) → exit 1, line named. Carryover --g8 → --g9 fix folded in (commit 947cde4). Visual gate APPROVED via qlmanage thumbnails vs Caseproof references (bnp-overview for pitch + meeting-prep, pm-system for technical-brief, written rubric for presentation).
+- Phase 3 CLOSED 2026-04-28: 4/4 plans, 12 commits, 6 requirements complete (DOC-01, DOC-03, DOC-04, DOC-05, DOC-06, DESIGN-04). Phase 4 unblocked. Zero open carryover backlog.
 
 ### Pending Todos
 
@@ -101,12 +104,12 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-28T12:00:33.594Z
-Stopped at: Completed Phase 3 plan 3 (audit wildcard harvester + Rule 5 schema-drift)
+Last session: 2026-04-28T14:10:00.000Z
+Stopped at: Phase 3 closed — all 4 plans complete (per-type fixtures + visual gate APPROVED)
 Resume file: None
 
 **Planned Phase:** 01 (Foundation — Installer + Design Assets) — 2 plans — 2026-04-27T14:23:01.094Z
 **Completed Phase:** 01 (Foundation — Installer + Design Assets) — 2 of 2 plans — 2026-04-27
 **Completed Phase:** 02 (Story-Arc Gate + Handbook End-to-End) — 4 of 4 plans — 2026-04-28
-**Active Phase:** 03 (Remaining Four Doc Types) — 2 of 4 plans complete — 2026-04-28
+**Completed Phase:** 03 (Remaining Four Doc Types) — 4 of 4 plans — 2026-04-28
 **Next Phase:** 04 (Source Mode + Launch Hardening) — TBD plans — not started

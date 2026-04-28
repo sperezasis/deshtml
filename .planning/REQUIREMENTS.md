@@ -58,8 +58,7 @@ V1 ships tailored interviews and arc templates for five document types:
 - [x] **DESIGN-01** (plan 01-02): Generated HTML uses only colors from the Caseproof Documentation System palette — no hex literals appear outside the `:root` CSS variable block
 - [x] **DESIGN-02** (plan 01-02): Generated HTML uses only typography rules from the Caseproof Documentation System (Inter via Google Fonts, with `-apple-system, sans-serif` fallback)
 - [x] **DESIGN-03** (plan 01-02): Generated HTML uses only components from a closed component library — no freelance markup
-- [x] **DESIGN-04
-**: Skill auto-selects format: Handbook (960px sidebar) for 4+ sections, Overview (1440px linear) for 1-3, Presentation for slide decks
+- [x] **DESIGN-04** (plan 03-01, 03-04): Skill auto-selects format: Handbook (960px sidebar) for 4+ sections, Overview (1440px linear) for 1-3, Presentation for slide decks
 - [x] **DESIGN-05** (plan 01-02): Design tokens (palette, typography, components, format skeletons) ship as verbatim CSS / HTML files in `skill/design/` that Claude pastes — never paraphrases — into output
 - [x] **DESIGN-06** (plans 02-03, 02-04): A post-generation audit pass rejects output containing hex literals outside the variable block, unknown CSS class names, or markup not in the component library
 - [x] **DESIGN-07** (plan 01-02): Generated HTML declares `color-scheme: light` and includes the meta tag that prevents browser forced-dark-mode from inverting the palette
@@ -132,17 +131,17 @@ V1 ships tailored interviews and arc templates for five document types:
 | ARC-03 | Phase 2 | Complete (02-02) |
 | ARC-04 | Phase 2 | Complete (02-02) |
 | ARC-05 | Phase 2 | Complete (02-02) |
-| DOC-01 | Phase 3 | Complete (03-02) |
+| DOC-01 | Phase 3 | Complete (03-02, 03-04) |
 | DOC-02 | Phase 2 | Complete (02-02) |
-| DOC-03 | Phase 3 | Complete (03-02) |
-| DOC-04 | Phase 3 | Complete (03-01, 03-02) |
-| DOC-05 | Phase 3 | Complete (03-02) |
-| DOC-06 | Phase 3 | Complete (03-02) |
+| DOC-03 | Phase 3 | Complete (03-02, 03-04) |
+| DOC-04 | Phase 3 | Complete (03-01, 03-02, 03-04) |
+| DOC-05 | Phase 3 | Complete (03-02, 03-04) |
+| DOC-06 | Phase 3 | Complete (03-02, 03-03, 03-04) |
 | DOC-07 | Phase 2 | Complete (02-02) |
 | DESIGN-01 | Phase 1 | Complete (01-02) |
 | DESIGN-02 | Phase 1 | Complete (01-02) |
 | DESIGN-03 | Phase 1 | Complete (01-02) |
-| DESIGN-04 | Phase 3 | Pending |
+| DESIGN-04 | Phase 3 | Complete (03-01, 03-04) |
 | DESIGN-05 | Phase 1 | Complete (01-02) |
 | DESIGN-06 | Phase 2 | Complete (02-03, 02-04) |
 | DESIGN-07 | Phase 1 | Complete (01-02) |
