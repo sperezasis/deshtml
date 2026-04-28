@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v0.1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed Phase 3 plan 1 (presentation skeleton + SKILL.md format routing)
-last_updated: "2026-04-28T11:43:39.821Z"
+stopped_at: Completed Phase 3 plan 2 (four type-tailored interview files)
+last_updated: "2026-04-28T11:48:37Z"
 last_activity: 2026-04-28
 progress:
   total_phases: 4
   completed_phases: 2
   total_plans: 10
-  completed_plans: 8
-  percent: 80
+  completed_plans: 9
+  percent: 90
 ---
 
 # Project State
@@ -26,11 +26,11 @@ See: .planning/PROJECT.md (updated 2026-04-27)
 ## Current Position
 
 Phase: 3 (Remaining Four Doc Types) — IN PROGRESS
-Plan: 1 of 4 complete (03-01: presentation.html skeleton + SKILL.md format routing)
-Status: Plan 03-01 complete — Wave 1 plans 03-02 and 03-03 unblocked
+Plan: 2 of 4 complete (03-02: four type-tailored interview files — pitch, technical-brief, presentation, meeting-prep)
+Status: Wave 1 complete (03-01 + 03-02) — plan 03-04 (per-type fixtures) unblocked; plan 03-03 (audit harvester) independent
 Last activity: 2026-04-28
 
-Progress: [████████░░] 80%
+Progress: [█████████░] 90%
 
 ## Performance Metrics
 
@@ -59,6 +59,7 @@ Progress: [████████░░] 80%
 | Phase 02-story-arc-gate-handbook-end-to-end P02 | ~25min | 3 tasks | 3 files |
 | Phase 02-story-arc-gate-handbook-end-to-end P04 | ~1h | 3 tasks | 3 files (+1 audit fix) |
 | Phase 03-remaining-four-doc-types P01 | 25min | 3 tasks | 2 files |
+| Phase 03-remaining-four-doc-types P02 | ~10min | 4 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -78,6 +79,7 @@ Recent decisions affecting current work:
 - Plan 02-04: canonical `deshtml-about-itself` fixture ran end-to-end. Output 1023 lines / 45,835 bytes; audit exit 0 (after harvester+`javascript:` fix in `8281c04`); visual gate APPROVED via `qlmanage -t -s 1400` thumbnail comparison vs `pm-system.html`. `$ARGUMENTS` empirically verified empty-string (resolves OQ-4). Audit class-allowlist expanded ~28 → ~140 by harvesting components.css selectors + handbook.html skeleton classes. iOS dark-mode re-test on the generated handbook deferred to Phase 4 LAUNCH-02 (structurally hardened: `<meta color-scheme>` + `:root` declaration both present).
 - Phase 2 CLOSED 2026-04-28: 4/4 plans, 13 commits, 17 requirements complete (SKILL-01/03/04/05, ARC-01..05, DOC-02, DOC-07, DESIGN-06, OUTPUT-01..05). Phase 3 unblocked.
 - Plan 03-01: presentation.html shipped with full scroll-snap (PASS path) — snap container scoped to <main class="deck">, NOT <html>, per Safari fragility mitigation (RESEARCH §Pattern 3). CSS-only slide counter via counter-reset on container + ::before with TOTAL_SLIDES_LITERAL substitution. SKILL.md grew 171→198 lines (≤200 D3-17 cap) with Step 5b mechanical format selection (presentation→presentation; arc rows ≥4 → handbook; else overview). Spike outcome verified via hybrid path (qlmanage thumbnail + canonical pattern check) per orchestrator user-proxy decision; full empirical Chrome+Safari scroll deferred to plan 03-04 fixture.
+- Plan 03-02: Four type-tailored interview files shipped (pitch.md 47L, technical-brief.md 45L, presentation.md 50L, meeting-prep.md 47L) — all ≤80L per DOC-07 lean-shape mandate. DOC-06 schema preserved across all 5 interview files (handbook + 4 new). Pitfall 19 mitigated empirically: 12 of 20 question labels are unique per file (only Audience and Inclusions/exclusions are shared schema fields). Tone calibration per RESEARCH §Pattern 8: 3 files (handbook + tech-brief + meeting-prep) use verbatim CLAUDE.md phrase; 2 files (pitch + presentation) document title-handbook / body-energetic divergence. `[derived]` annotation pattern introduced (tech-brief: alternatives + trade-offs; meeting-prep: meeting purpose + talking points). Two type-specific extra prohibitions: presentation max-7-slides on empty-default; meeting-prep do-not-fabricate-risks. Closes DOC-01, DOC-03, DOC-04, DOC-05, DOC-06.
 
 ### Pending Todos
 
@@ -97,12 +99,12 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-28T11:43:16.589Z
-Stopped at: Completed Phase 3 plan 1 (presentation skeleton + SKILL.md format routing)
+Last session: 2026-04-28T11:48:37Z
+Stopped at: Completed Phase 3 plan 2 (four type-tailored interview files)
 Resume file: None
 
 **Planned Phase:** 01 (Foundation — Installer + Design Assets) — 2 plans — 2026-04-27T14:23:01.094Z
 **Completed Phase:** 01 (Foundation — Installer + Design Assets) — 2 of 2 plans — 2026-04-27
 **Completed Phase:** 02 (Story-Arc Gate + Handbook End-to-End) — 4 of 4 plans — 2026-04-28
-**Active Phase:** 03 (Remaining Four Doc Types) — 1 of 4 plans complete — 2026-04-28
+**Active Phase:** 03 (Remaining Four Doc Types) — 2 of 4 plans complete — 2026-04-28
 **Next Phase:** 04 (Source Mode + Launch Hardening) — TBD plans — not started
