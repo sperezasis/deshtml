@@ -108,7 +108,7 @@ Example output: `Format: handbook` or `Format: overview` or `Format: presentatio
 
 Then continue to Step 6.
 
-## Step 6 — Render the handbook HTML
+## Step 6 — Render the HTML
 
 Read these five files in parallel:
 
@@ -182,7 +182,7 @@ Capture exit code and stderr.
 2. Print the absolute path on its own line. No prefix, no emoji, no banner,
    no "✓ Generated", no next-steps suggestion. The path is the LAST output.
 
-Example final output:
+Example final output (the `-<type>` suffix varies per Step 5):
 
 ```
 /Users/santiago/Desktop/2026-04-27-deshtml-handbook.html
