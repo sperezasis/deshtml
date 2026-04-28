@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v0.1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed Phase 2 (Story-Arc Gate + Handbook End-to-End) — all 4 plans
-last_updated: "2026-04-28T00:00:00.000Z"
+stopped_at: Completed Phase 3 plan 1 (presentation skeleton + SKILL.md format routing)
+last_updated: "2026-04-28T11:43:39.821Z"
 last_activity: 2026-04-28
 progress:
   total_phases: 4
   completed_phases: 2
-  total_plans: 6
-  completed_plans: 6
-  percent: 50
+  total_plans: 10
+  completed_plans: 8
+  percent: 80
 ---
 
 # Project State
@@ -21,16 +21,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-27)
 
 **Core value:** A non-author runs one command and gets a beautifully designed, story-first HTML document that looks like Santiago made it.
-**Current focus:** Phase 2 — Story-Arc Gate + Handbook End-to-End
+**Current focus:** Phase 3 — Remaining Four Doc Types
 
 ## Current Position
 
-Phase: 2 (Story-Arc Gate + Handbook End-to-End) — COMPLETE (2026-04-28)
-Plan: 4 of 4 complete (02-01: components.css; 02-02: SKILL.md flow + story-arc + handbook interview; 02-03: post-generation audit; 02-04: visual-gate fixture + end-to-end validation).
-Status: Ready to plan Phase 3 (Remaining Four Doc Types)
+Phase: 3 (Remaining Four Doc Types) — IN PROGRESS
+Plan: 1 of 4 complete (03-01: presentation.html skeleton + SKILL.md format routing)
+Status: Plan 03-01 complete — Wave 1 plans 03-02 and 03-03 unblocked
 Last activity: 2026-04-28
 
-Progress: [█████░░░░░] 50%
+Progress: [████████░░] 80%
 
 ## Performance Metrics
 
@@ -58,6 +58,7 @@ Progress: [█████░░░░░] 50%
 | Phase 02-story-arc-gate-handbook-end-to-end P03 | ~30min | 3 tasks | 3 files |
 | Phase 02-story-arc-gate-handbook-end-to-end P02 | ~25min | 3 tasks | 3 files |
 | Phase 02-story-arc-gate-handbook-end-to-end P04 | ~1h | 3 tasks | 3 files (+1 audit fix) |
+| Phase 03-remaining-four-doc-types P01 | 25min | 3 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -76,6 +77,7 @@ Recent decisions affecting current work:
 - Plan 02-02: SKILL.md (171 lines, ≤200 cap) flow control with 8 steps, lazy-loads sub-files (Pitfall 15), zero rubric content inlined (Pitfall 14). story-arc.md (151 lines) owns 9-phrase approval whitelist + 5 verbatim BAD→GOOD pairs from CLAUDE.md + 3 self-review checks. interview/handbook.md (45 lines) follows DOC-06 schema with 5 empty-default questions. Mode detection at turn 1 (regex `(^|[[:space:]])@\S+` + >200-char prose threshold) — never silent fallback (SKILL-03/D2-04). Doc-type branch enumerates all 5 types from Phase 2 onward (D2-05): handbook implemented, four others stubbed with "is coming in Phase 3". Three-CSS-file inlining order at Step 6 = palette → typography → components per amended D2-15.
 - Plan 02-04: canonical `deshtml-about-itself` fixture ran end-to-end. Output 1023 lines / 45,835 bytes; audit exit 0 (after harvester+`javascript:` fix in `8281c04`); visual gate APPROVED via `qlmanage -t -s 1400` thumbnail comparison vs `pm-system.html`. `$ARGUMENTS` empirically verified empty-string (resolves OQ-4). Audit class-allowlist expanded ~28 → ~140 by harvesting components.css selectors + handbook.html skeleton classes. iOS dark-mode re-test on the generated handbook deferred to Phase 4 LAUNCH-02 (structurally hardened: `<meta color-scheme>` + `:root` declaration both present).
 - Phase 2 CLOSED 2026-04-28: 4/4 plans, 13 commits, 17 requirements complete (SKILL-01/03/04/05, ARC-01..05, DOC-02, DOC-07, DESIGN-06, OUTPUT-01..05). Phase 3 unblocked.
+- Plan 03-01: presentation.html shipped with full scroll-snap (PASS path) — snap container scoped to <main class="deck">, NOT <html>, per Safari fragility mitigation (RESEARCH §Pattern 3). CSS-only slide counter via counter-reset on container + ::before with TOTAL_SLIDES_LITERAL substitution. SKILL.md grew 171→198 lines (≤200 D3-17 cap) with Step 5b mechanical format selection (presentation→presentation; arc rows ≥4 → handbook; else overview). Spike outcome verified via hybrid path (qlmanage thumbnail + canonical pattern check) per orchestrator user-proxy decision; full empirical Chrome+Safari scroll deferred to plan 03-04 fixture.
 
 ### Pending Todos
 
@@ -84,7 +86,7 @@ None yet.
 ### Blockers/Concerns
 
 - **Phase 2, self-review pass:** prompt-engineering for handbook-tone enforcement is the least-specified piece in research; budget 2-3 iteration rounds (flagged in SUMMARY.md)
-- **Phase 3, Presentation type:** confirm `scroll-snap-type: y mandatory` works reliably in Chrome and Safari before writing the interview file (30-min spike per SUMMARY.md)
+- **Phase 3, Presentation type:** scroll-snap spike resolved via hybrid verification (qlmanage thumbnail + canonical pattern check) — full empirical Chrome+Safari scroll DEFERRED to plan 03-04's real-fixture run; if Safari fragility surfaces there, fall back to `:target`-only mode per D3-03
 - **Phase 4, rules-check pass:** post-generation prose audit cited in research with no working implementation to copy; expect iteration
 
 ## Deferred Items
@@ -95,11 +97,12 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-28T00:00:00.000Z
-Stopped at: Completed Phase 2 (Story-Arc Gate + Handbook End-to-End) — all 4 plans
+Last session: 2026-04-28T11:43:16.589Z
+Stopped at: Completed Phase 3 plan 1 (presentation skeleton + SKILL.md format routing)
 Resume file: None
 
 **Planned Phase:** 01 (Foundation — Installer + Design Assets) — 2 plans — 2026-04-27T14:23:01.094Z
 **Completed Phase:** 01 (Foundation — Installer + Design Assets) — 2 of 2 plans — 2026-04-27
 **Completed Phase:** 02 (Story-Arc Gate + Handbook End-to-End) — 4 of 4 plans — 2026-04-28
-**Next Phase:** 03 (Remaining Four Doc Types) — TBD plans — not started
+**Active Phase:** 03 (Remaining Four Doc Types) — 1 of 4 plans complete — 2026-04-28
+**Next Phase:** 04 (Source Mode + Launch Hardening) — TBD plans — not started
