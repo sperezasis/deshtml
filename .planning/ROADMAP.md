@@ -72,7 +72,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 |-------|----------------|--------|-----------|
 | 1. Foundation — Installer + Design Assets | 2/2 | Complete | 2026-04-27 |
 | 2. Story-Arc Gate + Handbook End-to-End | 4/4 | Complete | 2026-04-28 |
-| 3. Remaining Four Doc Types | 2/4 | In progress | - |
+| 3. Remaining Four Doc Types | 3/4 | In progress | - |
 | 4. Source-Mode, README, and Launch Hardening | 0/TBD | Not started | - |
 
 ## Cross-Phase Dependencies
