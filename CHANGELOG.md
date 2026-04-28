@@ -8,6 +8,12 @@ follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 Nothing yet.
 
+## [0.1.2] — 2026-04-28
+
+### Fixed
+
+- **Installer still printed `tmp: unbound variable` after the v0.1.1 fix.** v0.1.1 only patched the first `EXIT` trap, but `bin/install.sh` replaces it later with a stage+backup-aware multiline trap that referenced `$tmp`, `$stage`, `$backup`. Same `set -u` issue at fire-time. The second trap now also captures values at set-time (double-quoted) so all four references resolve before `main()` returns. Verified end-to-end: install completes silently with no spurious warnings.
+
 ## [0.1.1] — 2026-04-28
 
 ### Fixed

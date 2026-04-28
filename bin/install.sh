@@ -60,14 +60,16 @@ main() {
 
   # Replace the tmp-only trap with one that knows about stage + backup.
   # If the script is killed mid-swap (DEST gone, backup present), this restores
-  # the original install before exit.
-  trap '
-    rm -rf "$tmp" "$stage" 2>/dev/null
-    if [ -d "$backup" ] && [ ! -d "$DEST" ]; then
-      mv "$backup" "$DEST" 2>/dev/null || true
+  # the original install before exit. Variable values are captured at set-time
+  # (double-quoted) so the trap survives main() returning and tmp/stage/backup
+  # going out of scope under set -u.
+  trap "
+    rm -rf '${tmp}' '${stage}' 2>/dev/null
+    if [ -d '${backup}' ] && [ ! -d '${DEST}' ]; then
+      mv '${backup}' '${DEST}' 2>/dev/null || true
     fi
-    rm -rf "$backup" 2>/dev/null
-  ' EXIT
+    rm -rf '${backup}' 2>/dev/null
+  " EXIT
 
   # mktemp -d created an empty directory; remove it so cp -R writes to that exact path.
   rmdir "$stage"
