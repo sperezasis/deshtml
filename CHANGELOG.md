@@ -8,10 +8,9 @@ follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 Nothing yet.
 
-## [0.1.0] — TBD
+## [0.1.0] — 2026-04-28
 
-First public release. Date and final notes are filled in by the launch
-plan (Plan 04-03 Task 2) once the v0.1.0 tag lands on main.
+First public release.
 
 ### Added
 
