@@ -112,20 +112,20 @@ regex + LLM judgment); do NOT short-circuit it because the source is casual.
 
 ## Step D — Hand off to story-arc.md
 
-Read `${CLAUDE_SKILL_DIR}/story-arc.md` now and follow it from Step C onward —
-Step A (build the arc) is what THIS file just did, but the table format and
-column contract are owned by story-arc.md so the rendering, the flowing
-paragraph, the self-review, and the approval whitelist all stay single-source.
+Read `${CLAUDE_SKILL_DIR}/story-arc.md` now and follow it from Step B onward —
+Step A (build the arc) is what THIS file just did, but the flowing paragraph
+diagnostic, the table format and column contract, the rendering, the
+self-review, and the approval whitelist all stay single-source in story-arc.md.
 The arc table you display follows story-arc.md's exact column format
 (`# | Beat | Section | One sentence | Reader feels`).
 
 Concretely:
-1. Run story-arc.md Step C (self-review) on every row of the arc you built
-   in Step C above.
-2. Render per story-arc.md Step D (display + ask for approval).
-3. Apply story-arc.md Step E (approval whitelist) — exact-match against the
+1. Run story-arc.md Step B (render the flowing paragraph) under the arc table.
+2. Run story-arc.md Step C (self-review) on every row of the arc.
+3. Render per story-arc.md Step D (display + ask for approval).
+4. Apply story-arc.md Step E (approval whitelist) — exact-match against the
    whitelist. Do not fuzzy-match.
-4. Loop on revision per story-arc.md Step F if the user requests changes.
+5. Loop on revision per story-arc.md Step F if the user requests changes.
    Revision messages may include type corrections ("this should be a pitch"
    or "this is actually a presentation") — re-run Step B's decision tree
    with the user's hint as a forced override, then rebuild the arc per
