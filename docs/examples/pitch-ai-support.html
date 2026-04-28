@@ -1,3 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="supported-color-schemes" content="light">
+  <title>AI summaries for support tickets</title>
+  <style>
+/* Caseproof Documentation System — Color Palette
+ * Verbatim extraction from ~/work/caseproof/DOCUMENTATION-SYSTEM.md §"CSS Variables".
+ * Do not edit values here. Update the source first, then re-extract.
+ *
+ * Phase 2 Plan 02-01 extension (2026-04-27): the sidebar sub-palette and
+ * darker accent variants were added as tokens so components.css can reference
+ * them via var(--token) instead of inline hex literals. Both groups are
+ * documented in DOCUMENTATION-SYSTEM.md (§"Sidebar uses its own dark
+ * sub-palette" and §"Tags use darker versions of the accent for text"); they
+ * were simply not split out as :root variables in Phase 1's extraction. The
+ * audit (D2-19) requires zero hex literals outside :root in any inlined
+ * <style> block, so the tokens live here.
+ */
+
+:root {
+  /* Grays — the backbone */
+  --black: #2C2C2E;      /* Primary text */
+  --g9: #525256;          /* Body text */
+  --g6: #98989D;          /* Secondary text, subtitles, labels */
+  --g4: #C7C7CC;          /* Tertiary text, borders, arrows */
+  --g2: #E5E5EA;          /* Dividers, table borders */
+  --g1: #F7F7F8;          /* Card backgrounds, section fills */
+  --white: #FFFFFF;       /* Page background */
+
+  /* Accents — one per semantic meaning */
+  --blue: #6BA4F8;        /* Primary accent, links, active states */
+  --blue-l: #F0F5FE;      /* Blue highlight background */
+  --green: #7EC8A0;       /* Positive, success, team repos */
+  --green-l: #F2FAF5;     /* Green highlight background */
+  --red: #E8907E;         /* Warning, attention, blockers */
+  --red-l: #FDF5F3;       /* Red highlight background */
+  --orange: #F0C078;      /* Caution, orchestrator, special */
+  --orange-l: #FDF8F0;    /* Orange highlight background */
+  --purple: #A78BFA;      /* Structural, milestones, guardians */
+  --purple-l: #F5F3FF;    /* Purple highlight background */
+  --teal: #5BB5A2;        /* Alternate accent when needed */
+  --teal-l: #EFFAF7;      /* Teal highlight background */
+
+  /* Darker accent text — readable on var(--*-l) tinted backgrounds (tags) */
+  --blue-d: #3B7AE0;      /* Tag text on --blue-l */
+  --green-d: #4A9B6E;     /* Tag text on --green-l */
+  --red-d: #C46B5A;       /* Tag text on --red-l */
+  --orange-d: #C49340;    /* Tag text on --orange-l, dstep.wild dnum */
+  --purple-d: #7C5FCC;    /* Tag text on --purple-l */
+  --teal-d: #3D8A79;      /* Tag text on --teal-l */
+
+  /* Sidebar sub-palette — the dark column has its own internal grays */
+  --sb-hover: #3a3a3c;    /* Sidebar hover background, sb-div divider */
+  --sb-group: #636366;    /* Sidebar group label, nav-num, sb-foot */
+  --sb-nav: #8e8e93;      /* Sidebar nav-a default text */
+  --sb-nav-hover: #c7c7cc;/* Sidebar nav-a:hover text */
+
+  /* Color scheme — light only (D-16). Combined with the meta tag in skeletons,
+     this prevents iOS Safari and Chrome forced-dark-mode from inverting. */
+  color-scheme: light;
+}
+
+/* Caseproof Documentation System — Typography
+ * Verbatim extraction from ~/work/caseproof/DOCUMENTATION-SYSTEM.md §"Typography".
+ * Class names match the reference implementations (pm-system.html, bnp-overview.html).
+ * Do not edit values here. Update the source first, then re-extract.
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--g9);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Hero h1 — 56px / 800 / -2.5px / 1.08 */
+h1 { font-size: 56px; font-weight: 800; color: var(--black); letter-spacing: -2.5px; line-height: 1.08; }
+h1 em { font-size: 40px; font-weight: 400; color: var(--g6); letter-spacing: -1.5px; font-style: normal; }
+
+/* Section h2 — 36px / 800 / -1.5px / 1.15 */
+h2 { font-size: 36px; font-weight: 800; color: var(--black); letter-spacing: -1.5px; line-height: 1.15; }
+h2 em { font-weight: 400; color: var(--g6); font-style: normal; }
+
+/* Topic-break h3 — 22px / 800 / -0.5px */
+h3 { font-size: 22px; font-weight: 800; color: var(--black); letter-spacing: -0.5px; }
+
+/* Hero subtitle / lead text — 17px / 400 / 1.65 / g6 */
+.s-lead { font-size: 14px; font-weight: 400; color: var(--g6); line-height: 1.7; }
+
+/* Eyebrow — 11px / 700 / 1.8px / blue / uppercase */
+.eye { font-size: 11px; font-weight: 700; color: var(--blue); letter-spacing: 1.8px; text-transform: uppercase; }
+
+/* Card label — 10px / 700 / 1-1.2px / g6 / uppercase */
+.cl { font-size: 10px; font-weight: 700; color: var(--g6); letter-spacing: 1px; text-transform: uppercase; }
+
+/* Flow label — same scale as .cl */
+.fl { font-size: 10px; font-weight: 700; color: var(--g6); letter-spacing: 1.2px; text-transform: uppercase; }
+
+/* Card title — 15px / 700 / black */
+.ct { font-size: 15px; font-weight: 700; color: var(--black); }
+
+/* Card description — 13px / 400 / g6 / 1.6 */
+.cd { font-size: 13px; font-weight: 400; color: var(--g6); line-height: 1.6; }
+
+/* Inline code — 12px / 400 / g9 */
+.ic { font-size: 12px; font-weight: 400; color: var(--g9); font-family: 'SF Mono', Menlo, Consolas, monospace; }
+
+/* Footnote — 12px / 400 / g6 */
+.fn { font-size: 12px; font-weight: 400; color: var(--g6); }
+
 /* Caseproof Documentation System — Component CSS
  * Verbatim extraction from the Caseproof Documentation System (internal).
  * This file ships every visual rule that makes a handbook look Caseproof: sidebar,
@@ -692,3 +810,67 @@
   .sbar-label {
     border-right: 1px solid rgba(255,255,255,0.12);
   }
+  </style>
+  <style>
+    /* Overview layout — no sidebar, max-width 1440px, padding 80-120px.
+       Verbatim from DOCUMENTATION-SYSTEM.md §"Overview Format". */
+    html { scroll-padding-top: 0; }
+    body { background: var(--white); margin: 0; }
+    .container { max-width: 1440px; margin: 0 auto; padding: 80px 120px; }
+    section { margin-bottom: 80px; scroll-margin-top: 0; }
+    .section-divider { height: 1px; background: var(--g2); margin: 40px 0; }
+  </style>
+</head>
+<body>
+
+<main class="main">
+
+  <section class="hero">
+    <h1>AI summaries for support tickets</h1>
+    <p class="s-lead">A pitch for adding GPT-generated case summaries to the support inbox so agents resolve tickets 30% faster.</p>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section>
+    <div class="eye">01 / Problem</div>
+    <h2>Agents read 4 tickets to fix 1</h2>
+    <p>Average ticket touches three agents before resolution. Each agent re-reads the entire thread on hand-off — same context, different reader. The cost is real: the typical resolution time has grown 18% in the last quarter while ticket volume held flat.</p>
+    <div class="hl hl-r">
+      <p><strong>Concrete:</strong> on Tuesday a single billing ticket was opened, escalated, and resolved over 47 minutes. 22 of those minutes were context re-reading.</p>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section>
+    <div class="eye">02 / Solution</div>
+    <h2>One paragraph at the top of every ticket</h2>
+    <p>A GPT-4 summary auto-generates when a ticket is created and updates after every reply. Agents read the paragraph instead of the thread. The thread stays one click away — nothing is hidden.</p>
+    <div class="cg c2">
+      <div class="card card-bl">
+        <div class="cl">What changes</div>
+        <div class="ct">Top-of-ticket summary</div>
+        <div class="cd">A single paragraph: who the customer is, what they want, what's been tried, what's blocking. Updates on every reply.</div>
+      </div>
+      <div class="card card-gl">
+        <div class="cl">What stays</div>
+        <div class="ct">The full thread</div>
+        <div class="cd">No data is hidden. Agents who want the full context click "show thread" and see what they see today.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <section>
+    <div class="eye">03 / Ask</div>
+    <h2>Two engineers, four weeks, $3K of API spend</h2>
+    <p>The build is small: an OpenAI integration, a queue worker that summarizes on ticket events, a UI block at the top of the ticket page. Four-week scope. Two engineers. Total infra cost in month one: ~$3,000 in API calls (estimated from current ticket volume × 800 tokens average).</p>
+    <p>If we land it by quarter-end and the 30% faster resolution holds, the time saved is worth ~$80K/quarter in agent capacity. Decision needed by Friday.</p>
+  </section>
+
+</main>
+
+</body>
+</html>

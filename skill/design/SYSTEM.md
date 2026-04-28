@@ -2,7 +2,7 @@
 
 Phase 2's `SKILL.md` reads from this directory. This file is the table of contents.
 
-All values, classes, and markup in `skill/design/` are verbatim extractions from `~/work/caseproof/DOCUMENTATION-SYSTEM.md` and the two reference implementations under `references/`. **Do not paraphrase. Do not invent. If something is missing, grep `references/`.**
+All values, classes, and markup in `skill/design/` are verbatim extractions from the Caseproof Documentation System (an internal Caseproof design system). **Do not paraphrase. Do not invent.**
 
 ## Tokens
 
@@ -28,13 +28,6 @@ All values, classes, and markup in `skill/design/` are verbatim extractions from
 Both skeletons declare `color-scheme: light` (via `palette.css`) AND `<meta name="color-scheme" content="light">` AND `<meta name="supported-color-schemes" content="light">`. This combination prevents iOS Safari, Android Chrome forced-dark-mode, and other auto-inversion behavior from breaking the design (DESIGN-07, PITFALLS Pitfall 7).
 
 Both skeletons contain ZERO `<script>` tags and ZERO inline JS. Self-contained constraint.
-
-## References (read-only ground truth)
-
-| File | Contains | Use |
-|------|----------|-----|
-| `references/pm-system.reference.html` | Verbatim copy of the canonical Caseproof Handbook implementation. | Phase 2 greps this when a component is missing or unclear. **Never pasted from directly into output** — `components.html` and the format skeletons are the paste sources. |
-| `references/bnp-overview.reference.html` | Verbatim copy of the canonical Caseproof Overview implementation. | Same role for Overview format. |
 
 ## Rules Phase 2 must respect
 
