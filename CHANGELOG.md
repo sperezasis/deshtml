@@ -8,6 +8,18 @@ follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 Nothing yet.
 
+## [0.4.3] — 2026-04-29
+
+### Changed
+
+- **Update notice moved out of SessionStart and into `/deshtml`.** v0.4.0–v0.4.2 tried to surface the notice via a SessionStart hook (additionalContext / `/dev/tty`); both were either invisible to the user or visually invasive (the v0.4.2 banner overlapped Claude Code's welcome banner and disrupted layout). The notice now lives as Step 0 of `SKILL.md` — it appears as the first line of `/deshtml` output when a newer version is available, silent otherwise. Same automation, no terminal disruption.
+- **`skill/check-update.js` ships with the skill payload.** Reads the cached `latest` if fresh (<6h); otherwise fetches upstream `VERSION` with a 2s timeout. Falls silent on any error.
+
+### Removed
+
+- **SessionStart hook (`bin/deshtml-check-update.js`, `bin/deshtml-register-hook.js`).** Both are gone. The installer's hook-installation step is removed.
+- **Legacy cleanup.** `bin/install.sh` and `bin/uninstall.sh` now actively remove leftover files from v0.4.0–v0.4.2 installs: the two hook scripts in `~/.claude/hooks/` and the SessionStart entry in `~/.claude/settings.json` (atomic JSON edit). Re-running the installer cleans up automatically.
+
 ## [0.4.2] — 2026-04-29
 
 ### Fixed

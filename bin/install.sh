@@ -89,24 +89,34 @@ main() {
     mv "$stage" "$DEST"
   fi
 
-  # 6. Write installed-version marker for the SessionStart update-check hook.
+  # 6. Write the installed-version marker. Read by skill/check-update.js
+  #    (invoked at /deshtml Step 0) to compare against upstream and surface a
+  #    one-line update notice when a newer version is available.
   echo "$version" > "$DEST/.version"
 
-  # 7. Install the SessionStart update-check hook (best-effort, non-fatal).
-  #    Copies two scripts into ~/.claude/hooks/ and registers the hook in
-  #    ~/.claude/settings.json via a small Node helper that does an atomic,
-  #    idempotent JSON edit. Skipped if Node.js is unavailable; the skill
-  #    still works, only the auto-update notice is missed.
-  local hooks_dir="$HOME/.claude/hooks"
-  if command -v node >/dev/null 2>&1; then
-    mkdir -p "$hooks_dir"
-    cp "$tmp/deshtml/bin/deshtml-check-update.js" "$hooks_dir/deshtml-check-update.js"
-    cp "$tmp/deshtml/bin/deshtml-register-hook.js" "$hooks_dir/deshtml-register-hook.js"
-    if ! node "$hooks_dir/deshtml-register-hook.js" register "$HOME/.claude/settings.json"; then
-      echo "Note: hook registration failed; manual install: node ${hooks_dir}/deshtml-register-hook.js register" >&2
-    fi
-  else
-    echo "Note: Node.js not found — skipping update-check hook (manual install: copy bin/deshtml-check-update.js to ~/.claude/hooks/ and register in settings.json)." >&2
+  # 7. Clean up legacy hook from v0.4.0–v0.4.2 (best-effort, silent on missing).
+  #    The v0.4.x line shipped a SessionStart hook in ~/.claude/hooks/ + a
+  #    settings.json entry. v0.4.3 moved the check into the skill itself, so
+  #    older installs need their hook removed to avoid stale + invasive output.
+  rm -f "$HOME/.claude/hooks/deshtml-check-update.js" "$HOME/.claude/hooks/deshtml-register-hook.js"
+  if command -v node >/dev/null 2>&1 && [ -f "$HOME/.claude/settings.json" ]; then
+    SETTINGS_PATH="$HOME/.claude/settings.json" node -e '
+      const fs=require("fs");
+      const p=process.env.SETTINGS_PATH;
+      try{
+        const s=JSON.parse(fs.readFileSync(p,"utf8"));
+        if(!s||typeof s!=="object")return;
+        const isOurs=e=>e&&Array.isArray(e.hooks)&&e.hooks.some(h=>h&&typeof h.command==="string"&&h.command.includes("deshtml-check-update"));
+        if(s.hooks&&Array.isArray(s.hooks.SessionStart)){
+          s.hooks.SessionStart=s.hooks.SessionStart.filter(e=>!isOurs(e));
+          if(s.hooks.SessionStart.length===0)delete s.hooks.SessionStart;
+          if(Object.keys(s.hooks).length===0)delete s.hooks;
+          const tmp=p+".tmp."+process.pid;
+          fs.writeFileSync(tmp,JSON.stringify(s,null,2));
+          fs.renameSync(tmp,p);
+        }
+      }catch{}
+    ' 2>/dev/null || true
   fi
 
   # 8. Confirm

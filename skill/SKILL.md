@@ -2,7 +2,7 @@
 name: deshtml
 description: Generate a story-first HTML document following the Caseproof Documentation System. Use when the user wants a designed, single-file HTML doc — pitch, handbook, technical brief, presentation, or meeting prep. The skill runs an interview, gates on a story arc, and writes a self-contained HTML to the current directory.
 disable-model-invocation: true
-allowed-tools: Read Write AskUserQuestion Bash(ls *) Bash(test *) Bash(open *) Bash(bash *) Bash(date *) Bash(pwd) Bash(mkdir *) Bash(grep *) Bash(command *)
+allowed-tools: Read Write AskUserQuestion Bash(ls *) Bash(test *) Bash(open *) Bash(bash *) Bash(date *) Bash(pwd) Bash(mkdir *) Bash(grep *) Bash(command *) Bash(node *)
 ---
 
 # deshtml — flow control
@@ -12,6 +12,18 @@ The user invoked `/deshtml`. Their argument string was: `$ARGUMENTS`
 Follow these steps in order. Each step that says "Read X.md" is the only place
 you should read X. Do not read sub-files speculatively (Pitfall 15). Sub-files
 own their content; this file owns flow.
+
+## Step 0 — Update notice
+
+Run via Bash:
+
+```bash
+node "${CLAUDE_SKILL_DIR}/check-update.js"
+```
+
+If it prints a line, surface that line VERBATIM to the user as the first line
+of your response. If it prints nothing, proceed silently. Either way, continue
+to Step 1. Do not block on this — failures are silent.
 
 ## Step 1 — Detect mode
 
@@ -177,18 +189,11 @@ bash "${CLAUDE_SKILL_DIR}/audit/run.sh" "<absolute-path-from-step-5>"
 
 ## Step 8 — Open and print path
 
-1. Run `open "<absolute-path>"`. If `open` exits non-zero, ignore — the
-   path-print line is the fallback.
-2. Print the absolute path on its own line. No prefix, no emoji, no banner.
-   The path is the LAST output.
-
-Stop. Your work is done.
+Run `open "<absolute-path>"` (ignore non-zero exit). Then print the absolute path on its own line — no prefix, no emoji, no banner. The path is the LAST output. Stop.
 
 ## Constraints this file enforces
 
-- This file is ≤200 lines (D2-01) and contains flow control only.
-- Sub-files are read on demand at the step that needs them.
-- Mode detection at turn 1 (source vs context vs interview) — never silently falls back.
+- ≤200 lines, flow control only. Sub-files read on demand.
+- Mode detection at turn 1 (source / context / interview) — never silently falls back.
 - The arc gate is mechanical (story-arc.md whitelist) — no fuzzy approval.
-- The output is always self-contained — three CSS files inlined, zero external assets.
-- The audit is the moat — failure is loud, not silent.
+- Output is self-contained (CSS inlined, no external assets). The audit is the moat — failure is loud.
