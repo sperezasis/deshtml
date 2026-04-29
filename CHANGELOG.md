@@ -8,6 +8,13 @@ follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 Nothing yet.
 
+## [0.4.2] — 2026-04-29
+
+### Fixed
+
+- **SessionStart hook now writes the banner to `/dev/tty` directly.** v0.4.1 used `hookSpecificOutput.additionalContext` which is only delivered to Claude (the model), not rendered as a visible UI element — the user never saw the notice. Hooks in Claude Code 2.x have stdio captured (plain stdout/stderr never reach the terminal), and the statusline channel is reserved for `statusLine` config (already taken by GSD on this machine). The reliable mechanism is `/dev/tty`: when a hook child process inherits a controlling terminal from its parent, opening `/dev/tty` resolves to the user's terminal and bypasses the captured pipes. The `additionalContext` JSON is still emitted so Claude knows about the update and can mention it on demand.
+- **Debug log added.** The hook now appends a one-line entry per invocation to `~/.cache/deshtml/last-run.log` (timestamp + state). Lets users verify the hook is firing and whether `/dev/tty` is reachable in their Claude Code build (`tty=ok` vs `tty=fail`).
+
 ## [0.4.1] — 2026-04-29
 
 ### Fixed
