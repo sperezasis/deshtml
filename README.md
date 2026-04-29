@@ -16,12 +16,20 @@ Most teams ship designed documents only when a designer is in the loop — pitch
 
 `/deshtml` is a [Claude Code](https://claude.com/claude-code) skill. Once installed, it adds a `/deshtml` command to your Claude session. Type it, and:
 
-1. **Pick a doc type** — `handbook`, `pitch`, `technical brief`, `presentation`, or `meeting prep`. Each runs a different interview tailored to its content shape.
-2. **Answer five short questions** — audience, material, sections, tone, and any must-haves. Empty answers are accepted; the arc gate is where quality is enforced.
+1. **Pick a doc type** — `handbook`, `pitch`, `technical brief`, `presentation`, or `meeting prep`. The picker uses Claude Code's interactive `AskUserQuestion` UI — pick from options, no typing required.
+2. **Answer five short questions** — audience, material, sections, tone, and any must-haves. Most questions offer multi-choice presets with sensible defaults; only open content (audience prose, material, takeaway) needs free text.
 3. **Review the story arc** — Claude proposes a five-column table (`#`, `Beat`, `Section`, `One sentence`, `Reader feels`) plus a flowing paragraph that joins every `One sentence` top-to-bottom. If the paragraph reads as one coherent story, the structure is right. If it reads choppy, the arc needs work.
 4. **Type `approve`** — Claude writes a `YYYY-MM-DD-<slug>-<type>.html` file to your current directory and opens it in your browser. The absolute path is the last line of output.
 
 Generation is one-shot. To revise, edit through normal conversation with Claude on the file — there is no in-skill revision loop.
+
+## Three modes
+
+`/deshtml` picks one of three modes automatically at turn 1:
+
+- **Interview mode** (default) — runs the five questions described above.
+- **Context mode** — when the prior conversation already discussed the document being created (audience, content, structure, tone), the skill drafts the answers from context and asks you to confirm with one prompt. Edit specific fields or accept the whole draft. Triggers when 2+ context signals are present; otherwise falls back to interview mode.
+- **Source mode** — `/deshtml @path/to/draft.md` (or paste >200 characters of prose) skips the interview entirely. The skill reads the source, infers the doc type from its shape, and grounds every story-arc beat in source content. Same arc gate.
 
 ## What "story-first" means
 
@@ -39,7 +47,7 @@ The paragraph is the diagnostic. If it reads as a story (each sentence sets up t
 | **Handbook** | Multi-section reference doc — onboarding, runbook, system overview | Sidebar layout, 960px wide |
 | **Pitch** | Problem → solution → ask narrative | Linear, 1440px wide |
 | **Technical brief** | Architecture or decision write-up for engineers | Sidebar layout |
-| **Presentation** | Single-page slide deck with anchor navigation | Full-viewport slides, scroll-snap |
+| **Presentation** | Single-page slide deck with anchor navigation, click-to-advance, and keyboard nav | Full-viewport slides, scroll-snap |
 | **Meeting prep** | Briefing with context, talking points, anticipated questions | Linear |
 
 The skill picks the format from the doc type and the section count automatically — you do not pick it.
@@ -63,11 +71,20 @@ curl -fsSL https://raw.githubusercontent.com/sperezasis/deshtml/main/bin/install
 
 The skill installs to `~/.claude/skills/deshtml/`. Re-running the same command updates an existing install in place.
 
-## Source mode
+## Presentation interactivity
 
-If you already have a draft, run `/deshtml @path/to/draft.md` instead. The skill skips the interview, reads the file, infers the document type from the source's shape, and proposes a story arc grounded in the source content. The same arc-approval gate runs — nothing is rendered until you approve.
+Generated presentation decks ship with built-in navigation:
 
-You can also paste raw text longer than ~200 characters directly into the prompt; the skill treats it the same way.
+- **Side arrows** (‹ ›) at the left and right edges of the viewport. The left arrow hides on slide 1, the right arrow hides on the last slide.
+- **Click anywhere on a slide** to advance. Cards, links, and buttons inside the slide content are excluded so they keep their own behavior.
+- **Keyboard navigation**: `→ ↓ Space PageDown` advance; `← ↑ PageUp` go back.
+- **Active slide highlight** in the top-right slide-nav numbers — the current slide's number is colored in.
+
+Presentations are the only format where the audit allows a `<script>` block (the official navigation script ships verbatim with the skeleton). Handbooks, pitches, technical briefs, and meeting prep stay pure HTML+CSS.
+
+## Auto-update notice
+
+When a newer version of deshtml is available on `main`, `/deshtml` surfaces a one-line notice as the first line of its output. Cached for 6h. Silent when up to date or offline. Re-run the install one-liner to update.
 
 ## Uninstall
 
