@@ -87,16 +87,34 @@ documents that **only format skeletons** belong there.
 ## Rule 3 — Banned tags and attributes
 
 **What it catches:**
-- `<script>`, `<iframe>`, `<object>`, `<embed>` tags (case-insensitive).
-- Inline event handlers: `on*=` attributes (`onclick`, `onload`, `onerror`, etc.).
-- `javascript:` URLs anywhere in the document.
+- `<iframe>`, `<object>`, `<embed>` tags (case-insensitive) — always banned.
+- `<script>` tags (case-insensitive) — banned **except** in presentation outputs
+  (filename matches `*-presentation*.html`). Presentations are interactive by
+  nature (keyboard navigation, click-to-advance, active nav highlight) and
+  these affordances cannot be expressed in pure HTML+CSS. The presentation
+  format skeleton ships ONE official navigation script that the audit allows.
+- Inline event handlers: `on*=` attributes (`onclick`, `onload`, `onerror`, etc.) —
+  always banned in every format. Use `addEventListener` inside the official
+  presentation script, never inline handlers.
+- `javascript:` URLs anywhere in the document — always banned (security).
 
-**Why:** D-17 from Phase 1 (no JS in output, ever) plus PROJECT.md "no
-external JS dependencies" plus security: the output is shareable; a
-`<script>` tag in a Caseproof handbook is a content-injection vector.
+**Why D-17 was relaxed for presentation only:** Presentations are not
+read-once documents — they are stepped through. A handbook or pitch is a
+linear scroll; a presentation requires arrow-key navigation and per-slide
+"current state" indication. Both require JS. Limiting the script to
+presentation format keeps the security surface narrow: the other four formats
+(handbook, pitch, technical brief, meeting prep) stay pure HTML+CSS.
 
 **Implementation:**
-- `command grep -nEi '<(script|iframe|object|embed)\b'`
+- Format detection is **content-based**, not filename-based. The audit greps
+  the file for the two structural markers that only the presentation skeleton
+  emits: `<main class="deck"` AND `<section class="slide"`. Both must be
+  present for `is_presentation=1`. Filename-based detection was rejected
+  because legacy outputs (pre-0.2.0 used `-handbook.html` for every format
+  due to a SKILL.md bug) and user-renamed files would drift the suffix away
+  from the format.
+- Banned-tag pattern is `<(iframe|object|embed)\b` for presentation outputs
+  and `<(script|iframe|object|embed)\b` for all other outputs.
 - `command grep -nEi '(^|[[:space:]])on[a-z]+[[:space:]]*='` —
   the `(^|[[:space:]])` anchor catches handlers whether the attribute is
   preceded by a space, tab, or line break (HTML often pretty-prints
@@ -113,9 +131,10 @@ Each grep that finds a match flags a violation.
 Acceptable because the generator is Claude (controlled), not adversarial
 input. Flag for V2 if the audit ever runs on user-pasted HTML.
 
-**Example violation:** `<script>alert(1)</script>` → flagged.
-**Example violation:** `<a href="javascript:void(0)">` → flagged.
-**Example violation:** `<button onclick="...">` → flagged.
+**Example violation:** `<script>alert(1)</script>` in a `*-handbook.html` → flagged.
+**Example clean:** `<script>…</script>` in a `*-presentation.html` → passes (format-scoped allowance).
+**Example violation:** `<a href="javascript:void(0)">` in any format → flagged.
+**Example violation:** `<button onclick="...">` in any format → flagged (inline handlers banned in every format, including presentation).
 
 ## Rule 4 — No leftover `<link rel="stylesheet">`
 
