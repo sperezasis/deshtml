@@ -8,6 +8,22 @@ follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 Nothing yet.
 
+## [0.3.0] — 2026-04-29
+
+### Added
+
+- **Context mode (`skill/context-mode.md`).** When `/deshtml` is invoked in a session that already discussed the document being created, the skill now drafts the interview answers from the prior conversation and asks the user to confirm with one prompt — instead of running the full 5-question interview from scratch. New SKILL.md Step 1.5 detects the mode by counting context signals (doc-type mention, audience mention, source content provided, structure / tone discussed); 2+ signals trigger context mode. The user can accept the draft, edit specific fields, or restart from a fresh interview. Thin drafts (<3 fields, or no detectable doc type) are surfaced loudly and route back to the standard interview — no silent fallback (preserves the SKILL-03 contract).
+- **`AskUserQuestion` tool.** Added to `allowed-tools` in `SKILL.md`. The five interview files and `context-mode.md` now use multiple-choice prompts (with sensible default options + auto-"Other" for free-text override) instead of text-only prompts. Open-content questions (audience prose, material, takeaway, decision, trade-offs) still use plain text — those are the user's content, not a Claude-proposable default. Closed-shape questions (audience type, sections, tone, inclusions, alternatives) now render as terminal-side option pickers — same UX as GSD's question prompts.
+
+### Changed
+
+- **`SKILL.md` Step 2 (doc type) now uses `AskUserQuestion`** with four canonical options (Handbook / Pitch / Presentation / Technical brief) plus the auto-"Other" channel for "meeting prep" via free-text. The five-options-listed-as-prose prompt is gone.
+- **Filename suffix is now correct per doc type.** Pre-0.3.0 SKILL.md hardcoded `-handbook.html` for every format due to a doc bug; the audit's content-based presentation detection (added in 0.2.0) compensated. Step 5 now uses `<date>-<slug>-<type>.html` properly (`-presentation.html`, `-pitch.html`, etc.).
+
+### Why this version is a minor bump (0.2.0 → 0.3.0)
+
+New flow capability (context mode) — additive, no breaking changes. Existing `/deshtml` invocations in fresh sessions still go straight to Step 2 because Step 1.5 finds <2 signals and falls through. The interactive prompt format change is purely UX — same questions, less typing.
+
 ## [0.2.0] — 2026-04-29
 
 ### Changed
