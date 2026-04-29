@@ -59,9 +59,18 @@ function fetchLatest(timeoutMs) {
   });
 }
 
+function logDebug(msg) {
+  try {
+    fs.mkdirSync(CACHE_DIR, { recursive: true });
+    fs.appendFileSync(path.join(CACHE_DIR, 'last-run.log'),
+      `${new Date().toISOString()} ${msg}\n`);
+  } catch {}
+}
+
 (async () => {
+  logDebug('hook fired');
   const installed = readInstalled();
-  if (!installed) return;
+  if (!installed) { logDebug('no .version file — abort'); return; }
 
   let latest;
   const cached = readCache();
@@ -71,19 +80,35 @@ function fetchLatest(timeoutMs) {
     latest = await fetchLatest(2000);
     if (latest) writeCache({ latest, checkedAt: Date.now() });
   }
-  if (!latest || !isNewer(latest, installed)) return;
+  logDebug(`installed=${installed} latest=${latest || '?'}`);
+  if (!latest || !isNewer(latest, installed)) { logDebug('no notice needed'); return; }
 
-  // Claude Code 2.x suppresses plain stdout from SessionStart hooks. The official
-  // user-visible mechanism is the `hookSpecificOutput.additionalContext` JSON form,
-  // which Claude Code injects as a system message at session start.
-  const message =
-    `\u{1F4E6} deshtml v${latest} available (you have v${installed}). ` +
-    `Update: curl -fsSL https://raw.githubusercontent.com/sperezasis/deshtml/main/bin/install.sh | bash`;
+  // Claude Code 2.x runs SessionStart hooks with stdio captured, so plain
+  // stdout/stderr never reach the user's terminal, and `additionalContext`
+  // only reaches Claude (the model), not the visible UI. The reliable
+  // user-visible channel is /dev/tty: writing there bypasses the captured
+  // pipes and reaches the controlling terminal directly. We also include
+  // the JSON additionalContext form so Claude knows about the update and
+  // can mention it on demand.
+  const banner =
+    `\n\u{1F4E6} deshtml v${latest} available (you have v${installed}).\n` +
+    `   Update: curl -fsSL https://raw.githubusercontent.com/sperezasis/deshtml/main/bin/install.sh | bash\n\n`;
+
+  let ttyOk = false;
+  try {
+    const fd = fs.openSync('/dev/tty', 'w');
+    fs.writeSync(fd, banner);
+    fs.closeSync(fd);
+    ttyOk = true;
+  } catch (e) {
+    logDebug(`/dev/tty write failed: ${e && e.code || e}`);
+  }
+  logDebug(`tty=${ttyOk ? 'ok' : 'fail'} — printed banner`);
 
   process.stdout.write(JSON.stringify({
     hookSpecificOutput: {
       hookEventName: 'SessionStart',
-      additionalContext: message,
+      additionalContext: banner.trim(),
     },
   }));
 })();
