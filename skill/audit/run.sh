@@ -164,9 +164,36 @@ fi
 # ───────────────────────────────────────────────────────────────────
 # Rule 3 — banned tags / attrs / URLs
 # ───────────────────────────────────────────────────────────────────
-if command grep -nEi '<(script|iframe|object|embed)\b' "$output_file" >&2; then
-  printf 'VIOLATION: banned tag (script|iframe|object|embed)\n' >&2
-  explain "Output must contain zero scripts, iframes, objects, or embeds (D-17, PROJECT.md self-contained-file constraint)."
+# Format detection: presentation outputs are allowed <script> blocks — the
+# navigation script shipped verbatim in design/formats/presentation.html
+# (keyboard nav, click-to-advance, active nav highlight, side-arrow show/hide).
+# All other formats remain script-free. iframe/object/embed are always banned
+# regardless of format.
+#
+# Detection is content-based, not filename-based: the audit looks for the
+# structural markers that ONLY the presentation skeleton produces — `<main
+# class="deck">` paired with `<section class="slide"`. Filename-based detection
+# was rejected because legacy outputs (pre-0.2.0 used `-handbook.html` for every
+# format) and user-renamed files would drift the suffix away from the format.
+is_presentation=0
+if command grep -q '<main class="deck"' "$output_file" \
+   && command grep -q '<section class="slide"' "$output_file"; then
+  is_presentation=1
+fi
+
+if [ "$is_presentation" -eq 1 ]; then
+  banned_tags_pattern='<(iframe|object|embed)\b'
+else
+  banned_tags_pattern='<(script|iframe|object|embed)\b'
+fi
+if command grep -nEi "$banned_tags_pattern" "$output_file" >&2; then
+  if [ "$is_presentation" -eq 1 ]; then
+    printf 'VIOLATION: banned tag (iframe|object|embed)\n' >&2
+    explain "Presentation outputs may contain <script> blocks (the navigation script from the skeleton). iframes, objects, and embeds remain banned."
+  else
+    printf 'VIOLATION: banned tag (script|iframe|object|embed)\n' >&2
+    explain "Non-presentation outputs must contain zero scripts, iframes, objects, or embeds (D-17, PROJECT.md self-contained-file constraint). Scripts are allowed only in presentation format."
+  fi
   violations=$((violations + 1))
 fi
 if command grep -nEi '(^|[[:space:]])on[a-z]+[[:space:]]*=' "$output_file" >&2; then

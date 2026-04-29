@@ -5,15 +5,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!--
     Caseproof Documentation System — Presentation format skeleton.
-    Verbatim from .planning/phases/03-remaining-four-doc-types/03-RESEARCH.md
-    §"Code Examples → Verified Pattern: presentation.html skeleton (full)".
-    Spike outcome (D3-03, plan 03-01 Task 1):
-    Spike outcome: PASS — Chrome + Safari macOS scroll-snap verified 2026-04-28. All 7 test steps passed.
-    Sister formats: handbook.html (sidebar+sticky), overview.html (linear, no sidebar),
-    presentation.html (this file) — full-viewport slides, NO sidebar, NO sticky bar (D3-09),
-    snap container scoped to <main> not <html> (Safari fragility — RESEARCH §Pattern 3).
-    SKILL.md Step 6 inlines the three CSS files (D2-15); the <link> tags below are dev-time
-    references that SKILL.md replaces at assembly time.
+
+    Lessons baked into this layout from the 2026-04-29 production run:
+    - Title (eyebrow + h1 + lead) is anchored at slide-internal y=140 via
+      `justify-content: flex-start` + `padding-top: 140px` — consistent across
+      slides regardless of body content height. Earlier `justify-content: center`
+      caused per-slide eyebrow drift because content heights vary.
+    - Body content (cards/flow/hl) auto-centers in the remaining space via
+      `margin-top: auto` on the first body child + `margin-bottom: auto` on the
+      last child. Without auto-margins, flex-start looked like a landing page.
+    - Byline (presenter + presentation title) sits at top-left via
+      `.slide::before` — visible immediately on snap, no bleed surprises from
+      bottom-positioned chrome. SKILL.md replaces the BYLINE_LITERAL token
+      at render time.
+    - Per-slide counter ("N / 6") was REMOVED in favor of the active nav
+      highlight on the slide-nav anchor links — the user reads "current slide"
+      from the highlighted number, not from a separate counter.
+    - Scroll-snap: removed `scroll-behavior: smooth` (broke programmatic snap
+      on anchor click), added `scroll-margin: 0` on .slide (the global
+      `section { scroll-margin-top: 90px }` from components.css was bleeding
+      into snap targets), locked html/body to `overflow: hidden` so only
+      main.deck scrolls.
+    - Side navigation buttons (‹ ›), click-anywhere-to-advance, and keyboard
+      navigation (← → ↑ ↓ Space PageUp/PageDown) require JS. Audit Rule 3
+      allows ONE <script> block ONLY in presentation outputs (filename matches
+      `*-presentation*.html`). The script ships verbatim — do not edit it.
+
+    Sister formats: handbook.html (sidebar+sticky), overview.html (linear,
+    no sidebar), presentation.html (this file) — full-viewport slides, NO
+    sidebar, NO sticky bar, snap container scoped to <main>.
+
+    SKILL.md Step 6 inlines the three CSS files (palette + typography +
+    components); the <link> tags below are dev-time references that SKILL.md
+    replaces at assembly time.
   -->
   <meta name="color-scheme" content="light">
   <meta name="supported-color-schemes" content="light">
@@ -22,55 +46,96 @@
   <link rel="stylesheet" href="../typography.css">
   <style>
     /* Presentation layout — full-viewport vertical slide deck.
-       NO sidebar, NO sticky bar. Snap container scoped to <main>, not <html>,
-       to avoid Safari's html-as-snap-container fragility. */
-    html { scroll-padding-top: 0; }
-    body { background: var(--white); margin: 0; }
+       html/body locked to 100vh + overflow:hidden so only main.deck scrolls. */
+    html, body { margin: 0; height: 100vh; overflow: hidden; }
+    body { background: var(--white); }
 
     main.deck {
       scroll-snap-type: y mandatory;
+      scroll-padding-top: 0;
+      overscroll-behavior: contain;
       overflow-y: scroll;
       height: 100vh;
       margin: 0;
-      counter-reset: slide-num;
     }
 
     .slide {
       scroll-snap-align: start;
       scroll-snap-stop: always;
+      scroll-margin: 0;
       height: 100vh;
       width: 100%;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      padding: 80px 120px;
+      justify-content: flex-start;
+      padding: 140px 120px 80px;
       box-sizing: border-box;
-      counter-increment: slide-num;
       position: relative;
     }
-
-    .slide-counter {
+    .slide::before {
+      /* BYLINE_LITERAL is replaced at render time with the byline string
+         (default: presentation title; if a presenter is known, "PRESENTER  ·  TITLE"). */
+      content: "BYLINE_LITERAL";
       position: absolute;
-      bottom: 24px;
-      right: 32px;
-      font-size: 14px;
-      font-weight: 700;
+      top: 32px;
+      left: 32px;
+      font-size: 12px;
       color: var(--g6);
-      letter-spacing: 1.2px;
+      letter-spacing: 0.5px;
     }
-    .slide-counter::before {
-      /* TOTAL_SLIDES_LITERAL is replaced by Claude at render time with the literal slide count. */
-      content: counter(slide-num) " / TOTAL_SLIDES_LITERAL";
-    }
+    /* Body content (4th child onward) auto-centers in the space below the title. */
+    .slide > *:nth-child(4) { margin-top: auto; }
+    .slide > *:last-child { margin-bottom: auto; }
 
+    /* Slide-nav: top-right anchor links. Active state set by the navigation
+       script — highlights the current slide's number. */
     .slide-nav {
       position: fixed;
       top: 24px;
       right: 32px;
       display: flex;
-      gap: 8px;
+      gap: 4px;
       z-index: 10;
     }
+    .slide-nav .nav-a {
+      color: var(--g4);
+      padding: 4px 9px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      transition: color .15s, background .15s;
+    }
+    .slide-nav .nav-a:hover { color: var(--g9); background: var(--g1); }
+    .slide-nav .nav-a.active { color: var(--blue); background: var(--blue-l); font-weight: 700; }
+
+    /* Side navigation buttons. JS toggles visibility at boundaries. */
+    #nav-prev, #nav-next {
+      position: fixed;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid var(--g2);
+      background: var(--white);
+      color: var(--g6);
+      font-size: 22px;
+      line-height: 1;
+      cursor: pointer;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color .15s, border-color .15s, background .15s;
+      font-family: inherit;
+    }
+    #nav-prev:hover, #nav-next:hover {
+      color: var(--blue);
+      border-color: var(--blue);
+      background: var(--blue-l);
+    }
+    #nav-prev { left: 24px; }
+    #nav-next { right: 24px; }
   </style>
   <style>
     /* Slide-deck type scale. Rides on Inter @import from typography.css.
@@ -98,21 +163,68 @@
 </head>
 <body>
 
-<!-- SLIDE NAV: floating top-right anchor links to each slide. Reuses .nav-a from components.css. -->
+<!-- SLIDE NAV: floating top-right anchor links. Active state set by the script below. -->
 <nav class="slide-nav">
   <!-- SLIDE NAV ITEMS SLOT -->
 </nav>
 
+<!-- Side navigation buttons. JS hides #nav-prev on slide 1 and #nav-next on the last slide. -->
+<button id="nav-prev" aria-label="Previous" type="button">‹</button>
+<button id="nav-next" aria-label="Next" type="button">›</button>
+
 <main class="deck">
 
-  <!-- SLIDE 1..N: each section is a full-viewport slide with optional .slide-counter pill. -->
+  <!-- SLIDE 1..N: each section is a full-viewport slide. -->
   <section class="slide" id="slide-1">
     <!-- SLIDE 1 H1 SLOT -->
     <!-- SLIDE 1 BODY SLOT (components from components.html allowlist) -->
-    <div class="slide-counter"></div>
   </section>
 
 </main>
+
+<!-- Presentation navigation script.
+     Audit Rule 3 allows ONE <script> block ONLY in -presentation outputs.
+     Keep this verbatim — do not modify or remove. -->
+<script>
+(function() {
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const navLinks = Array.from(document.querySelectorAll('.slide-nav .nav-a'));
+  const prevBtn = document.getElementById('nav-prev');
+  const nextBtn = document.getElementById('nav-next');
+  const deck = document.querySelector('main.deck');
+  let current = 0;
+  function go(i) {
+    if (i < 0 || i >= slides.length) return;
+    slides[i].scrollIntoView();
+  }
+  function update() {
+    const idx = Math.round(deck.scrollTop / window.innerHeight);
+    current = Math.max(0, Math.min(slides.length - 1, idx));
+    navLinks.forEach((a, i) => a.classList.toggle('active', i === current));
+    prevBtn.style.visibility = current === 0 ? 'hidden' : 'visible';
+    nextBtn.style.visibility = current === slides.length - 1 ? 'hidden' : 'visible';
+  }
+  deck.addEventListener('scroll', update, { passive: true });
+  prevBtn.addEventListener('click', () => go(current - 1));
+  nextBtn.addEventListener('click', () => go(current + 1));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === ' ') {
+      e.preventDefault();
+      go(current + 1);
+    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp' || e.key === 'PageUp') {
+      e.preventDefault();
+      go(current - 1);
+    }
+  });
+  slides.forEach((slide, i) => {
+    slide.addEventListener('click', (e) => {
+      if (e.target.closest('a, button, .slide-nav')) return;
+      go(i + 1);
+    });
+  });
+  update();
+})();
+</script>
 
 </body>
 </html>
