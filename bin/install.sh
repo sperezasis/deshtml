@@ -89,7 +89,27 @@ main() {
     mv "$stage" "$DEST"
   fi
 
-  # 6. Confirm
+  # 6. Write installed-version marker for the SessionStart update-check hook.
+  echo "$version" > "$DEST/.version"
+
+  # 7. Install the SessionStart update-check hook (best-effort, non-fatal).
+  #    Copies two scripts into ~/.claude/hooks/ and registers the hook in
+  #    ~/.claude/settings.json via a small Node helper that does an atomic,
+  #    idempotent JSON edit. Skipped if Node.js is unavailable; the skill
+  #    still works, only the auto-update notice is missed.
+  local hooks_dir="$HOME/.claude/hooks"
+  if command -v node >/dev/null 2>&1; then
+    mkdir -p "$hooks_dir"
+    cp "$tmp/deshtml/bin/deshtml-check-update.js" "$hooks_dir/deshtml-check-update.js"
+    cp "$tmp/deshtml/bin/deshtml-register-hook.js" "$hooks_dir/deshtml-register-hook.js"
+    if ! node "$hooks_dir/deshtml-register-hook.js" register "$HOME/.claude/settings.json"; then
+      echo "Note: hook registration failed; manual install: node ${hooks_dir}/deshtml-register-hook.js register" >&2
+    fi
+  else
+    echo "Note: Node.js not found — skipping update-check hook (manual install: copy bin/deshtml-check-update.js to ~/.claude/hooks/ and register in settings.json)." >&2
+  fi
+
+  # 8. Confirm
   echo "deshtml v${version} installed to $DEST"
   echo "Run /deshtml in Claude Code to start."
 }

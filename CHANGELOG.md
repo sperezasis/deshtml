@@ -8,6 +8,18 @@ follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 Nothing yet.
 
+## [0.4.0] — 2026-04-29
+
+### Added
+
+- **SessionStart update-check hook.** New scripts `bin/deshtml-check-update.js` (the hook itself) and `bin/deshtml-register-hook.js` (idempotent register / unregister of the hook in `~/.claude/settings.json`). The hook fetches the upstream `VERSION` from GitHub, compares against the locally-installed `~/.claude/skills/deshtml/.version`, and prints a one-line notice on the next Claude Code session start when a newer version is available. Cached for 6 hours to avoid hammering GitHub. Fails silently on network errors / missing files / parse errors — the skill continues to work even if the hook fails.
+- **`bin/install.sh` extended (steps 6-8).** After the atomic skill swap, the installer (1) writes `~/.claude/skills/deshtml/.version` so the hook has something to compare against, (2) copies both hook scripts into `~/.claude/hooks/`, and (3) registers the hook in `~/.claude/settings.json` via the Node helper. Hook installation is best-effort: if Node.js is unavailable, the install completes with a one-line notice and the user gets a manual-install hint. The skill itself works either way.
+- **`bin/uninstall.sh` extended.** Now calls the register helper to unregister the hook before deleting it, removes both hook scripts from `~/.claude/hooks/`, and clears the `~/.cache/deshtml/` cache.
+
+### Why minor bump (0.3.0 → 0.4.0)
+
+Additive — new auto-update notification capability. Existing installs upgrade transparently the next time `bin/install.sh` runs (the new step 7 is idempotent, so re-running the installer simply registers the hook). No breaking changes; users without Node.js get a graceful fallback.
+
 ## [0.3.0] — 2026-04-29
 
 ### Added
