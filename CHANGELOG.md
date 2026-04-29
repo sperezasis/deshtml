@@ -8,6 +8,12 @@ follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 Nothing yet.
 
+## [0.4.1] — 2026-04-29
+
+### Fixed
+
+- **SessionStart hook output now visible.** Claude Code 2.x suppresses plain stdout from `SessionStart` hooks — the v0.4.0 hook printed the update notice but it never reached the user. Switched to the official user-visible mechanism: `hookSpecificOutput.additionalContext` JSON form. Claude Code injects the message as a system context entry at session start, surfacing the notice in the conversation.
+
 ## [0.4.0] — 2026-04-29
 
 ### Added

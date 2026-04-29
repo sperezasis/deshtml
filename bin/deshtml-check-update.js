@@ -73,8 +73,17 @@ function fetchLatest(timeoutMs) {
   }
   if (!latest || !isNewer(latest, installed)) return;
 
-  process.stdout.write(
-    `\u{1F4E6} deshtml v${latest} available (you have v${installed}).\n` +
-    `   Update: curl -fsSL https://raw.githubusercontent.com/sperezasis/deshtml/main/bin/install.sh | bash\n`
-  );
+  // Claude Code 2.x suppresses plain stdout from SessionStart hooks. The official
+  // user-visible mechanism is the `hookSpecificOutput.additionalContext` JSON form,
+  // which Claude Code injects as a system message at session start.
+  const message =
+    `\u{1F4E6} deshtml v${latest} available (you have v${installed}). ` +
+    `Update: curl -fsSL https://raw.githubusercontent.com/sperezasis/deshtml/main/bin/install.sh | bash`;
+
+  process.stdout.write(JSON.stringify({
+    hookSpecificOutput: {
+      hookEventName: 'SessionStart',
+      additionalContext: message,
+    },
+  }));
 })();
