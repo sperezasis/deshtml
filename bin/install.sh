@@ -53,10 +53,19 @@ main() {
   #    path next to DEST. A signal-safe trap tracks all three paths and restores
   #    from backup if the destination is missing — covers SIGINT/SIGTERM/SIGKILL
   #    arriving inside the swap window (T-01-02 hardening).
+  #
+  #    Stage and backup names use a leading dot and a `_install_` infix so they
+  #    do NOT share the `deshtml.` prefix in the skills directory. If the script
+  #    is killed mid-swap and a stage/backup directory survives, Claude Code's
+  #    slash-command resolver would otherwise register e.g. `/deshtml.old.12345`
+  #    and shadow `/deshtml` via prefix-match. Hidden names sidestep that.
+  #    Both paths remain in `$(dirname "$DEST")` so `mv` stays atomic
+  #    (same filesystem).
   mkdir -p "$(dirname "$DEST")"
-  local stage backup
-  stage="$(mktemp -d "${DEST}.installing.XXXXXX")"
-  backup="${DEST}.old.$$"
+  local stage backup skills_dir
+  skills_dir="$(dirname "$DEST")"
+  stage="$(mktemp -d "${skills_dir}/.deshtml_install_stage.XXXXXX")"
+  backup="${skills_dir}/.deshtml_install_backup.$$"
 
   # Replace the tmp-only trap with one that knows about stage + backup.
   # If the script is killed mid-swap (DEST gone, backup present), this restores
@@ -119,7 +128,15 @@ main() {
     ' 2>/dev/null || true
   fi
 
-  # 8. Confirm
+  # 8. Clean up orphaned stage/backup dirs from killed-mid-flight installs of
+  #    v0.4.3 and earlier (best-effort, silent on missing). Those releases used
+  #    `${DEST}.old.$$` and `${DEST}.installing.XXXXXX`, which share the
+  #    `deshtml.` prefix and end up registered as `/deshtml.old.NNNNN`-style
+  #    slash commands by Claude Code, shadowing `/deshtml` via prefix-match.
+  #    A successful install today implies any siblings are leftovers, not in use.
+  rm -rf "$(dirname "$DEST")"/deshtml.old.* "$(dirname "$DEST")"/deshtml.installing.* 2>/dev/null || true
+
+  # 9. Confirm
   echo "deshtml v${version} installed to $DEST"
   echo "Run /deshtml in Claude Code to start."
 }
