@@ -8,6 +8,12 @@ follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 Nothing yet.
 
+## [0.4.4] — 2026-04-30
+
+### Fixed
+
+- **Installer no longer leaves slash-command-shadowing dirs on mid-flight kill.** v0.4.3 and earlier staged the new payload at `${DEST}.installing.XXXXXX` and the previous install at `${DEST}.old.$$` during the atomic swap. Both names share the `deshtml.` prefix, so if the script was killed in the swap window (SIGKILL, crash, OOM), the surviving directory was registered by Claude Code as a sibling slash command (e.g. `/deshtml.old.12345`) and shadowed `/deshtml` via prefix-match — typing `/deshtml` would route to the leftover backup instead of the real skill. v0.4.4 stages and backs up at `.deshtml_install_stage.XXXXXX` and `.deshtml_install_backup.$$` (leading dot, no `deshtml.` prefix), keeping the same parent directory so `mv` stays atomic. The installer also best-effort-cleans any orphaned `deshtml.old.*` / `deshtml.installing.*` siblings from older killed installs.
+
 ## [0.4.3] — 2026-04-29
 
 ### Changed
