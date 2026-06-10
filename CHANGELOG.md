@@ -8,6 +8,18 @@ follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 Nothing yet.
 
+## [0.5.0] — 2026-06-09
+
+### Changed
+
+- **Presentation methodology updated from a live executive deck.** The slide-count guidance flipped: it is no longer a "max 7 slides" cap. The principle is now **one idea per slide** — almost no text, big type — and the story sets the slide count. A bullet-wall slide is the failure mode, not "too many slides." `skill/interview/presentation.md` carries a new **Slide principles** block and `skill/design/formats/presentation.html` records the same lessons in its layout comment:
+  - One idea per slide; minimal text; many small slides beat few dense ones.
+  - Built for screen-share — white, full-viewport, large type, legible when shrunk in Google Meet / Zoom.
+  - Earn the reveal: a big conclusion must emerge from the prior slides, never be announced cold.
+  - Show, don't dump: where a slide would be a wall of numbers, prefer one interactive element (tabs across research lenses, a slider that recomputes a projection).
+  - Two columns for long lists; utility slides (checklist, ask) stay plain — no marketing headline.
+  - Sources live on a separate linked page — every number labelled and linked to its real source; unprovable figures are omitted.
+
 ## [0.4.4] — 2026-04-30
 
 ### Fixed
