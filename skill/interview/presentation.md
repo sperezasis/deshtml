@@ -27,7 +27,7 @@ type=presentation.
    How to ask: plain text input — content the user owns. Default if blank: ask Claude to derive from the H1 + audience. Do not skip silently — flag with `[derived]`.
 
 3. **Slide outline.** Free list of slide titles in order, or "let Claude propose."
-   How to ask: `AskUserQuestion` — header "Slides", options "Let Claude propose 4-7 slides", "I'll list them now" (auto-"Other"). If "I'll list them now" → plain text input follows. Default if blank: "Claude proposes." Do not propose more than 7 slides on the empty-default path — live decks with 8+ lose the audience.
+   How to ask: `AskUserQuestion` — header "Slides", options "Let Claude propose the slides", "I'll list them now" (auto-"Other"). If "I'll list them now" → plain text input follows. Default if blank: "Claude proposes." The story sets the slide count — NOT a cap. One idea per slide, almost no text; many minimal slides beat a few dense ones. Density loses the audience, not slide count. A 12-slide deck where each slide carries one idea reads faster than a 6-slide deck of bullet walls.
 
 4. **Tone.** Anything specific about voice or register for the slide body?
    How to ask: `AskUserQuestion` — header "Tone", options "Default (handbook titles, energetic body)", "More formal", "More casual" (auto-"Other"). Default if blank: "Handbook tone in TITLES — describe what IS, never sell. Body may run more energetic — slides reward visual punch — but never pitch-y." Title-tone discipline always wins; the story-arc self-review enforces it.
@@ -42,6 +42,17 @@ write HTML. Read `${CLAUDE_SKILL_DIR}/story-arc.md` and follow it end-to-end.
 The story-arc gate decides when HTML is allowed. Each arc row corresponds to
 one slide; the slide count is the arc row count.
 
+## Slide principles (carry these into the story-arc)
+
+These come from a live executive deck (2026-06-09) and override generic "deck" instincts:
+
+- **One idea per slide.** Almost no text. Big type. Many minimal slides beat a few dense ones — slide count follows the story, it is not capped.
+- **Built for screen-share.** Decks are often presented over a video call (Google Meet, Zoom) where the slide is small on the viewer's screen. White background, full-viewport, large type — readable when shrunk. Never a small centered card on a dark field.
+- **Earn the reveal — no jumps.** A big conclusion (a new product, a pivot, a recommendation) must EMERGE from the prior slides' reasoning, never be announced cold. If slide N doesn't follow from slide N−1, the arc is wrong.
+- **Show, don't dump.** When a slide would otherwise be a wall of numbers, prefer one interactive element that lets the audience explore — tabs that switch between research lenses, a slider that recomputes a projection. Interactivity only where it adds understanding, never decoration.
+- **Sources live off the slides.** Keep citations and the evidence trail on a SEPARATE linked page, not on the slides. Every number there is labelled (what it means) and linked to its real source; if a figure can't be sourced, it does not appear. The sources page is external-facing — no "corrected / was X" editor notes.
+- **Utility slides stay plain.** A checklist or an ask is a plain list — no marketing headline, no "build on facts not guesses" flourish.
+
 ## What this interview must NOT do
 
 - Do not validate answers. Empty answers proceed with the documented defaults.
@@ -49,4 +60,4 @@ one slide; the slide count is the arc row count.
 - Do not re-ask the document type. SKILL.md handled that.
 - Do not paraphrase the question text.
 - Do not mention any other doc type elsewhere.
-- Do not propose more than 7 slides on the empty-default path.
+- Do not cram. One idea per slide; let the story set the count (dense slides lose the audience, not slide count).
